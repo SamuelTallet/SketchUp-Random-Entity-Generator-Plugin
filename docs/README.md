@@ -1,6 +1,6 @@
 # Random entity generation plugin for SketchUp
 
-🎲 Add random entities to your SketchUp models.
+🎲 Add random entities to your SketchUp models. Entity shape, color and position are random.
 
 Demo
 ----
