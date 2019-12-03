@@ -1,11 +1,11 @@
-# REG extension for SketchUp
+# Random entity generation plugin for SketchUp
 
 🎲 Add random entities to your SketchUp models.
 
 Demo
 ----
 
-![Random Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/demo.png)
+![Random REG Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/demo.png)
 
 Installation
 ------------
