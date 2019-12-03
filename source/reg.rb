@@ -26,7 +26,7 @@ require 'extensions'
 # REG plugin namespace.
 module REG
 
-  VERSION = '1.0.0'.freeze
+  VERSION = '1.0.1'.freeze
 
   # Load translation if it's available for current locale.
   TRANSLATE = LanguageHandler.new('reg.strings')
@@ -43,7 +43,12 @@ module REG
   extension.creator     = 'Samuel Tallet'
   extension.copyright   = "© 2019 #{extension.creator}"
 
-  extension.description = TRANSLATE['Randomly generate SketchUp entities.']
+  features = [
+    TRANSLATE['Add random entities to your SketchUp models.'],
+    TRANSLATE['Randomize position/size of selected entities.']
+  ]
+
+  extension.description = features.join(' ')
 
   Sketchup.register_extension(
     extension,

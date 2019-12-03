@@ -34,7 +34,7 @@ module REG
     def self.generate_random_rotation
 
       Geom::Transformation.rotation(
-        Geom::Point3d.new(rand(-400...400), rand(-400...400), rand(-400...400)),
+        Geom::Point3d.new(rand(-100...100), rand(-100...100), rand(-100...100)),
         Geom::Vector3d.new(rand(0.1...1), rand(0.1...1), rand(0.1...1)),
         rand(0...180).degrees
       )
@@ -48,7 +48,7 @@ module REG
 
       Geom::Transformation.scaling(
         ORIGIN,
-        rand(-40...40)
+        rand(-10...10)
       )
 
     end

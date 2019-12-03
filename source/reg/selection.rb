@@ -20,15 +20,16 @@
 raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
+require 'sketchup'
 require 'reg/entities'
 
 # REG plugin namespace.
 module REG
 
-  # Main instance.
-  class Generator
+  # Secondary instance.
+  class Selection
 
-    # Generates random entities.
+    # Randomizes selected entities.
     #
     # @param [Integer] entity_count Number of entities to generate.
     # @raise [ArgumentError]
@@ -37,16 +38,41 @@ module REG
       raise ArgumentError, 'Entity count parameter must be an Integer.'\
         unless entity_count.is_a?(Integer)
 
+      selected_groups = []
+
+      Sketchup.active_model.selection.each { |selected_entity|
+
+        if selected_entity.is_a?(Sketchup::Group)
+
+          selected_groups.push(selected_entity)
+
+        end
+
+      }
+
+      if selected_groups.empty?
+
+        UI.messagebox(TRANSLATE['No group found in selection.'])
+        return
+
+      end
+
       Sketchup.active_model.start_operation(
-        TRANSLATE['Generate random entities'],
+        TRANSLATE['Randomize position/size of selected entities'],
         true # disable_ui
       )
 
-      Sketchup.status_text = TRANSLATE['Generating entities... Please wait.']
+      Sketchup.status_text = TRANSLATE['Randomizing entities... Please wait.']
 
       entity_count.times do
 
-        Entities.generate_random
+        original_group = selected_groups.sample
+
+        cloned_group = original_group.copy
+        cloned_group.material = original_group.material
+        cloned_group.transformation = original_group.transformation
+        
+        Entities.randomize_position_and_size(cloned_group)
 
       end
 

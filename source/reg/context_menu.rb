@@ -20,45 +20,37 @@
 raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
-require 'reg/transform'
-require 'reg/shapes'
-require 'reg/materials'
+require 'sketchup'
+require 'reg/selection'
 
 # REG plugin namespace.
 module REG
 
-  # Entities.
-  module Entities
+  # Connects REG plugin context menu to SketchUp UI.
+  class ContextMenu
 
-    # Randomize an entity's position and size.
-    #
-    # @param [Sketchup::Entity] entity
-    # @raise [ArgumentError]
-    #
-    # @return [Sketchup::Entity]
-    def self.randomize_position_and_size(entity)
+    # Adds REG plugin... to SketchUp context menu.
+    def initialize
 
-      raise ArgumentError, 'Entity parameter must be a Sketchup::Entity.'\
-        unless entity.is_a?(Sketchup::Entity)
+      UI.add_context_menu_handler do |context_menu|
 
-      entity.transform!(Transformations.generate_random_rotation)
-      entity.transform!(Transformations.generate_random_scaling)
-      entity.transform!(Transformations.generate_random_translation)
+        context_menu.add_item('🎲 ' + TRANSLATE['Randomize Position and Size']) {
+          
+          entity_count = UI.inputbox(
+            [TRANSLATE['How many entities do you want to generate?']], # Prompt
+            [10], # Default
+            TRANSLATE[NAME] # Title
+          )
 
-      entity
+          # Escapes if user cancelled input.
+          return if entity_count == false
 
-    end
+          Selection.new(entity_count[0].to_i)
 
-    # Generates a random entity.
-    #
-    # @return [Sketchup::Group]
-    def self.generate_random
+        }
 
-      group = Shapes.generate_random
+      end
 
-      group.material = Materials.generate_random
-
-      randomize_position_and_size(group)
 
     end
 

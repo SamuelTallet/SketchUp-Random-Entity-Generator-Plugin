@@ -1,0 +1,37 @@
+
+////////////////////////////////////////////
+// REG French Translation.
+//
+// Package: REG extension for SketchUp
+// Translation author: Samuel Tallet
+////////////////////////////////////////////
+
+//
+// File: reg.rb
+//
+
+"Random Entity Generator"="Générateur d'entités aléatoires";
+"Add random entities to your SketchUp models."="Ajoutez des entités aléatoires à vos modèles SketchUp.";
+"Randomize position/size of selected entities."="Randomisez la position et la taille des entités sélectionnées.";
+
+//
+// File: context_menu.rb
+//
+
+"Randomize Position and Size"="Randomiser la position et la taille";
+"How many entities do you want to generate?"="Combien d'entités voulez-vous générer ?";
+
+//
+// File: generator.rb
+//
+
+"Generate random entities"="Générer des entités aléatoires";
+"Generating entities... Please wait."="Génération des entités en cours... Veuillez patienter.";
+
+//
+// File: selection.rb
+//
+
+"No group found in selection."="Aucun groupe trouvé dans la sélection.";
+"Randomize position/size of selected entities"="Randomiser la position/taille des entités sélectionnées";
+"Randomizing entities... Please wait."="Randomisation des entités en cours... Veuillez patienter.";

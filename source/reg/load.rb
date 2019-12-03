@@ -22,14 +22,18 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 
 require 'sketchup'
 require 'reg/menu'
+require 'reg/context_menu'
 
 # REG plugin namespace.
 module REG
 
-  # Plugs REG menu into SketchUp UI.
+  # Plugs REG menus into SketchUp UI.
+
   Menu.new(
     UI.menu('Plugins') # parent_menu
   )
+
+  ContextMenu.new
 
   # Load complete.
 
