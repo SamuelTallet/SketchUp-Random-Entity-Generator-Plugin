@@ -1,11 +1,14 @@
 # Random entity generation plugin for SketchUp
 
-🎲 Add random entities to your SketchUp models. Entity shape, color and position are random.
+🎲 Add random entities to your SketchUp models. Randomize position/size of selected entities.
 
-Demo
-----
+Demos
+-----
 
-![Random REG Plugin Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/demo.png)
+![REG Plugin Random Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/random_demo.png)
+
+![REG Plugin Galaxy Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/galaxy_demo.jpg)
+
 
 Installation
 ------------
@@ -15,7 +18,7 @@ Installation
 3. Rename *reg_v\*.zip* to *reg_v\*.rbz*.
 4. Install plugin following this [guide](https://help.sketchup.com/article/3000263).
 
-Now, you should have in SketchUp a "Random Entity Generator" item in "Extensions" menu. 👍
+Now, you should have in SketchUp a "Random Entity Generator" item in "Extensions" menu plus an item in context menu.
 
 Thanks
 ------
