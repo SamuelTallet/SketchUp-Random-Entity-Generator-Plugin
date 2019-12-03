@@ -20,7 +20,7 @@ Now, you should have in SketchUp a "Random Entity Generator" item in "Extensions
 Thanks
 ------
 
-REG plugin is heavily based on [SU Shapes](https://github.com/SketchUp/sketchup-shapes). Thanks community!
+REG plugin is heavily based on [SU Shapes](https://github.com/SketchUp/sketchup-shapes) plugin. Thanks community!
 
 Copyright
 ---------
