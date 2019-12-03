@@ -5,7 +5,7 @@
 Demo
 ----
 
-![Random REG Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/demo.png)
+![Random REG Plugin Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/demo.png)
 
 Installation
 ------------
