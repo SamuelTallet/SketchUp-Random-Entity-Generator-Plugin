@@ -9,7 +9,7 @@ Demos
 
 ![REG Plugin Balloons Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/balloons_demo.jpg)
 
-![REG Plugin Galaxy Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/galaxy_demo.jpg)
+![REG Plugin Galaxies Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/galaxies_demo.jpg)
 
 
 Installation
