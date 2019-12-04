@@ -33,10 +33,20 @@ module REG
     # @return [Geom::Transformation]
     def self.generate_random_rotation
 
+      density = PARAMETERS[:entity_density] * '1m'.to_l
+
       Geom::Transformation.rotation(
-        Geom::Point3d.new(rand(-100...100), rand(-100...100), rand(-100...100)),
+
+        Geom::Point3d.new(
+          rand(-density...density),
+          rand(-density...density),
+          rand(-density...density)
+        ),
+
         Geom::Vector3d.new(rand(0.1...1), rand(0.1...1), rand(0.1...1)),
+
         rand(0...180).degrees
+
       )
 
     end
@@ -46,10 +56,15 @@ module REG
     # @return [Geom::Transformation]
     def self.generate_random_scaling
 
-      Geom::Transformation.scaling(
-        ORIGIN,
-        rand(-10...10)
-      )
+      scale = rand(PARAMETERS[:entity_min_size]...PARAMETERS[:entity_max_size])
+
+      if PARAMETERS[:entity_min_size] == PARAMETERS[:entity_max_size]
+
+        scale = PARAMETERS[:entity_min_size]
+
+      end
+
+      Geom::Transformation.scaling(ORIGIN, scale)
 
     end
 
@@ -58,8 +73,16 @@ module REG
     # @return [Geom::Transformation]
     def self.generate_random_translation
 
+      density = PARAMETERS[:entity_density] * '1m'.to_l
+
       Geom::Transformation.translation(
-        Geom::Point3d.new(rand(-400...400), rand(-400...400), rand(-400...400))
+
+        Geom::Point3d.new(
+          rand(-density...density),
+          rand(-density...density),
+          rand(-density...density)
+        )
+
       )
 
     end

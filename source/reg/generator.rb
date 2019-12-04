@@ -29,13 +29,7 @@ module REG
   class Generator
 
     # Generates random entities.
-    #
-    # @param [Integer] entity_count Number of entities to generate.
-    # @raise [ArgumentError]
-    def initialize(entity_count)
-
-      raise ArgumentError, 'Entity count parameter must be an Integer.'\
-        unless entity_count.is_a?(Integer)
+    def initialize
 
       Sketchup.active_model.start_operation(
         TRANSLATE['Generate random entities'],
@@ -44,7 +38,7 @@ module REG
 
       Sketchup.status_text = TRANSLATE['Generating entities... Please wait.']
 
-      entity_count.times do
+      PARAMETERS[:entity_count].times do
 
         Entities.generate_random
 

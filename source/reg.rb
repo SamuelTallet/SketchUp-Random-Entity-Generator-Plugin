@@ -26,7 +26,7 @@ require 'extensions'
 # REG plugin namespace.
 module REG
 
-  VERSION = '1.0.1'.freeze
+  VERSION = '1.0.2'.freeze
 
   # Load translation if it's available for current locale.
   TRANSLATE = LanguageHandler.new('reg.strings')
@@ -34,6 +34,9 @@ module REG
 
   # Remember extension name. See: REG::Menu.
   NAME = TRANSLATE['Random Entity Generator']
+
+  # Initialize param. storage of REG plugin.
+  PARAMETERS = nil.to_h
 
   # Register extension.
 

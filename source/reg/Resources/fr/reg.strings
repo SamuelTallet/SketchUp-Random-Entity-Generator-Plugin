@@ -19,7 +19,13 @@
 //
 
 "Randomize Position and Size"="Randomiser la position et la taille";
-"How many entities do you want to generate?"="Combien d'entités voulez-vous générer ?";
+"Entity count"="Nombre d'entités";
+"Rotate entities?"="Pivoter les entités ?";
+"Yes"="Oui";
+"No"="Non";
+"Entity min size"="Taille min. des entités";
+"Entity max size"="Taille max. des entités";
+"Entity density"="Densité des entités";
 
 //
 // File: generator.rb

@@ -41,8 +41,14 @@ module REG
       raise ArgumentError, 'Entity parameter must be a Sketchup::Entity.'\
         unless entity.is_a?(Sketchup::Entity)
 
-      entity.transform!(Transformations.generate_random_rotation)
+      if PARAMETERS[:rotate_entities?]
+
+        entity.transform!(Transformations.generate_random_rotation)
+      
+      end
+
       entity.transform!(Transformations.generate_random_scaling)
+
       entity.transform!(Transformations.generate_random_translation)
 
       entity

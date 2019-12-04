@@ -40,16 +40,35 @@ module REG
 
       parent_menu.add_item('🎲 ' + TRANSLATE[NAME]) do
 
-        entity_count = UI.inputbox(
-          [TRANSLATE['How many entities do you want to generate?']], # Prompt
-          [100], # Default
+        parameters = UI.inputbox(
+          [
+            TRANSLATE['Entity count'],
+            TRANSLATE['Rotate entities?'],
+            TRANSLATE['Entity min size'],
+            TRANSLATE['Entity max size'],
+            TRANSLATE['Entity density'],
+          ], # Prompts
+          [
+            100,
+            TRANSLATE['Yes'],
+            -10,
+            10,
+            10.0
+          ], # Defaults
+          ['', TRANSLATE['Yes'] + '|' + TRANSLATE['No']], # List
           TRANSLATE[NAME] # Title
         )
 
         # Escapes if user cancelled input.
-        return if entity_count == false
+        return if parameters == false
 
-        Generator.new(entity_count[0].to_i)
+        PARAMETERS[:entity_count] = parameters[0].to_i
+        PARAMETERS[:rotate_entities?] = (parameters[1] == TRANSLATE['Yes'])
+        PARAMETERS[:entity_min_size] = parameters[2].to_i
+        PARAMETERS[:entity_max_size] = parameters[3].to_i
+        PARAMETERS[:entity_density] = parameters[4].to_f
+
+        Generator.new
         
       end
 

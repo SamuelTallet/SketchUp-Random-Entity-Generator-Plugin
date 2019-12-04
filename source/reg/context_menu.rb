@@ -36,16 +36,35 @@ module REG
 
         context_menu.add_item('🎲 ' + TRANSLATE['Randomize Position and Size']) {
           
-          entity_count = UI.inputbox(
-            [TRANSLATE['How many entities do you want to generate?']], # Prompt
-            [10], # Default
+          parameters = UI.inputbox(
+            [
+              TRANSLATE['Entity count'],
+              TRANSLATE['Rotate entities?'],
+              TRANSLATE['Entity min size'],
+              TRANSLATE['Entity max size'],
+              TRANSLATE['Entity density'],
+            ], # Prompts
+            [
+              10,
+              TRANSLATE['Yes'],
+              -1,
+              1,
+              1.0
+            ], # Defaults
+            ['', TRANSLATE['Yes'] + '|' + TRANSLATE['No']], # List
             TRANSLATE[NAME] # Title
           )
 
           # Escapes if user cancelled input.
-          return if entity_count == false
+          return if parameters == false
 
-          Selection.new(entity_count[0].to_i)
+          PARAMETERS[:entity_count] = parameters[0].to_i
+          PARAMETERS[:rotate_entities?] = (parameters[1] == TRANSLATE['Yes'])
+          PARAMETERS[:entity_min_size] = parameters[2].to_i
+          PARAMETERS[:entity_max_size] = parameters[3].to_i
+          PARAMETERS[:entity_density] = parameters[4].to_f
+
+          Selection.new
 
         }
 

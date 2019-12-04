@@ -30,13 +30,7 @@ module REG
   class Selection
 
     # Randomizes selected entities.
-    #
-    # @param [Integer] entity_count Number of entities to generate.
-    # @raise [ArgumentError]
-    def initialize(entity_count)
-
-      raise ArgumentError, 'Entity count parameter must be an Integer.'\
-        unless entity_count.is_a?(Integer)
+    def initialize
 
       selected_groups = []
 
@@ -64,7 +58,7 @@ module REG
 
       Sketchup.status_text = TRANSLATE['Randomizing entities... Please wait.']
 
-      entity_count.times do
+      PARAMETERS[:entity_count].times do
 
         original_group = selected_groups.sample
 
