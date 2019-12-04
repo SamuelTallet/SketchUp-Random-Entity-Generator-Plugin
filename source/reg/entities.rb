@@ -20,6 +20,7 @@
 raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
+require 'sketchup'
 require 'reg/transform'
 require 'reg/shapes'
 require 'reg/materials'
@@ -30,7 +31,37 @@ module REG
   # Entities.
   module Entities
 
-    # Randomize an entity's position and size.
+    # Clones a group or component.
+    #
+    # @param [Sketchup::Group|Sketchup::ComponentInstance]
+    # @raise [ArgumentError]
+    #
+    # @return [Sketchup::Group|Sketchup::ComponentInstance]
+    def self.clone_grouponent(original_grouponent)
+
+      raise ArgumentError, 'Grouponent parameter is invalid.'\
+        unless original_grouponent.is_a?(Sketchup::Group)\
+          || original_grouponent.is_a?(Sketchup::ComponentInstance)
+
+      if original_grouponent.is_a?(Sketchup::Group)
+
+        cloned_grouponent = original_grouponent.copy
+        cloned_grouponent.material = original_grouponent.material
+      
+      else # if original_grouponent.is_a?(Sketchup::ComponentInstance)
+
+        cloned_grouponent = Sketchup.active_model.entities.add_instance(
+          original_grouponent.definition,
+          Geom::Transformation.new
+        )
+
+      end
+
+      cloned_grouponent
+
+    end
+
+    # Randomizes an entity's position and size.
     #
     # @param [Sketchup::Entity] entity
     # @raise [ArgumentError]

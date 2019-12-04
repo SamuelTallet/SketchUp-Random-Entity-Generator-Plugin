@@ -47,8 +47,8 @@ module REG
             [
               10,
               TRANSLATE['Yes'],
-              -1,
-              1,
+              -1.0,
+              1.0,
               1.0
             ], # Defaults
             ['', TRANSLATE['Yes'] + '|' + TRANSLATE['No']], # List
@@ -60,8 +60,8 @@ module REG
 
           PARAMETERS[:entity_count] = parameters[0].to_i
           PARAMETERS[:rotate_entities?] = (parameters[1] == TRANSLATE['Yes'])
-          PARAMETERS[:entity_min_size] = parameters[2].to_i
-          PARAMETERS[:entity_max_size] = parameters[3].to_i
+          PARAMETERS[:entity_min_size] = parameters[2].to_f
+          PARAMETERS[:entity_max_size] = parameters[3].to_f
           PARAMETERS[:entity_density] = parameters[4].to_f
 
           Selection.new

@@ -32,21 +32,22 @@ module REG
     # Randomizes selected entities.
     def initialize
 
-      selected_groups = []
+      selected_grouponents = []
 
       Sketchup.active_model.selection.each { |selected_entity|
 
-        if selected_entity.is_a?(Sketchup::Group)
+        if selected_entity.is_a?(Sketchup::Group)\
+         || selected_entity.is_a?(Sketchup::ComponentInstance)
 
-          selected_groups.push(selected_entity)
+          selected_grouponents.push(selected_entity)
 
         end
 
       }
 
-      if selected_groups.empty?
+      if selected_grouponents.empty?
 
-        UI.messagebox(TRANSLATE['No group found in selection.'])
+        UI.messagebox(TRANSLATE['No group nor component found in selection.'])
         return
 
       end
@@ -60,13 +61,9 @@ module REG
 
       PARAMETERS[:entity_count].times do
 
-        original_group = selected_groups.sample
-
-        cloned_group = original_group.copy
-        cloned_group.material = original_group.material
-        cloned_group.transformation = original_group.transformation
-        
-        Entities.randomize_position_and_size(cloned_group)
+        Entities.randomize_position_and_size(
+          Entities.clone_grouponent(selected_grouponents.sample)
+        )
 
       end
 

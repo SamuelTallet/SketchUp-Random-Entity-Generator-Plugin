@@ -38,6 +38,6 @@
 // File: selection.rb
 //
 
-"No group found in selection."="Aucun groupe trouvé dans la sélection.";
+"No group nor component found in selection."="Aucun groupe ni composant trouvé dans la sélection.";
 "Randomize position/size of selected entities"="Randomiser la position/taille des entités sélectionnées";
 "Randomizing entities... Please wait."="Randomisation des entités en cours... Veuillez patienter.";
