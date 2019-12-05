@@ -131,15 +131,23 @@ module REG
 
     end
 
-    # Generates a random box.
+    # Generates a (random) box.
+    #
+    # @param [Length] width Width
+    # @param [Length] depth Depth
+    # @param [Length] height Height
     #
     # @return [Sketchup::Group] Group that contains box.
-    def self.generate_random_box
+    def self.generate_random_box(width = nil, depth = nil, height = nil)
 
       # Parameters.
-      width = rand(4...40).to_l
-      depth = rand(4...40).to_l
-      height = rand(4...40).to_l
+      if width.nil?
+
+        width = rand(4...40).to_l
+        depth = rand(4...40).to_l
+        height = rand(4...40).to_l
+
+      end
 
       group = Sketchup.active_model.entities.add_group
 

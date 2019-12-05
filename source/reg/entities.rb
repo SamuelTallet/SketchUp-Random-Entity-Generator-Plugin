@@ -55,6 +55,18 @@ module REG
           Geom::Transformation.new
         )
 
+        material_name = cloned_grouponent.definition.get_attribute(
+          Proxies::ATTR_DICT_NAME, :MaterialName
+        )
+
+        if !material_name.nil?
+
+          cloned_grouponent.material = Sketchup.active_model.materials[
+            material_name
+          ]
+
+        end
+
       end
 
       cloned_grouponent

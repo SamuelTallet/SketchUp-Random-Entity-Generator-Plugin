@@ -21,6 +21,7 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
+require 'reg/parameters'
 require 'reg/selection'
 
 # REG plugin namespace.
@@ -32,50 +33,21 @@ module REG
     # Adds REG plugin... to SketchUp context menu.
     def initialize
 
-      UI.add_context_menu_handler do |context_menu|
+      UI.add_context_menu_handler { |context_menu|
 
-        context_menu.add_item('🎲 ' + TRANSLATE['Randomize Position and Size']) {
+        context_menu.add_item('🎲 ' + TRANSLATE['Randomize Selection']) {
           
-          parameters = UI.inputbox(
-            [
-              TRANSLATE['Entity count'],
-              TRANSLATE['Rotate entities?'],
-              TRANSLATE['Entity minimum size'],
-              TRANSLATE['Entity maximum size'],
-              TRANSLATE['Entity density'],
-              TRANSLATE['Glue entities to ground?']
-            ], # Prompts
-            [
-              10,
-              TRANSLATE['Yes'],
-              1.0,
-              1.0,
-              1.0,
-              TRANSLATE['Yes']
-            ], # Defaults
-            [
-              '', TRANSLATE['Yes'] + '|' + TRANSLATE['No'], '', '',
-              '', TRANSLATE['Yes'] + '|' + TRANSLATE['No']
-            ], # List
-            TRANSLATE[NAME] # Title
+          if Parameters.set(
+            10, TRANSLATE['Yes'], 1.0, 1.0, 1.0, TRANSLATE['Yes']
           )
 
-          # Escapes if user cancelled input.
-          return if parameters == false
+            Selection.new
 
-          PARAMETERS[:entity_count] = parameters[0].to_i
-          PARAMETERS[:rotate_entities?] = (parameters[1] == TRANSLATE['Yes'])
-          PARAMETERS[:entity_min_size] = parameters[2].to_f
-          PARAMETERS[:entity_max_size] = parameters[3].to_f
-          PARAMETERS[:entity_density] = parameters[4].to_f
-          PARAMETERS[:glue_ents_to_ground?] = (parameters[5] == TRANSLATE['Yes'])
-
-          Selection.new
+          end
 
         }
 
-      end
-
+      }
 
     end
 

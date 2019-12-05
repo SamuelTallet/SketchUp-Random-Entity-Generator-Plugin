@@ -20,6 +20,7 @@
 raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
+require 'base64'
 require 'sketchup'
 
 # REG plugin namespace.
@@ -33,15 +34,15 @@ module REG
     # @return [Sketchup::Material]
     def self.generate_random
 
-      material = Sketchup.active_model.materials.add(rand.to_s)
+      material_name = 'REG-' + Base64.encode64(rand.to_s)
+
+      material = Sketchup.active_model.materials.add(material_name)
 
       material.color = Sketchup::Color.new(
         rand(0..255), # Red
         rand(0..255), # Green
         rand(0..255) # Blue
       )
-
-      material.alpha = [0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1].sample
 
       material
 

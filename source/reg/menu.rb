@@ -21,7 +21,9 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
+require 'reg/parameters'
 require 'reg/generator'
+require 'reg/proxies'
 
 # REG plugin namespace.
 module REG
@@ -29,7 +31,7 @@ module REG
   # Connects REG plugin menu to SketchUp user interface.
   class Menu
 
-    # Adds REG plugin menu in a SketchUp menu.
+    # Adds REG plugin menu (items included) in a SketchUp menu.
     #
     # @param [Sketchup::Menu] parent_menu Target parent menu.
     # @raise [ArgumentError]
@@ -38,45 +40,44 @@ module REG
       raise ArgumentError, 'Parent menu must be a SketchUp::Menu.'\
         unless parent_menu.is_a?(Sketchup::Menu)
 
-      parent_menu.add_item('🎲 ' + TRANSLATE[NAME]) do
+      @menu = parent_menu.add_submenu('🎲 ' + TRANSLATE[NAME])
 
-        parameters = UI.inputbox(
-          [
-            TRANSLATE['Entity count'],
-            TRANSLATE['Rotate entities?'],
-            TRANSLATE['Entity minimum size'],
-            TRANSLATE['Entity maximum size'],
-            TRANSLATE['Entity density'],
-            TRANSLATE['Glue entities to ground?']
-          ], # Prompts
-          [
-            100,
-            TRANSLATE['Yes'],
-            -10.0,
-            10.0,
-            10.0,
-            TRANSLATE['No']
-          ], # Defaults
-          [
-            '', TRANSLATE['Yes'] + '|' + TRANSLATE['No'], '', '',
-            '', TRANSLATE['Yes'] + '|' + TRANSLATE['No']
-          ], # List
-          TRANSLATE[NAME] # Title
+      @menu.add_item(TRANSLATE['Generate Random Entities']) {
+
+        if Parameters.set(
+          100, TRANSLATE['Yes'], -10.0, 10.0, 10.0, TRANSLATE['No']
         )
 
-        # Escapes if user cancelled input.
-        return if parameters == false
+          Generator.new
 
-        PARAMETERS[:entity_count] = parameters[0].to_i
-        PARAMETERS[:rotate_entities?] = (parameters[1] == TRANSLATE['Yes'])
-        PARAMETERS[:entity_min_size] = parameters[2].to_f
-        PARAMETERS[:entity_max_size] = parameters[3].to_f
-        PARAMETERS[:entity_density] = parameters[4].to_f
-        PARAMETERS[:glue_ents_to_ground?] = (parameters[5] == TRANSLATE['Yes'])
-
-        Generator.new
+        end
         
-      end
+      }
+
+      @menu.add_item(TRANSLATE['Create Proxy for Enscape']) {
+
+        Proxies.create_enscape_proxy
+
+      }
+
+      @menu.add_item(TRANSLATE['Randomize Selected Entities']) {
+
+        if Sketchup.active_model.selection.empty?
+
+          UI.messagebox(TRANSLATE['You must first select at least one entity.'])
+          return
+
+        end
+          
+        if Parameters.set(
+          10, TRANSLATE['Yes'], 1.0, 1.0, 1.0, TRANSLATE['Yes']
+        )
+
+          Selection.new
+
+        end
+
+      }
 
     end
 

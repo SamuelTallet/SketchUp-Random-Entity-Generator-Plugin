@@ -21,42 +21,28 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
-require 'extensions'
+require 'reg/model_observer'
 
 # REG plugin namespace.
 module REG
 
-  VERSION = '1.0.4'.freeze
+  # Observes SketchUp events and reacts.
+  class AppObserver < Sketchup::AppObserver
 
-  # Load translation if it's available for current locale.
-  TRANSLATE = LanguageHandler.new('reg.strings')
-  # See: "reg/Resources/#{Sketchup.get_locale}/reg.strings"
+    # When SketchUp user creates a new, empty model.
+    def onNewModel(model)
 
-  # Remember extension name. See: REG::Menu.
-  NAME = TRANSLATE['Random Entity Generator']
+      model.add_observer(ModelObserver.new)
 
-  # Initialize param. storage of REG plugin.
-  PARAMETERS = nil.to_h
+    end
 
-  # Register extension.
+    # When SketchUp user opens an existing model:
+    def onOpenModel(model)
 
-  extension = SketchupExtension.new(NAME, 'reg/load.rb')
+      model.add_observer(ModelObserver.new)
 
-  extension.version     = VERSION
-  extension.creator     = 'Samuel Tallet'
-  extension.copyright   = "© 2019 #{extension.creator}"
+    end
 
-  features = [
-    TRANSLATE['Add random entities to your SketchUp models.'],
-    TRANSLATE['Create Enscape proxies.'],
-    TRANSLATE['Randomize position/size of selected entities.']
-  ]
-
-  extension.description = features.join(' ')
-
-  Sketchup.register_extension(
-    extension,
-    true # load_at_start
-  )
+  end
 
 end
