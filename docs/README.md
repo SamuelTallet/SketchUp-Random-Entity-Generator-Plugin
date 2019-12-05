@@ -1,6 +1,6 @@
 # Random entity generation plugin for SketchUp
 
-🎲 Add random entities to your SketchUp models. Randomize position/size of selected entities.
+🎲 Add random entities to your SketchUp models. Create proxies for Enscape. Randomize position/size of selected entities.
 
 Demos
 -----
