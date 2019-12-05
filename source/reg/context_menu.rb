@@ -40,18 +40,23 @@ module REG
             [
               TRANSLATE['Entity count'],
               TRANSLATE['Rotate entities?'],
-              TRANSLATE['Entity min size'],
-              TRANSLATE['Entity max size'],
+              TRANSLATE['Entity minimum size'],
+              TRANSLATE['Entity maximum size'],
               TRANSLATE['Entity density'],
+              TRANSLATE['Glue entities to ground?']
             ], # Prompts
             [
               10,
               TRANSLATE['Yes'],
-              -1.0,
               1.0,
-              1.0
+              1.0,
+              1.0,
+              TRANSLATE['Yes']
             ], # Defaults
-            ['', TRANSLATE['Yes'] + '|' + TRANSLATE['No']], # List
+            [
+              '', TRANSLATE['Yes'] + '|' + TRANSLATE['No'], '', '',
+              '', TRANSLATE['Yes'] + '|' + TRANSLATE['No']
+            ], # List
             TRANSLATE[NAME] # Title
           )
 
@@ -63,6 +68,7 @@ module REG
           PARAMETERS[:entity_min_size] = parameters[2].to_f
           PARAMETERS[:entity_max_size] = parameters[3].to_f
           PARAMETERS[:entity_density] = parameters[4].to_f
+          PARAMETERS[:glue_ents_to_ground?] = (parameters[5] == TRANSLATE['Yes'])
 
           Selection.new
 

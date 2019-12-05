@@ -23,9 +23,10 @@
 "Rotate entities?"="Pivoter les entités ?";
 "Yes"="Oui";
 "No"="Non";
-"Entity min size"="Taille min. des entités";
-"Entity max size"="Taille max. des entités";
+"Entity minimum size"="Taille minimale des entités";
+"Entity maximum size"="Taille maximale des entités";
 "Entity density"="Densité des entités";
+"Glue entities to ground?"="Coller les entités au sol ?";
 
 //
 // File: generator.rb

@@ -33,21 +33,39 @@ module REG
     # @return [Geom::Transformation]
     def self.generate_random_rotation
 
-      density = PARAMETERS[:entity_density] * '1m'.to_l
+      return Geom::Transformation.new unless PARAMETERS[:rotate_entities?]
 
-      Geom::Transformation.rotation(
+      if PARAMETERS[:glue_ents_to_ground?]
 
-        Geom::Point3d.new(
-          rand(-density...density),
-          rand(-density...density),
-          rand(-density...density)
-        ),
+        return Geom::Transformation.rotation(
 
-        Geom::Vector3d.new(rand(0.1...1), rand(0.1...1), rand(0.1...1)),
+          Geom::Point3d.new,
 
-        rand(0...180).degrees
+          Z_AXIS,
 
-      )
+          rand(0...360).degrees
+
+        )
+
+      else
+
+        density = PARAMETERS[:entity_density] * '1m'.to_l
+
+        return Geom::Transformation.rotation(
+
+          Geom::Point3d.new(
+            rand(-density...density),
+            rand(-density...density),
+            rand(-density...density)
+          ),
+
+          Geom::Vector3d.new(rand(0.1...1), rand(0.1...1), rand(0.1...1)),
+
+          rand(0...360).degrees
+
+        )
+
+      end
 
     end
 
@@ -75,12 +93,22 @@ module REG
 
       density = PARAMETERS[:entity_density] * '1m'.to_l
 
+      if PARAMETERS[:glue_ents_to_ground?]
+
+        z_translation = 0
+
+      else
+
+        z_translation = rand(-density...density)
+
+      end
+
       Geom::Transformation.translation(
 
         Geom::Point3d.new(
           rand(-density...density),
           rand(-density...density),
-          rand(-density...density)
+          z_translation
         )
 
       )
