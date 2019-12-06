@@ -31,7 +31,7 @@ You can specify a spawn zone for generated objects. Right click on a face then c
 Thanks
 ------
 
-REG plugin is heavily based on [SU Shapes](https://github.com/SketchUp/sketchup-shapes) plugin. Thanks community!
+REG plugin is heavily based on [SU Shapes](https://github.com/SketchUp/sketchup-shapes) plugin. Thanks community! Thanks also to [Aerilius](https://github.com/Aerilius) for its amazing SU plugins.
 
 Copyright
 ---------
