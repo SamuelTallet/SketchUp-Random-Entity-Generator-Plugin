@@ -20,7 +20,7 @@ Installation
 3. Rename *reg_v\*.zip* to *reg_v\*.rbz*.
 4. Install plugin following this [guide](https://help.sketchup.com/article/3000263).
 
-Now, you should have in SketchUp a "Random Entity Generator" item in "Extensions" menu and two items in context menu.
+Now, you should have in SketchUp a "Random Entity Generator" menu in "Extensions" menu and items in context menu.
 
 Usage
 -----
