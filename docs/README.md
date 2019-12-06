@@ -20,7 +20,13 @@ Installation
 3. Rename *reg_v\*.zip* to *reg_v\*.rbz*.
 4. Install plugin following this [guide](https://help.sketchup.com/article/3000263).
 
-Now, you should have in SketchUp a "Random Entity Generator" item in "Extensions" menu plus an item in context menu.
+Now, you should have in SketchUp a "Random Entity Generator" item in "Extensions" menu and two items in context menu.
+
+Usage
+-----
+
+Use plugins menu or context menu to display and define random generation parameters then press "OK".<br>
+You can specify a spawn zone for generated objects. Right click on a face then click "Set as Random Zone".
 
 Thanks
 ------
