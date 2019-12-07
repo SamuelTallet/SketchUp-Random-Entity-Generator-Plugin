@@ -66,7 +66,7 @@ module REG
     def self.create_enscape_proxy_p2(real_component)
 
       Sketchup.active_model.start_operation(
-        TRANSLATE['Create Enscape proxy'],
+        TRANSLATE['Create an Enscape proxy'],
         true # disable_ui
       )
 
