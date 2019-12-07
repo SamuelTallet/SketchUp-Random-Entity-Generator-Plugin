@@ -9,7 +9,7 @@ Demos
 
 ![REG Plugin Sunflowers Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/sunflowers_demo.jpg)
 
-![REG Plugin Galaxies Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/galaxies_demo.jpg)
+![REG Plugin Deformations Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/deformations_demo.png)
 
 
 Installation
@@ -26,7 +26,7 @@ Usage
 -----
 
 Use plugins menu or context menu to display and define random generation parameters then press "OK".<br>
-You can specify a spawn zone for generated objects. Right click on a face then click "Set as Random Zone".
+You can specify a spawn zone for generated objects. Right click on a surface then click "Set as Random Zone".
 
 Thanks
 ------
