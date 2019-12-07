@@ -26,7 +26,7 @@ require 'extensions'
 # REG plugin namespace.
 module REG
 
-  VERSION = '1.0.4'.freeze
+  VERSION = '1.0.5'.freeze
 
   # Load translation if it's available for current locale.
   TRANSLATE = LanguageHandler.new('reg.strings')
@@ -37,6 +37,9 @@ module REG
 
   # Initialize param. storage of REG plugin.
   PARAMETERS = nil.to_h
+
+  # Initialize session storage of REG plugin.
+  SESSION = nil.to_h
 
   # Register extension.
 

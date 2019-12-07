@@ -21,6 +21,7 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
+require 'reg/proxies'
 
 # PBR plugin namespace.
 module REG
@@ -39,6 +40,12 @@ module REG
 
         component.material = Sketchup.active_model.materials[material_name]
         
+      end
+
+      if !SESSION[:proxy_model_path].nil?
+
+        Proxies.create_enscape_proxy_p2(component)
+
       end
 
     end

@@ -21,47 +21,52 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
-require 'reg/parameters'
-require 'reg/selection'
+require 'reg/entities'
 
 # REG plugin namespace.
 module REG
 
-  # Connects REG plugin context menu to SketchUp UI.
-  class ContextMenu
+  # Collisions.
+  module Collisions
 
-    # Adds REG plugin... to SketchUp context menu.
-    def initialize
+    # Detects collided entities.
+    #
+    # @param [Array<Sketchup::Entity>] entities Entities.
+    #
+    # @return [Array<Sketchup::Entity>] Collided entities.
+    def self.detect(entities)
 
-      UI.add_context_menu_handler { |context_menu|
+      ent_bounding_boxes = []
+      collided_entities = []
 
-        context_menu.add_item('🎲 ' + TRANSLATE['Set as Random Zone']) {
+      entities.each { |entity|
 
-          Selection.set_as_random_zone
+        ent_bounding_boxes.push([entity, entity.bounds])
 
-        }
+      }
 
-        context_menu.add_item('🎲 ' + TRANSLATE['Randomize...']) {
-          
-          if Parameters.set({
+      ent_bounding_boxes.each { |entity_1, bounding_box_1|
 
-            :entity_count         => 10,
-            :rotate_entities      => TRANSLATE['Yes'],
-            :entity_min_size      => 1.0,
-            :entity_max_size      => 1.0,
-            :entity_density       => 10.0,
-            :glue_ents_to_ground  => TRANSLATE['Yes'],
-            :avoid_ent_collision  => TRANSLATE['No']
-            
-          })
+        ent_bounding_boxes.each { |entity_2, bounding_box_2|
 
-            Selection.randomize_entities
+          if entity_1.object_id == entity_2.object_id
+
+            next
+
+          end
+
+          if bounding_box_1.intersect(bounding_box_2).valid?
+
+            collided_entities.push(entity_1)
+            collided_entities.push(entity_2)
 
           end
 
         }
 
       }
+
+      collided_entities
 
     end
 

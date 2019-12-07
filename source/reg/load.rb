@@ -23,6 +23,7 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 require 'sketchup'
 require 'reg/app_observer'
 require 'reg/model_observer'
+require 'reg/parameters'
 require 'reg/menu'
 require 'reg/context_menu'
 
@@ -31,6 +32,8 @@ module REG
 
   Sketchup.add_observer(AppObserver.new)
   Sketchup.active_model.add_observer(ModelObserver.new)
+
+  Parameters.reset
 
   # Plugs REG menus into SketchUp UI.
 

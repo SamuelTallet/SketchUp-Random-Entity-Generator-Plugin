@@ -35,7 +35,7 @@ module REG
 
       return Geom::Transformation.new unless PARAMETERS[:rotate_entities?]
 
-      if PARAMETERS[:glue_ents_to_ground?]
+      if PARAMETERS[:glue_ents_to_ground?] || !PARAMETERS[:rand_zone_min_x].nil?
 
         return Geom::Transformation.rotation(
 
@@ -91,23 +91,68 @@ module REG
     # @return [Geom::Transformation]
     def self.generate_random_translation
 
-      density = PARAMETERS[:entity_density] * '1m'.to_l
+      if !PARAMETERS[:rand_zone_min_x].nil?
 
-      if PARAMETERS[:glue_ents_to_ground?]
+        if PARAMETERS[:rand_zone_min_x] != PARAMETERS[:rand_zone_max_x]
 
-        z_translation = 0
+          x_translation = rand(
+            PARAMETERS[:rand_zone_min_x]...
+            PARAMETERS[:rand_zone_max_x]
+          )
+
+        else
+
+          x_translation = PARAMETERS[:rand_zone_min_x]
+
+        end
+
+        if PARAMETERS[:rand_zone_min_y] != PARAMETERS[:rand_zone_max_y]
+
+          y_translation = rand(
+            PARAMETERS[:rand_zone_min_y]...
+            PARAMETERS[:rand_zone_max_y]
+          )
+
+        else
+
+          y_translation = PARAMETERS[:rand_zone_min_y]
+
+        end
+
+        if PARAMETERS[:rand_zone_min_z] != PARAMETERS[:rand_zone_max_z]
+
+          z_translation = rand(
+            PARAMETERS[:rand_zone_min_z]...
+            PARAMETERS[:rand_zone_max_z]
+          )
+
+        else
+
+          z_translation = PARAMETERS[:rand_zone_min_z]
+
+        end
 
       else
 
+        density = PARAMETERS[:entity_density] * '1m'.to_l
+
+        x_translation = rand(-density...density)
+        y_translation = rand(-density...density)
         z_translation = rand(-density...density)
+
+      end
+      
+      if PARAMETERS[:glue_ents_to_ground?]
+
+        z_translation = 0
 
       end
 
       Geom::Transformation.translation(
 
         Geom::Point3d.new(
-          rand(-density...density),
-          rand(-density...density),
+          x_translation,
+          y_translation,
           z_translation
         )
 

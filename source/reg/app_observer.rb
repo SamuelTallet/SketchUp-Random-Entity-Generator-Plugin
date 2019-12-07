@@ -22,6 +22,7 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 
 require 'sketchup'
 require 'reg/model_observer'
+require 'reg/parameters'
 
 # REG plugin namespace.
 module REG
@@ -34,12 +35,16 @@ module REG
 
       model.add_observer(ModelObserver.new)
 
+      Parameters.reset
+
     end
 
     # When SketchUp user opens an existing model:
     def onOpenModel(model)
 
       model.add_observer(ModelObserver.new)
+
+      Parameters.reset
 
     end
 

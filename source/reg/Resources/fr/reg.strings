@@ -12,22 +12,15 @@
 
 "Random Entity Generator"="Générateur d'entités aléatoires";
 "Add random entities to your SketchUp models."="Ajoutez des entités aléatoires à vos modèles SketchUp.";
-"Create Enscape proxies."="Créez des proxies Enscape.";
+"Create Enscape proxies."="Créez des proxys Enscape.";
 "Randomize position/size of selected entities."="Randomisez la position et la taille des entités sélectionnées.";
 
 //
 // File: context_menu.rb
 //
 
-"Randomize Selection"="Randomiser la sélection";
-"Entity count"="Nombre d'entités";
-"Rotate entities?"="Pivoter les entités ?";
-"Yes"="Oui";
-"No"="Non";
-"Entity minimum size"="Taille minimale des entités";
-"Entity maximum size"="Taille maximale des entités";
-"Entity density"="Densité des entités";
-"Glue entities to ground?"="Coller les entités au sol ?";
+"Set as Random Zone"="Définir en tant que zone aléatoire";
+"Randomize..."="Randomiser...";
 
 //
 // File: generator.rb
@@ -40,10 +33,25 @@
 // File: menu.rb
 //
 
-"Generate Random Entities"="Générer des entités aléatoires";
-"Create Proxy for Enscape"="Créer un proxy pour Enscape";
-"Randomize Selected Entities"="Randomiser les entités sélectionnées";
-"You must first select at least one entity."="Vous devez d'abord sélectionner au moins une entité.";
+"Generate Random Entities..."="Générer des entités aléatoires...";
+"Create a Proxy for Enscape..."="Créer un proxy pour Enscape...";
+"Erase Real Model of Proxy"="Effacer le modèle réel du proxy";
+"Forget the Random Zone"="Oublier la zone aléatoire";
+"Donate to Plugin Author"="Faire un don à l'auteur de l'extension";
+
+//
+// File: parameters.rb
+//
+
+"Entity count to generate"="Nombre d'entités à générer";
+"Rotate entities?"="Pivoter les entités ?";
+"Yes"="Oui";
+"No"="Non";
+"Entity minimum size"="Taille minimale des entités";
+"Entity maximum size"="Taille maximale des entités";
+"Entity density"="Densité des entités";
+"Glue entities to ground?"="Coller les entités au sol ?";
+"Avoid entity collision?"="Éviter les collisions d'entités ?";
 
 //
 // File: proxies.rb
@@ -51,12 +59,14 @@
 
 "Select a SketchUp Model"="Sélectionnez un modèle SketchUp";
 "SketchUp Models"="Modèles SketchUp";
-"Create an Enscape proxy"="Créer un proxy Enscape";
+"Create Enscape proxy"="Créer un proxy Enscape";
+"To optimize SketchUp model weight, run: Erase Real Model of Proxy."="Pour optimiser le poids du modèle SketchUp, lancez : Effacer le modèle réel du proxy.";
 
 //
 // File: selection.rb
 //
 
+"Random zone recorded."="Zone aléatoire enregistrée.";
 "No group nor component found in selection."="Aucun groupe ni composant trouvé dans la sélection.";
 "Randomize position/size of selected entities"="Randomiser la position/taille des entités sélectionnées";
 "Randomizing entities... Please wait."="Randomisation des entités en cours... Veuillez patienter.";

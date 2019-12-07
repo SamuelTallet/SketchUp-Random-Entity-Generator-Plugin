@@ -21,6 +21,7 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'reg/entities'
+require 'reg/collisions'
 
 # REG plugin namespace.
 module REG
@@ -38,9 +39,31 @@ module REG
 
       Sketchup.status_text = TRANSLATE['Generating entities... Please wait.']
 
+      generated_entities = []
+
       PARAMETERS[:entity_count].times do
 
-        Entities.generate_random
+        generated_entities.push(Entities.generate_random)
+
+      end
+
+      if PARAMETERS[:avoid_ent_collision?]
+
+        5.times do
+
+          collided_entities = Collisions.detect(generated_entities)
+
+          collided_entities.each { |collided_entity|
+
+            Entities.randomize_position_and_size(collided_entity)
+
+          }
+
+        end
+
+        Sketchup.active_model.active_entities.erase_entities(
+          Collisions.detect(generated_entities)
+        )
 
       end
 

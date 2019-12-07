@@ -30,41 +30,43 @@ module REG
 
     # Set parameters from user input.
     #
+    # @param [Hash] default_params Default parameters.
+    #
     # @return [Boolean] true on success...
-    def self.set(
+    def self.set(default_params)
 
-        entity_count,
-        rotate_entities,
-        entity_min_size,
-        entity_max_size,
-        entity_density,
-        glue_ents_to_ground
+      if !PARAMETERS[:rand_zone_min_x].nil?
 
-      )
+        default_params[:entity_density] = TRANSLATE['Inapplicable']
+        
+      end
 
       parameters = UI.inputbox(
 
         [
-          TRANSLATE['Entity count'],
+          TRANSLATE['Entity count to generate'] + ' ',
           TRANSLATE['Rotate entities?'],
           TRANSLATE['Entity minimum size'],
           TRANSLATE['Entity maximum size'],
           TRANSLATE['Entity density'],
-          TRANSLATE['Glue entities to ground?']
+          TRANSLATE['Glue entities to ground?'],
+          TRANSLATE['Avoid entity collision?']
         ], # Prompts
 
         [
-          entity_count,
-          rotate_entities,
-          entity_min_size,
-          entity_max_size,
-          entity_density,
-          glue_ents_to_ground
+          default_params[:entity_count],
+          default_params[:rotate_entities],
+          default_params[:entity_min_size],
+          default_params[:entity_max_size],
+          default_params[:entity_density],
+          default_params[:glue_ents_to_ground],
+          default_params[:avoid_ent_collision]
         ], # Defaults
 
         [
-          '', TRANSLATE['Yes'] + '|' + TRANSLATE['No'], '', '',
-          '', TRANSLATE['Yes'] + '|' + TRANSLATE['No']
+          '', TRANSLATE['Yes'] + '|' + TRANSLATE['No'], '', '', '',
+          TRANSLATE['Yes'] + '|' + TRANSLATE['No'],
+          TRANSLATE['Yes'] + '|' + TRANSLATE['No']
         ], # List
 
         TRANSLATE[NAME] # Title
@@ -78,10 +80,54 @@ module REG
       PARAMETERS[:rotate_entities?] = (parameters[1] == TRANSLATE['Yes'])
       PARAMETERS[:entity_min_size] = parameters[2].to_f
       PARAMETERS[:entity_max_size] = parameters[3].to_f
-      PARAMETERS[:entity_density] = parameters[4].to_f
+
+      if PARAMETERS[:rand_zone_min_x].nil?
+
+        PARAMETERS[:entity_density] = parameters[4].to_f
+
+      end
+
       PARAMETERS[:glue_ents_to_ground?] = (parameters[5] == TRANSLATE['Yes'])
+      PARAMETERS[:avoid_ent_collision?] = (parameters[6] == TRANSLATE['Yes'])
 
       true
+
+    end
+
+    # Resets parameters.
+    #
+    # @return [nil]
+    def self.reset
+
+      PARAMETERS[:entity_count]         = 100
+      PARAMETERS[:rotate_entities?]     = TRANSLATE['Yes']
+      PARAMETERS[:entity_min_size]      = -10.0
+      PARAMETERS[:entity_max_size]      = 10.0
+      PARAMETERS[:entity_density]       = 10.0
+      PARAMETERS[:glue_ents_to_ground?] = TRANSLATE['No']
+      PARAMETERS[:avoid_ent_collision?] = TRANSLATE['No']
+
+      reset_random_zone
+
+      nil
+
+    end
+
+    # Resets Random Zone parameters.
+    #
+    # @return [nil]
+    def self.reset_random_zone
+
+      PARAMETERS[:rand_zone_min_x] = nil
+      PARAMETERS[:rand_zone_max_x] = nil
+
+      PARAMETERS[:rand_zone_min_y] = nil
+      PARAMETERS[:rand_zone_max_y] = nil
+
+      PARAMETERS[:rand_zone_min_z] = nil
+      PARAMETERS[:rand_zone_max_z] = nil
+
+      nil
 
     end
 

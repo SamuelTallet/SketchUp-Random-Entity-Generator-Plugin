@@ -42,11 +42,19 @@ module REG
 
       @menu = parent_menu.add_submenu('🎲 ' + TRANSLATE[NAME])
 
-      @menu.add_item(TRANSLATE['Generate Random Entities']) {
+      @menu.add_item(TRANSLATE['Generate Random Entities...']) {
 
-        if Parameters.set(
-          100, TRANSLATE['Yes'], -10.0, 10.0, 10.0, TRANSLATE['No']
-        )
+        if Parameters.set({
+
+          :entity_count         => 100,
+          :rotate_entities      => TRANSLATE['Yes'],
+          :entity_min_size      => -10.0,
+          :entity_max_size      => 10.0,
+          :entity_density       => 10.0,
+          :glue_ents_to_ground  => TRANSLATE['No'],
+          :avoid_ent_collision  => TRANSLATE['No']
+
+        })
 
           Generator.new
 
@@ -54,30 +62,29 @@ module REG
         
       }
 
-      @menu.add_item(TRANSLATE['Create Proxy for Enscape']) {
+      @menu.add_item('▣ ' + TRANSLATE['Create a Proxy for Enscape...']) {
 
-        Proxies.create_enscape_proxy
+        Proxies.create_enscape_proxy_p1
+
+      }
+
+      @menu.add_item(TRANSLATE['Erase Real Model of Proxy']) {
+
+        Proxies.erase_real_model
 
       }
 
-      @menu.add_item(TRANSLATE['Randomize Selected Entities']) {
+      @menu.add_item(TRANSLATE['Forget the Random Zone']) {
 
-        if Sketchup.active_model.selection.empty?
-
-          UI.messagebox(TRANSLATE['You must first select at least one entity.'])
-          return
-
-        end
-          
-        if Parameters.set(
-          10, TRANSLATE['Yes'], 1.0, 1.0, 1.0, TRANSLATE['Yes']
-        )
-
-          Selection.new
-
-        end
+        Parameters.reset_random_zone
 
       }
+
+      @menu.add_item('💌 ' + TRANSLATE['Donate to Plugin Author']) do
+
+        UI.openURL('https://www.paypal.me/SamuelTS/')
+        
+      end
 
     end
 

@@ -32,46 +32,109 @@ module REG
   module Proxies
 
     # Attributes dictionary name.
-    ATTR_DICT_NAME = 'RandomEntityGenerator.Proxy'
+    ATTR_DICT_NAME = 'RandomEntityGenerator.Proxy'.freeze
 
-    # Creates a proxy for Enscape.
+    # Creates a proxy for Enscape (Part #1).
     #
-    # @return [nil|Sketchup::ComponentInstance]
-    def self.create_enscape_proxy
+    # @return [nil]
+    def self.create_enscape_proxy_p1
 
-      model_path = UI.openpanel(
+      proxy_model_path = UI.openpanel(
         TRANSLATE['Select a SketchUp Model'],
         nil,
         TRANSLATE['SketchUp Models'] + '|*.skp||'
       )
 
       # Escapes if user cancelled operation.
-      return if model_path.nil?
+      return if proxy_model_path.nil?
+
+      SESSION[:proxy_model_path] = proxy_model_path
+
+      Sketchup.active_model.import(SESSION[:proxy_model_path])
+
+      nil
+
+    end
+
+    # Creates a proxy for Enscape (Part #2).
+    #
+    # @see REG::ModelObserver
+    #
+    # @param [Sketchup::ComponentInstance] real_component
+    #
+    # @return [nil]
+    def self.create_enscape_proxy_p2(real_component)
 
       Sketchup.active_model.start_operation(
-        TRANSLATE['Create an Enscape proxy'],
+        TRANSLATE['Create Enscape proxy'],
         true # disable_ui
       )
 
-      proxy = Shapes.generate_random_box('30cm'.to_l, '30cm'.to_l, '30cm'.to_l)
+      real_compo_bounds = real_component.bounds
 
-      proxy = proxy.to_component
+      real_component.hidden = true
 
-      proxy.definition.set_attribute('Enscape.Proxy', 'FileName', model_path)
-
-      proxy.definition.name = File.basename(model_path, '.skp')
-      proxy.definition.description = 'Enscape proxy created by REG plugin.'
-      
-      # XXX This “hack” will maintain proxy color.
-      proxy.material = Materials.generate_random
-      proxy.material.alpha = 0.5
-      proxy.definition.set_attribute(
-        ATTR_DICT_NAME, :MaterialName, proxy.material.name
+      proxy_group = Shapes.generate_random_box(
+        real_compo_bounds.height,
+        real_compo_bounds.width,
+        real_compo_bounds.depth
       )
+
+      proxy_component = proxy_group.to_component
+
+      proxy_component.definition.set_attribute(
+        'Enscape.Proxy', 'FileName', SESSION[:proxy_model_path]
+      )
+
+      proxy_component.definition.name = File.basename(
+        SESSION[:proxy_model_path], '.skp'
+      )
+
+      proxy_component.definition.description\
+        = 'Enscape proxy created by REG plugin.'
+      
+      # XXX This “hack” will maintain proxy color:
+
+      proxy_component.material = Materials.generate_random
+
+      proxy_component.material.alpha = 0.5
+
+      proxy_component.definition.set_attribute(
+        ATTR_DICT_NAME, :MaterialName, proxy_component.material.name
+      )
+
+      SESSION[:proxy_model_path] = nil
+
+      SESSION[:real_compo_object_id] = real_component.object_id
 
       Sketchup.active_model.commit_operation
 
-      proxy
+      UI.messagebox(
+        TRANSLATE[
+          'To optimize SketchUp model weight, run: Erase Real Model of Proxy.'
+        ]
+      )
+
+      nil
+
+    end
+
+    # Erases real proxy model.
+    #
+    # @return [nil]
+    def self.erase_real_model
+
+      if !SESSION[:real_compo_object_id].nil?
+
+        ObjectSpace._id2ref(SESSION[:real_compo_object_id]).erase!
+
+        SESSION[:real_compo_object_id] = nil
+
+        Sketchup.active_model.definitions.purge_unused
+
+      end
+
+      nil
 
     end
 
