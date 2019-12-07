@@ -107,6 +107,47 @@ module REG
 
     end
 
+    # Detects collided entities.
+    #
+    # @param [Array<Sketchup::Entity>] entities Entities.
+    #
+    # @return [Array<Sketchup::Entity>] Collided entities.
+    def self.collision_detect(entities)
+
+      ent_bounding_boxes = []
+      collided_entities = []
+
+      entities.each { |entity|
+
+        ent_bounding_boxes.push([entity, entity.bounds])
+
+      }
+
+      ent_bounding_boxes.each { |entity_1, bounding_box_1|
+
+        ent_bounding_boxes.each { |entity_2, bounding_box_2|
+
+          if entity_1.object_id == entity_2.object_id
+
+            next
+
+          end
+
+          if bounding_box_1.intersect(bounding_box_2).valid?
+
+            collided_entities.push(entity_1)
+            collided_entities.push(entity_2)
+
+          end
+
+        }
+
+      }
+
+      collided_entities
+
+    end
+
   end
 
 end

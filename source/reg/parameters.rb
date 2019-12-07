@@ -35,9 +35,10 @@ module REG
     # @return [Boolean] true on success...
     def self.set(default_params)
 
-      if !PARAMETERS[:rand_zone_min_x].nil?
+      if !PARAMETERS[:rand_zone_point_grid].empty?
 
         default_params[:entity_density] = TRANSLATE['Inapplicable']
+        default_params[:glue_ents_to_ground] = TRANSLATE['Inapplicable']
         
       end
 
@@ -65,7 +66,8 @@ module REG
 
         [
           '', TRANSLATE['Yes'] + '|' + TRANSLATE['No'], '', '', '',
-          TRANSLATE['Yes'] + '|' + TRANSLATE['No'],
+          TRANSLATE['Yes'] + '|' + TRANSLATE['No'] + '|' +
+          TRANSLATE['Inapplicable'],
           TRANSLATE['Yes'] + '|' + TRANSLATE['No']
         ], # List
 
@@ -81,13 +83,13 @@ module REG
       PARAMETERS[:entity_min_size] = parameters[2].to_f
       PARAMETERS[:entity_max_size] = parameters[3].to_f
 
-      if PARAMETERS[:rand_zone_min_x].nil?
+      if PARAMETERS[:rand_zone_point_grid].empty?
 
         PARAMETERS[:entity_density] = parameters[4].to_f
+        PARAMETERS[:glue_ents_to_ground?] = (parameters[5] == TRANSLATE['Yes'])
 
       end
 
-      PARAMETERS[:glue_ents_to_ground?] = (parameters[5] == TRANSLATE['Yes'])
       PARAMETERS[:avoid_ent_collision?] = (parameters[6] == TRANSLATE['Yes'])
 
       true
@@ -113,19 +115,12 @@ module REG
 
     end
 
-    # Resets Random Zone parameters.
+    # Resets Random Zone parameter.
     #
     # @return [nil]
     def self.reset_random_zone
 
-      PARAMETERS[:rand_zone_min_x] = nil
-      PARAMETERS[:rand_zone_max_x] = nil
-
-      PARAMETERS[:rand_zone_min_y] = nil
-      PARAMETERS[:rand_zone_max_y] = nil
-
-      PARAMETERS[:rand_zone_min_z] = nil
-      PARAMETERS[:rand_zone_max_z] = nil
+      PARAMETERS[:rand_zone_point_grid] = []
 
       nil
 

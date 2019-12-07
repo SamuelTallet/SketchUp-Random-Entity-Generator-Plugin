@@ -35,7 +35,8 @@ module REG
 
       return Geom::Transformation.new unless PARAMETERS[:rotate_entities?]
 
-      if PARAMETERS[:glue_ents_to_ground?] || !PARAMETERS[:rand_zone_min_x].nil?
+      if PARAMETERS[:glue_ents_to_ground?]\
+        || !PARAMETERS[:rand_zone_point_grid].empty?
 
         return Geom::Transformation.rotation(
 
@@ -43,7 +44,7 @@ module REG
 
           Z_AXIS,
 
-          rand(0...360).degrees
+          rand(0...359).degrees
 
         )
 
@@ -61,7 +62,7 @@ module REG
 
           Geom::Vector3d.new(rand(0.1...1), rand(0.1...1), rand(0.1...1)),
 
-          rand(0...360).degrees
+          rand(0...359).degrees
 
         )
 
@@ -74,11 +75,14 @@ module REG
     # @return [Geom::Transformation]
     def self.generate_random_scaling
 
-      scale = rand(PARAMETERS[:entity_min_size]...PARAMETERS[:entity_max_size])
-
       if PARAMETERS[:entity_min_size] == PARAMETERS[:entity_max_size]
 
         scale = PARAMETERS[:entity_min_size]
+
+      else
+
+        scale = rand(PARAMETERS[:entity_min_size]...
+          PARAMETERS[:entity_max_size])
 
       end
 
@@ -91,46 +95,13 @@ module REG
     # @return [Geom::Transformation]
     def self.generate_random_translation
 
-      if !PARAMETERS[:rand_zone_min_x].nil?
+      if !PARAMETERS[:rand_zone_point_grid].empty?
 
-        if PARAMETERS[:rand_zone_min_x] != PARAMETERS[:rand_zone_max_x]
+        rand_zone_point = PARAMETERS[:rand_zone_point_grid].sample
 
-          x_translation = rand(
-            PARAMETERS[:rand_zone_min_x]...
-            PARAMETERS[:rand_zone_max_x]
-          )
-
-        else
-
-          x_translation = PARAMETERS[:rand_zone_min_x]
-
-        end
-
-        if PARAMETERS[:rand_zone_min_y] != PARAMETERS[:rand_zone_max_y]
-
-          y_translation = rand(
-            PARAMETERS[:rand_zone_min_y]...
-            PARAMETERS[:rand_zone_max_y]
-          )
-
-        else
-
-          y_translation = PARAMETERS[:rand_zone_min_y]
-
-        end
-
-        if PARAMETERS[:rand_zone_min_z] != PARAMETERS[:rand_zone_max_z]
-
-          z_translation = rand(
-            PARAMETERS[:rand_zone_min_z]...
-            PARAMETERS[:rand_zone_max_z]
-          )
-
-        else
-
-          z_translation = PARAMETERS[:rand_zone_min_z]
-
-        end
+        x_translation = rand_zone_point.x
+        y_translation = rand_zone_point.y
+        z_translation = rand_zone_point.z
 
       else
 
@@ -140,11 +111,11 @@ module REG
         y_translation = rand(-density...density)
         z_translation = rand(-density...density)
 
-      end
-      
-      if PARAMETERS[:glue_ents_to_ground?]
+        if PARAMETERS[:glue_ents_to_ground?]
 
-        z_translation = 0
+          z_translation = 0
+
+        end
 
       end
 

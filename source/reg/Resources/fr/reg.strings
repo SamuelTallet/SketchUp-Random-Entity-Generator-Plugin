@@ -66,7 +66,10 @@
 // File: selection.rb
 //
 
+"Set Random Zone"="Définir la zone aléatoire";
+"Please select a face, group or component."="Veuillez sélectionner une face, un groupe ou un composant.";
 "Random zone recorded."="Zone aléatoire enregistrée.";
-"No group nor component found in selection."="Aucun groupe ni composant trouvé dans la sélection.";
+"Can't be a random zone: REG plugin supports only quad faces."="Ceci ne peut être une zone aléatoire : le plugin REG prend en charge uniquement les faces quadrilatérales.";
+"Use Quadrilateralizer plugin to convert this face to quad faces."="Utilisez le plugin Quadrilateralizer pour convertir cette face en faces quadrilatérales.";
 "Randomize position/size of selected entities"="Randomiser la position/taille des entités sélectionnées";
 "Randomizing entities... Please wait."="Randomisation des entités en cours... Veuillez patienter.";

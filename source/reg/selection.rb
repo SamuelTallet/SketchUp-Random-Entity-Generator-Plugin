@@ -21,8 +21,8 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
+require 'reg/point_grid'
 require 'reg/entities'
-require 'reg/collisions'
 
 # REG plugin namespace.
 module REG
@@ -35,24 +35,71 @@ module REG
     # @return [nil]
     def self.set_as_random_zone
 
-      selected_entity = Sketchup.active_model.selection.first
+      selected_enties = Sketchup.active_model.selection.grep(Sketchup::Entity)
 
-      return unless selected_entity.is_a?(Sketchup::Drawingelement)
+      begin
 
-      selected_bounding_box = selected_entity.bounds
+        Sketchup.active_model.start_operation(
+          TRANSLATE['Set Random Zone'],
+          true # disable_ui
+        )
 
-      PARAMETERS[:rand_zone_min_x] = selected_bounding_box.min.x
-      PARAMETERS[:rand_zone_max_x] = selected_bounding_box.max.x
+        PARAMETERS[:rand_zone_point_grid] = []
 
-      PARAMETERS[:rand_zone_min_y] = selected_bounding_box.min.y
-      PARAMETERS[:rand_zone_max_y] = selected_bounding_box.max.y
+        selected_enties.each { |selected_entity|
 
-      PARAMETERS[:rand_zone_min_z] = selected_bounding_box.min.z
-      PARAMETERS[:rand_zone_max_z] = selected_bounding_box.max.z
+          if !selected_entity.is_a?(Sketchup::Face)\
+            && !selected_entity.is_a?(Sketchup::Group)\
+              && !selected_entity.is_a?(Sketchup::ComponentInstance)
 
-      UI.messagebox(TRANSLATE['Random zone recorded.'])
+            next
 
-      nil
+          end
+
+          if selected_entity.is_a?(Sketchup::Face)
+
+            PARAMETERS[:rand_zone_point_grid].concat(
+              PointGrid.face(selected_entity, 100)
+            )
+
+          else # if selected entity is a grouponent?
+
+            PARAMETERS[:rand_zone_point_grid].concat(
+              PointGrid.grouponent(selected_entity, 10)
+            )
+
+          end
+
+        }
+
+        Sketchup.active_model.commit_operation
+
+        if PARAMETERS[:rand_zone_point_grid].empty?
+
+          UI.messagebox(TRANSLATE['Please select a face, group or component.'])
+
+        else
+
+          UI.messagebox(TRANSLATE['Random zone recorded.'])
+
+        end
+
+      rescue StandardError => _exception
+
+        Sketchup.active_model.abort_operation
+
+        UI.messagebox(
+          TRANSLATE[
+            'Can\'t be a random zone: REG plugin supports only quad faces.'
+          ] + ' ' +
+          TRANSLATE[
+            'Use Quadrilateralizer plugin to convert this face to quad faces.'
+          ]
+        )
+
+        UI.openURL('http://sketchucation.com/pluginstore?pln=Quadrilateralizer')
+
+      end
 
     end
 
@@ -100,20 +147,25 @@ module REG
 
       if PARAMETERS[:avoid_ent_collision?]
 
-        5.times do
+        # FIXME: Why these param. are incompatible?
+        if PARAMETERS[:rand_zone_point_grid].empty?
 
-          collided_entities = Collisions.detect(generated_entities)
+          5.times do
 
-          collided_entities.each { |collided_entity|
+            collided_entities = Entities.collision_detect(generated_entities)
 
-            Entities.randomize_position_and_size(collided_entity)
+            collided_entities.each { |collided_entity|
 
-          }
+              Entities.randomize_position_and_size(collided_entity)
+
+            }
+
+          end
 
         end
 
         Sketchup.active_model.active_entities.erase_entities(
-          Collisions.detect(generated_entities)
+          Entities.collision_detect(generated_entities)
         )
 
       end

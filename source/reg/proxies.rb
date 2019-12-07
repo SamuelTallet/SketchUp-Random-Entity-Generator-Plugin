@@ -124,18 +124,29 @@ module REG
     # @return [nil]
     def self.erase_real_model
 
-      if !SESSION[:real_compo_object_id].nil?
+      begin
 
-        ObjectSpace._id2ref(SESSION[:real_compo_object_id]).erase!
+        if !SESSION[:real_compo_object_id].nil?
+
+          ObjectSpace._id2ref(SESSION[:real_compo_object_id]).erase!
+
+          SESSION[:real_compo_object_id] = nil
+
+          Sketchup.active_model.definitions.purge_unused
+          
+          Sketchup.active_model.materials.purge_unused
+
+        end
+
+        nil
+        
+      # If real component was already erased:
+      rescue TypeError => _exception
 
         SESSION[:real_compo_object_id] = nil
-
-        Sketchup.active_model.definitions.purge_unused
-
+        
       end
-
-      nil
-
+      
     end
 
   end
