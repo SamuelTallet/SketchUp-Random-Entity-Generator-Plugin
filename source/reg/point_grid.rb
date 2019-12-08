@@ -28,14 +28,14 @@ module REG
   # Grid of points.
   module PointGrid
 
-    # Returns a point grid for a face.
+    # Returns a point grid for a face with normal.
     #
     # @param [Sketchup::Face] face
     # @param [Integer] grid_size
     #
     # @raise [StandardError]
     #
-    # @return [Array<Geom::Point3d>]
+    # @return [Array<Geom::Point3d, Geom::Vector3d>]
     def self.face(face, grid_size = 10)
 
       face_vertices = face.vertices
@@ -45,6 +45,8 @@ module REG
         raise StandardError.new('Only quad faces are supported.')
 
       end
+
+      face_normal = face.normal
 
       lc_points_x = []
       lc_points_y = []
@@ -87,12 +89,17 @@ module REG
           start_lc_count += 1
           end_lc_count -= 1
 
-          face_point_grid.push(Geom.linear_combination(
-            start_lc_count.to_f / grid_size,
-            lc_points_x[lc_point_index],
-            end_lc_count.to_f / grid_size,
-            lc_points_y[lc_point_index]
-          ))
+          face_point_grid.push(
+            [
+              Geom.linear_combination(
+                start_lc_count.to_f / grid_size,
+                lc_points_x[lc_point_index],
+                end_lc_count.to_f / grid_size,
+                lc_points_y[lc_point_index]
+              ),
+              face_normal
+            ]
+          )
 
         end
 
@@ -104,14 +111,14 @@ module REG
 
     end
 
-    # Returns a point grid for a group or component.
+    # Returns a point grid for a group or component with face normal.
     #
     # @param [Sketchup::Group|Sketchup::ComponentInstance] grouponent
     # @raise [ArgumentError]
     #
     # @param [Integer] grid_size
     #
-    # @return [Array<Geom::Point3d>]
+    # @return [Array<Geom::Point3d, Geom::Vector3d>]
     def self.grouponent(grouponent, grid_size = 10)
 
       raise ArgumentError, 'Grouponent parameter is invalid.'\

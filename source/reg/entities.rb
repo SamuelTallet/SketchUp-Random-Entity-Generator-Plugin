@@ -73,13 +73,13 @@ module REG
 
     end
 
-    # Randomizes an entity's position and size.
+    # Randomizes an entity's characteristics.
     #
     # @param [Sketchup::Entity] entity
     # @raise [ArgumentError]
     #
     # @return [Sketchup::Entity]
-    def self.randomize_position_and_size(entity)
+    def self.randomize(entity)
 
       raise ArgumentError, 'Entity parameter must be a Sketchup::Entity.'\
         unless entity.is_a?(Sketchup::Entity)
@@ -89,6 +89,50 @@ module REG
       entity.transform!(Transformations.generate_random_scaling)
 
       entity.transform!(Transformations.generate_random_translation)
+
+      if PARAMETERS[:overwite_ent_colors?]
+
+        randomize_color(entity)
+
+      end
+
+      entity
+
+    end
+
+    # Randomizes an entity's color.
+    #
+    # @param [Sketchup::Entity] entity
+    # @raise [ArgumentError]
+    #
+    # @return [Sketchup::Entity]
+    def self.randomize_color(entity)
+
+      raise ArgumentError, 'Entity parameter must be a Sketchup::Entity.'\
+        unless entity.is_a?(Sketchup::Entity)
+
+      faces_to_paint = []
+
+      if entity.is_a?(Sketchup::Face)
+
+        faces_to_paint.push(entity)
+
+      elsif entity.is_a?(Sketchup::Group)
+
+        faces_to_paint = entity.entities.grep(Sketchup::Face)
+
+      elsif entity.is_a?(Sketchup::ComponentInstance)
+
+        faces_to_paint = entity.definition.entities.grep(Sketchup::Face)
+
+      end
+
+      faces_to_paint.each { |face_to_paint|
+
+        face_to_paint.material = Materials.generate_random
+        face_to_paint.back_material = face_to_paint.material
+
+      }
 
       entity
 
@@ -103,7 +147,7 @@ module REG
 
       group.material = Materials.generate_random
 
-      randomize_position_and_size(group)
+      randomize(group)
 
     end
 

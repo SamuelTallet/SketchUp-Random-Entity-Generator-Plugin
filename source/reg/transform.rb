@@ -33,7 +33,18 @@ module REG
     # @return [Geom::Transformation]
     def self.generate_random_rotation
 
-      return Geom::Transformation.new unless PARAMETERS[:rotate_entities?]
+      return Geom::Transformation.new if PARAMETERS[:glue_ents_to_faces?]
+
+      if PARAMETERS[:entity_min_rotation] == PARAMETERS[:entity_max_rotation]
+
+        angle = PARAMETERS[:entity_min_rotation]
+
+      else
+
+        angle = rand(PARAMETERS[:entity_min_rotation]...
+          PARAMETERS[:entity_max_rotation])
+
+      end
 
       if PARAMETERS[:glue_ents_to_ground?]\
         || !PARAMETERS[:rand_zone_point_grid].empty?
@@ -44,25 +55,19 @@ module REG
 
           Z_AXIS,
 
-          rand(0...359).degrees
+          angle.degrees
 
         )
 
       else
 
-        density = PARAMETERS[:entity_density] * '1m'.to_l
-
         return Geom::Transformation.rotation(
 
-          Geom::Point3d.new(
-            rand(-density...density),
-            rand(-density...density),
-            rand(-density...density)
-          ),
+          Geom::Point3d.new,
 
           Geom::Vector3d.new(rand(0.1...1), rand(0.1...1), rand(0.1...1)),
 
-          rand(0...359).degrees
+          angle.degrees
 
         )
 
@@ -97,11 +102,22 @@ module REG
 
       if !PARAMETERS[:rand_zone_point_grid].empty?
 
-        rand_zone_point = PARAMETERS[:rand_zone_point_grid].sample
+        rand_zone_seed = PARAMETERS[:rand_zone_point_grid].sample
 
-        x_translation = rand_zone_point.x
-        y_translation = rand_zone_point.y
-        z_translation = rand_zone_point.z
+        rand_zone_position = rand_zone_seed[0]
+        rand_zone_normal = rand_zone_seed[1]
+
+        if PARAMETERS[:glue_ents_to_faces?]
+
+          return Geom::Transformation.new(rand_zone_position, rand_zone_normal)
+
+        else
+
+          x_translation = rand_zone_position.x
+          y_translation = rand_zone_position.y
+          z_translation = rand_zone_position.z
+
+        end
 
       else
 

@@ -44,14 +44,17 @@
 //
 
 "Entity count to generate"="Nombre d'entités à générer";
-"Rotate entities?"="Pivoter les entités ?";
+"Entity minimum rotation"="Rotation minimale des entités";
+"Entity maximum rotation"="Rotation maximale des entités";
 "Yes"="Oui";
 "No"="Non";
 "Entity minimum size"="Taille minimale des entités";
 "Entity maximum size"="Taille maximale des entités";
 "Entity density"="Densité des entités";
 "Glue entities to ground?"="Coller les entités au sol ?";
+"Glue entities to faces?"="Coller les entités aux faces ?";
 "Avoid entity collision?"="Éviter les collisions d'entités ?";
+"Overwrite entity colors?"="Écraser les couleurs des entités ?";
 
 //
 // File: proxies.rb
@@ -67,9 +70,11 @@
 //
 
 "Set Random Zone"="Définir la zone aléatoire";
-"Please select a face, group or component."="Veuillez sélectionner une face, un groupe ou un composant.";
+"Please select one or many faces."="Veuillez sélectionner une ou plusieurs faces.";
+"Defining Random Zone... Please wait."="Définition d'une zone aléatoire en cours... Veuillez patienter.";
+"Error: Random Zone can't exceed 100 000 000 points."="Erreur : La zone aléatoire ne peut dépasser 100 000 000 de points.";
 "Surface well added to Random Zone list."="Surface bien ajoutée à la liste des zones aléatoires.";
 "Can't be a random zone: REG plugin supports only quad faces."="Ceci ne peut être une zone aléatoire : le plugin REG prend en charge uniquement les faces quadrilatérales.";
 "Use Quadrilateralizer plugin to convert this face to quad faces."="Utilisez le plugin Quadrilateralizer pour convertir cette face en faces quadrilatérales.";
-"Randomize position/size of selected entities"="Randomiser la position/taille des entités sélectionnées";
+"Randomize selected entities"="Randomiser les entités sélectionnées";
 "Randomizing entities... Please wait."="Randomisation des entités en cours... Veuillez patienter.";

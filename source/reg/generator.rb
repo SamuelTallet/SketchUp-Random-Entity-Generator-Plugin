@@ -57,7 +57,7 @@ module REG
 
             collided_entities.each { |collided_entity|
 
-              Entities.randomize_position_and_size(collided_entity)
+              Entities.randomize(collided_entity)
 
             }
 

@@ -39,35 +39,45 @@ module REG
 
         default_params[:entity_density] = TRANSLATE['Inapplicable']
         default_params[:glue_ents_to_ground] = TRANSLATE['Inapplicable']
-        
+        default_params[:glue_ents_to_faces] = TRANSLATE['Yes']
+
       end
 
       parameters = UI.inputbox(
 
         [
           TRANSLATE['Entity count to generate'] + ' ',
-          TRANSLATE['Rotate entities?'],
+          TRANSLATE['Entity minimum rotation'],
+          TRANSLATE['Entity maximum rotation'],
           TRANSLATE['Entity minimum size'],
           TRANSLATE['Entity maximum size'],
           TRANSLATE['Entity density'],
           TRANSLATE['Glue entities to ground?'],
-          TRANSLATE['Avoid entity collision?']
+          TRANSLATE['Glue entities to faces?'],
+          TRANSLATE['Avoid entity collision?'],
+          TRANSLATE['Overwrite entity colors?']
         ], # Prompts
 
         [
           default_params[:entity_count],
-          default_params[:rotate_entities],
+          default_params[:entity_min_rotation],
+          default_params[:entity_max_rotation],
           default_params[:entity_min_size],
           default_params[:entity_max_size],
           default_params[:entity_density],
           default_params[:glue_ents_to_ground],
-          default_params[:avoid_ent_collision]
+          default_params[:glue_ents_to_faces],
+          default_params[:avoid_ent_collision],
+          default_params[:overwite_ent_colors]
         ], # Defaults
 
         [
-          '', TRANSLATE['Yes'] + '|' + TRANSLATE['No'], '', '', '',
+          '', '', '', '', '', '',
+          TRANSLATE['Yes'] + '|' + TRANSLATE['No'] + '|' + 
+            TRANSLATE['Inapplicable'],
           TRANSLATE['Yes'] + '|' + TRANSLATE['No'] + '|' +
-          TRANSLATE['Inapplicable'],
+            TRANSLATE['Inapplicable'],
+          TRANSLATE['Yes'] + '|' + TRANSLATE['No'],
           TRANSLATE['Yes'] + '|' + TRANSLATE['No']
         ], # List
 
@@ -79,18 +89,28 @@ module REG
       return false if parameters == false
 
       PARAMETERS[:entity_count] = parameters[0].to_i
-      PARAMETERS[:rotate_entities?] = (parameters[1] == TRANSLATE['Yes'])
-      PARAMETERS[:entity_min_size] = parameters[2].to_f
-      PARAMETERS[:entity_max_size] = parameters[3].to_f
+      
+      PARAMETERS[:entity_min_rotation] = parameters[1].to_f
+      PARAMETERS[:entity_max_rotation] = parameters[2].to_f
+
+      PARAMETERS[:entity_min_size] = parameters[3].to_f
+      PARAMETERS[:entity_max_size] = parameters[4].to_f
 
       if PARAMETERS[:rand_zone_point_grid].empty?
 
-        PARAMETERS[:entity_density] = parameters[4].to_f
-        PARAMETERS[:glue_ents_to_ground?] = (parameters[5] == TRANSLATE['Yes'])
+        PARAMETERS[:entity_density] = parameters[5].to_f
+        
+        PARAMETERS[:glue_ents_to_ground?] = (parameters[6] == TRANSLATE['Yes'])
+
+      else
+
+        PARAMETERS[:glue_ents_to_faces?] = (parameters[7] == TRANSLATE['Yes'])
 
       end
 
-      PARAMETERS[:avoid_ent_collision?] = (parameters[6] == TRANSLATE['Yes'])
+      PARAMETERS[:avoid_ent_collision?] = (parameters[8] == TRANSLATE['Yes'])
+
+      PARAMETERS[:overwite_ent_colors?] = (parameters[9] == TRANSLATE['Yes'])
 
       true
 
@@ -102,12 +122,21 @@ module REG
     def self.reset
 
       PARAMETERS[:entity_count]         = 100
-      PARAMETERS[:rotate_entities?]     = TRANSLATE['Yes']
+
+      PARAMETERS[:entity_min_rotation]  = 0.0
+      PARAMETERS[:entity_max_rotation]  = 359.0
+
       PARAMETERS[:entity_min_size]      = -10.0
       PARAMETERS[:entity_max_size]      = 10.0
+
       PARAMETERS[:entity_density]       = 10.0
-      PARAMETERS[:glue_ents_to_ground?] = TRANSLATE['No']
-      PARAMETERS[:avoid_ent_collision?] = TRANSLATE['No']
+
+      PARAMETERS[:glue_ents_to_ground?] = false
+      PARAMETERS[:glue_ents_to_faces?]  = false
+
+      PARAMETERS[:avoid_ent_collision?] = false
+
+      PARAMETERS[:overwite_ent_colors?] = false
 
       reset_random_zone
 

@@ -37,17 +37,11 @@ module REG
 
       model = Sketchup.active_model
 
-      selected_enties = model.selection.find_all { |selected_entity|
+      selected_faces = model.selection.grep(Sketchup::Face)
 
-        selected_entity.is_a?(Sketchup::Face)\
-          || selected_entity.is_a?(Sketchup::Group)\
-            || selected_entity.is_a?(Sketchup::ComponentInstance)
+      if selected_faces.empty?
 
-      }
-
-      if selected_enties.empty?
-
-        UI.messagebox(TRANSLATE['Please select a face, group or component.'])
+        UI.messagebox(TRANSLATE['Please select one or many faces.'])
 
         return
 
@@ -60,25 +54,31 @@ module REG
           true # disable_ui
         )
 
-        selected_enties.each { |selected_entity|
+        Sketchup.status_text = TRANSLATE['Defining Random Zone... Please wait.']
 
-          if selected_entity.is_a?(Sketchup::Face)
+        selected_faces.each { |selected_face|
 
-            PARAMETERS[:rand_zone_point_grid].concat(
-              PointGrid.face(selected_entity, 100)
+          if PARAMETERS[:rand_zone_point_grid].size >= 100000000
+
+            PARAMETERS[:rand_zone_point_grid] = []
+
+            UI.messagebox(
+              TRANSLATE['Error: Random Zone can\'t exceed 100 000 000 points.']
             )
 
-          else # if selected entity is a grouponent?
-
-            PARAMETERS[:rand_zone_point_grid].concat(
-              PointGrid.grouponent(selected_entity, 10)
-            )
+            return
 
           end
+
+          PARAMETERS[:rand_zone_point_grid].concat(
+            PointGrid.face(selected_face, 100)
+          )
 
         }
 
         model.commit_operation
+
+        Sketchup.status_text = nil
 
         UI.messagebox(TRANSLATE['Surface well added to Random Zone list.'])
 
@@ -87,6 +87,8 @@ module REG
       rescue StandardError => _exception
 
         model.abort_operation
+
+        Sketchup.status_text = nil
 
         UI.messagebox(
           TRANSLATE[
@@ -129,7 +131,7 @@ module REG
       end
 
       Sketchup.active_model.start_operation(
-        TRANSLATE['Randomize position/size of selected entities'],
+        TRANSLATE['Randomize selected entities'],
         true # disable_ui
       )
 
@@ -139,7 +141,7 @@ module REG
 
       PARAMETERS[:entity_count].times do
 
-        generated_entities.push(Entities.randomize_position_and_size(
+        generated_entities.push(Entities.randomize(
           Entities.clone_grouponent(selected_grouponents.sample)
         ))
 
@@ -156,7 +158,7 @@ module REG
 
             collided_entities.each { |collided_entity|
 
-              Entities.randomize_position_and_size(collided_entity)
+              Entities.randomize(collided_entity)
 
             }
 

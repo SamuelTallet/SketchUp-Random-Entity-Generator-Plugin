@@ -47,12 +47,15 @@ module REG
         if Parameters.set({
 
           :entity_count         => 100,
-          :rotate_entities      => TRANSLATE['Yes'],
+          :entity_min_rotation  => 0.0,
+          :entity_max_rotation  => 359.0,
           :entity_min_size      => -10.0,
           :entity_max_size      => 10.0,
           :entity_density       => 10.0,
           :glue_ents_to_ground  => TRANSLATE['No'],
-          :avoid_ent_collision  => TRANSLATE['No']
+          :glue_ents_to_faces   => TRANSLATE['Inapplicable'],
+          :avoid_ent_collision  => TRANSLATE['No'],
+          :overwite_ent_colors  => TRANSLATE['No']
 
         })
 
