@@ -30,31 +30,37 @@ module REG
   # Secondary instance.
   class Selection
 
-    # Sets selection as random zone.
+    # Sets selection as one more random zone.
     #
     # @return [nil]
     def self.set_as_random_zone
 
-      selected_enties = Sketchup.active_model.selection.grep(Sketchup::Entity)
+      model = Sketchup.active_model
+
+      selected_enties = model.selection.find_all { |selected_entity|
+
+        selected_entity.is_a?(Sketchup::Face)\
+          || selected_entity.is_a?(Sketchup::Group)\
+            || selected_entity.is_a?(Sketchup::ComponentInstance)
+
+      }
+
+      if selected_enties.empty?
+
+        UI.messagebox(TRANSLATE['Please select a face, group or component.'])
+
+        return
+
+      end
 
       begin
 
-        Sketchup.active_model.start_operation(
+        model.start_operation(
           TRANSLATE['Set Random Zone'],
           true # disable_ui
         )
 
-        PARAMETERS[:rand_zone_point_grid] = []
-
         selected_enties.each { |selected_entity|
-
-          if !selected_entity.is_a?(Sketchup::Face)\
-            && !selected_entity.is_a?(Sketchup::Group)\
-              && !selected_entity.is_a?(Sketchup::ComponentInstance)
-
-            next
-
-          end
 
           if selected_entity.is_a?(Sketchup::Face)
 
@@ -72,21 +78,15 @@ module REG
 
         }
 
-        Sketchup.active_model.commit_operation
+        model.commit_operation
 
-        if PARAMETERS[:rand_zone_point_grid].empty?
+        UI.messagebox(TRANSLATE['Surface well added to Random Zone list.'])
 
-          UI.messagebox(TRANSLATE['Please select a face, group or component.'])
-
-        else
-
-          UI.messagebox(TRANSLATE['Random zone recorded.'])
-
-        end
+        nil
 
       rescue StandardError => _exception
 
-        Sketchup.active_model.abort_operation
+        model.abort_operation
 
         UI.messagebox(
           TRANSLATE[

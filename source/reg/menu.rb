@@ -74,7 +74,7 @@ module REG
 
       }
 
-      @menu.add_item(TRANSLATE['Forget the Random Zone']) {
+      @menu.add_item(TRANSLATE['Forget the Random Zones']) {
 
         Parameters.reset_random_zone
 

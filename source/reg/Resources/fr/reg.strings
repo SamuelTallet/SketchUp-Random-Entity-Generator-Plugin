@@ -36,7 +36,7 @@
 "Generate Random Entities..."="Générer des entités aléatoires...";
 "Create a Proxy for Enscape..."="Créer un proxy pour Enscape...";
 "Erase Real Model of Proxy"="Effacer le modèle réel du proxy";
-"Forget the Random Zone"="Oublier la zone aléatoire";
+"Forget the Random Zones"="Oublier les zones aléatoires";
 "Donate to Plugin Author"="Faire un don à l'auteur de l'extension";
 
 //
@@ -68,7 +68,7 @@
 
 "Set Random Zone"="Définir la zone aléatoire";
 "Please select a face, group or component."="Veuillez sélectionner une face, un groupe ou un composant.";
-"Random zone recorded."="Zone aléatoire enregistrée.";
+"Surface well added to Random Zone list."="Surface bien ajoutée à la liste des zones aléatoires.";
 "Can't be a random zone: REG plugin supports only quad faces."="Ceci ne peut être une zone aléatoire : le plugin REG prend en charge uniquement les faces quadrilatérales.";
 "Use Quadrilateralizer plugin to convert this face to quad faces."="Utilisez le plugin Quadrilateralizer pour convertir cette face en faces quadrilatérales.";
 "Randomize position/size of selected entities"="Randomiser la position/taille des entités sélectionnées";
