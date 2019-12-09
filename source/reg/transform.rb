@@ -33,8 +33,6 @@ module REG
     # @return [Geom::Transformation]
     def self.generate_random_rotation
 
-      return Geom::Transformation.new if PARAMETERS[:glue_ents_to_faces?]
-
       if PARAMETERS[:entity_min_rotation] == PARAMETERS[:entity_max_rotation]
 
         angle = PARAMETERS[:entity_min_rotation]
@@ -47,7 +45,8 @@ module REG
       end
 
       if PARAMETERS[:glue_ents_to_ground?]\
-        || !PARAMETERS[:rand_zone_point_grid].empty?
+        || PARAMETERS[:glue_ents_to_faces?]\
+          || !PARAMETERS[:rand_zone_point_grid].empty?
 
         return Geom::Transformation.rotation(
 
