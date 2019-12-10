@@ -90,6 +90,19 @@ module REG
 
     end
 
+    # Returns all proxy names stored in proxy library.
+    # 
+    # @return [Array<String>]
+    def self.names_stored_in_library
+
+      [
+        'Alaska Cedar', 'Azalea', 'Bolete',
+        'Conifer', 'European Birch', 'Grass Block',
+        'Pink Daisy Flower', 'Plane', 'White Daisy Flower'
+      ]
+
+    end
+
     # Shows "REG Proxy Library Explorer" HTML dialog.
     #
     # @return [void]
