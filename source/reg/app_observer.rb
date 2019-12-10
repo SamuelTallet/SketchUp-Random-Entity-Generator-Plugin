@@ -23,6 +23,7 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 require 'sketchup'
 require 'reg/model_observer'
 require 'reg/parameters'
+require 'reg/proxies'
 
 # REG plugin namespace.
 module REG
@@ -45,6 +46,14 @@ module REG
       model.add_observer(ModelObserver.new)
 
       Parameters.reset
+
+    end
+
+    # When SketchUp user turns off an extension:
+    def onUnloadExtension(extension_name)
+
+      # Uninstalls proxy library if it's about REG.
+      Proxies.uninstall_library if extension_name == NAME
 
     end
 

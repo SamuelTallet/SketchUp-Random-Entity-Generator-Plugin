@@ -44,7 +44,7 @@ module REG
 
       if !SESSION[:proxy_model_path].nil?
 
-        Proxies.create_enscape_proxy_p2(component)
+        Proxies.create_for_enscape_part2(component)
 
       end
 

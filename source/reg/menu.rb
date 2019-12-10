@@ -42,6 +42,26 @@ module REG
 
       @menu = parent_menu.add_submenu('🎲 ' + TRANSLATE[NAME])
 
+      menu_item = @menu.add_item('▣ ' + TRANSLATE['Explore Proxy Library...']) {
+
+        Proxies.show_library_html_dialog
+
+      }
+
+      @menu.set_validation_proc(menu_item) {
+
+        if Sketchup.platform == :platform_osx
+
+          MF_GRAYED
+
+        else
+
+          MF_ENABLED
+          
+        end
+
+      }
+
       @menu.add_item(TRANSLATE['Generate Random Entities...']) {
 
         if Parameters.set({
@@ -65,9 +85,9 @@ module REG
         
       }
 
-      @menu.add_item('▣ ' + TRANSLATE['Create a Proxy for Enscape...']) {
+      @menu.add_item(TRANSLATE['Create a Proxy for Enscape...']) {
 
-        Proxies.create_enscape_proxy_p1
+        Proxies.create_for_enscape_part1
 
       }
 

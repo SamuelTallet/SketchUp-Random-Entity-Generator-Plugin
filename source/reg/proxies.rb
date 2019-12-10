@@ -21,8 +21,9 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
-require 'reg/shapes'
 require 'fileutils'
+require 'reg/html_dialogs'
+require 'reg/shapes'
 require 'reg/materials'
 
 # REG plugin namespace.
@@ -31,13 +32,110 @@ module REG
   # Proxies.
   module Proxies
 
+    # Absolute path to proxy library (plugin folder).
+    PLUGIN_LIB_DIR = File.join(__dir__, 'Proxy Library').freeze
+
+    # Absolute path to proxy library (program folder).
+    PROGRAM_LIB_DIR = 'C:\\ProgramData\\Random Entity Generator\\Library'.freeze
+
     # Attributes dictionary name.
     ATTR_DICT_NAME = 'RandomEntityGenerator.Proxy'.freeze
+
+    # Installs proxy library.
+    #
+    # XXX Only on Windows.
+    #
+    # @return [Boolean] true on success...
+    def self.install_library
+
+      if Sketchup.platform == :platform_osx || File.exists?(PROGRAM_LIB_DIR)
+
+        return false
+
+      end
+
+      FileUtils.mkdir_p(PROGRAM_LIB_DIR)
+
+      Dir.foreach(PLUGIN_LIB_DIR) do |filename|
+
+        next if filename == '.' || filename == '..'
+
+        FileUtils.cp(
+          File.join(PLUGIN_LIB_DIR, filename), # source
+          File.join(PROGRAM_LIB_DIR, filename) # destination
+        )
+
+      end
+
+      true
+
+    end
+
+    # Uninstalls proxy library.
+    #
+    # XXX Only on Windows.
+    #
+    # @return [Boolean] true on success...
+    def self.uninstall_library
+
+      if Sketchup.platform == :platform_osx
+
+        return false
+
+      end
+
+      FileUtils.remove_dir(PROGRAM_LIB_DIR, true)
+
+      true
+
+    end
+
+    # Shows "REG Proxy Library Explorer" HTML dialog.
+    #
+    # @return [void]
+    def self.show_library_html_dialog
+
+      html_dialog = UI::HtmlDialog.new(
+
+        dialog_title:    TRANSLATE['REG Proxy Library Explorer'],
+        preferences_key: 'REG',
+        scrollable:      true,
+        width:           950,
+        height:          500,
+        min_width:       950,
+        min_height:      500
+
+      )
+
+      html_dialog.set_html(HTMLDialogs.merge(
+
+        # Note: Paths below are relative to `HTMLDialogs::DIR`.
+        document: 'proxy-library-explorer.rhtml',
+        scripts: ['proxy-library-explorer.js'],
+        styles: ['proxy-library-explorer.css']
+
+      ))
+
+      html_dialog.add_action_callback('importProxy') do |_context, proxy_ref|
+
+        html_dialog.close
+
+        Sketchup.active_model.import(
+          File.join(PROGRAM_LIB_DIR, proxy_ref + '.skp')
+        )
+        
+      end
+
+      html_dialog.center
+
+      html_dialog.show
+
+    end
 
     # Creates a proxy for Enscape (Part #1).
     #
     # @return [nil]
-    def self.create_enscape_proxy_p1
+    def self.create_for_enscape_part1
 
       proxy_model_path = UI.openpanel(
         TRANSLATE['Select a SketchUp Model'],
@@ -63,7 +161,7 @@ module REG
     # @param [Sketchup::ComponentInstance] real_component
     #
     # @return [nil]
-    def self.create_enscape_proxy_p2(real_component)
+    def self.create_for_enscape_part2(real_component)
 
       Sketchup.active_model.start_operation(
         TRANSLATE['Create an Enscape proxy'],

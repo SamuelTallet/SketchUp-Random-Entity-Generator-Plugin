@@ -33,6 +33,7 @@
 // File: menu.rb
 //
 
+"Explore Proxy Library..."="Explorer la bibliothèque de proxys...";
 "Generate Random Entities..."="Générer des entités aléatoires...";
 "Create a Proxy for Enscape..."="Créer un proxy pour Enscape...";
 "Erase Real Model of Proxy"="Effacer le modèle réel du proxy";
@@ -60,10 +61,27 @@
 // File: proxies.rb
 //
 
+"REG Proxy Library Explorer"="Explorateur de la bibliothèque de proxys REG";
 "Select a SketchUp Model"="Sélectionnez un modèle SketchUp";
 "SketchUp Models"="Modèles SketchUp";
 "Create an Enscape proxy"="Créer un proxy Enscape";
 "To optimize SketchUp model weight, run: Erase Real Model of Proxy."="Pour optimiser le poids du modèle SketchUp, lancez : Effacer le modèle réel du proxy.";
+
+//
+// File: proxy-library-explorer.rhtml
+//
+
+"Alaska Cedar"="Cèdre d'Alaska";
+"Azalea"="Azalée";
+"Bolete"="Bolet";
+"Conifer"="Conifère";
+"European Birch"="Bouleau européen";
+"Grass Block"="Bloc d'herbe";
+"Pink Daisy Flower"="Marguerite rose";
+"Plane"="Platane";
+"White Daisy Flower"="Marguerite blanche";
+"Import this model as Enscape proxy."="Importer ce modèle en tant que proxy Enscape.";
+"Import this model as V-Ray proxy."="Importer ce modèle en tant que proxy V-Ray.";
 
 //
 // File: selection.rb

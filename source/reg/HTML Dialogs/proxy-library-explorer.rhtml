@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="<%= Sketchup.get_locale %>">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="x-copyright" content="© 2019 Samuel Tallet">
+    <meta name="x-license" content="GNU General Public License 3.0">
+
+	<title><%= TRANSLATE['REG Proxy Library Explorer'] %></title>
+
+	<%= scripts['proxy-library-explorer.js'] %>
+
+	<%= styles['proxy-library-explorer.css'] %>
+
+</head>
+
+<body>
+
+	<div class="reg-proxies">
+
+		<% proxy_names = ['Alaska Cedar', 'Azalea', 'Bolete', 'Conifer', 'European Birch', 'Grass Block', 'Pink Daisy Flower', 'Plane', 'White Daisy Flower'] %>
+
+		<% proxy_names.each do |proxy_name| %>
+
+			<div class="reg-proxy">
+
+				<img class="reg-proxy-thumbnail" src="<%= File.join(REG::HTMLDialogs::DIR, 'images', proxy_name + '.jpg') %>" />
+
+				<div class="reg-proxy-title"><%= TRANSLATE[proxy_name] %></div>
+
+				<div class="reg-proxy-import-buttons">
+
+					<button class="reg-proxy-import-button first" data-proxy-ref="<%= proxy_name %> (Enscape Proxy)" title="<%= TRANSLATE['Import this model as Enscape proxy.'] %>"><img src="<%= File.join(REG::HTMLDialogs::DIR, 'images', 'Enscape Logo.png') %>" /></button>
+
+					<button class="reg-proxy-import-button last" data-proxy-ref="<%= proxy_name %> (V-Ray Proxy)" title="<%= TRANSLATE['Import this model as V-Ray proxy.'] %>"><img src="<%= File.join(REG::HTMLDialogs::DIR, 'images', 'V-Ray Logo.png') %>" /></button>
+
+				</div>
+
+			</div>
+
+		<% end %>
+
+	</div>
+
+</body>
+
+</html>

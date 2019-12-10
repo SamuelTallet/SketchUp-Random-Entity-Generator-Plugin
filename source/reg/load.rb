@@ -24,6 +24,7 @@ require 'sketchup'
 require 'reg/app_observer'
 require 'reg/model_observer'
 require 'reg/parameters'
+require 'reg/proxies'
 require 'reg/menu'
 require 'reg/context_menu'
 
@@ -34,6 +35,8 @@ module REG
   Sketchup.active_model.add_observer(ModelObserver.new)
 
   Parameters.reset
+
+  Proxies.install_library
 
   # Plugs REG menus into SketchUp UI.
 

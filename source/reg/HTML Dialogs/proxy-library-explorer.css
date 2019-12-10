@@ -1,0 +1,53 @@
+/**
+ * REG Proxy Library Explorer.
+ *
+ * Package: REG extension for SketchUp
+ *
+ * Copyright: © 2019 Samuel Tallet
+ *
+ * Licence: GNU General Public License 3.0
+ */
+
+.reg-proxy {
+
+    float: left;
+    margin-top: 30px;
+
+}
+
+.reg-proxy-title {
+
+    font-family: Arial, sans-serif;
+	text-align: center;
+
+ }
+
+.reg-proxy-import-buttons {
+
+	display: flex;
+
+}
+
+.reg-proxy-import-button {
+
+	flex-grow: 1;
+
+	margin-top: 5px;
+	margin-bottom: 5px;
+
+	cursor: pointer;
+
+}
+
+.reg-proxy-import-button.first {
+
+	margin-left: 20px;
+	margin-right: 10px;
+
+}
+
+.reg-proxy-import-button.last {
+
+	margin-right: 20px;
+
+}
