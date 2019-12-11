@@ -56,25 +56,53 @@ module REG
 
         Sketchup.status_text = TRANSLATE['Defining Random Zone... Please wait.']
 
-        selected_faces.each { |selected_face|
+        altitude_parameter = UI.inputbox(
 
-          if PARAMETERS[:rand_zone_point_grid].size >= 100000000
+           [TRANSLATE['Entity max. altitude (m)']], # Prompt
+           [0], # Default
+           TRANSLATE[NAME] # Title
 
-            PARAMETERS[:rand_zone_point_grid] = []
+        )
 
-            UI.messagebox(
-              TRANSLATE['Error: Random Zone can\'t exceed 100 000 000 points.']
+        # Escapes if user cancelled operation.
+        return if altitude_parameter == false
+
+        PARAMETERS[:entity_max_altitude] =
+          altitude_parameter[0].to_s.concat('m').to_l
+
+        # XXX High density point grid:
+        if selected_faces.size <= 100
+
+          selected_faces.each { |selected_face|
+
+            PARAMETERS[:rand_zone_point_grid].concat(
+              PointGrid.face(selected_face, 100)
             )
 
-            return
+          }
 
-          end
+        # XXX Low density point grid:
+        else
 
-          PARAMETERS[:rand_zone_point_grid].concat(
-            PointGrid.face(selected_face, 100)
-          )
+          selected_faces.each { |selected_face|
 
-        }
+            selected_face_point = selected_face.bounds.center
+
+            next if PARAMETERS[:entity_max_altitude] != 0\
+              && selected_face_point.z > PARAMETERS[:entity_max_altitude]
+
+            PARAMETERS[:rand_zone_point_grid].concat([
+
+              [
+                selected_face_point,
+                selected_face.normal
+              ]
+
+            ])
+
+          }
+
+        end
 
         model.commit_operation
 

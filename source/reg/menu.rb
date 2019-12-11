@@ -71,6 +71,7 @@ module REG
           :entity_max_rotation  => 359.0,
           :entity_min_size      => -10.0,
           :entity_max_size      => 10.0,
+          :entity_max_altitude  => 0,
           :entity_density       => 10.0,
           :glue_ents_to_ground  => TRANSLATE['No'],
           :glue_ents_to_faces   => TRANSLATE['Inapplicable'],

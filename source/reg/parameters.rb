@@ -37,9 +37,10 @@ module REG
 
       if !PARAMETERS[:rand_zone_point_grid].empty?
 
+        default_params[:entity_max_altitude] = TRANSLATE['Already set']
         default_params[:entity_density] = TRANSLATE['Inapplicable']
         default_params[:glue_ents_to_ground] = TRANSLATE['Inapplicable']
-        default_params[:glue_ents_to_faces] = TRANSLATE['Yes']
+        default_params[:glue_ents_to_faces] = TRANSLATE['No']
 
       end
 
@@ -51,6 +52,7 @@ module REG
           TRANSLATE['Entity maximum rotation'],
           TRANSLATE['Entity minimum size'],
           TRANSLATE['Entity maximum size'],
+          TRANSLATE['Entity max. altitude (m)'],
           TRANSLATE['Entity density'],
           TRANSLATE['Glue entities to ground?'],
           TRANSLATE['Glue entities to faces?'],
@@ -64,6 +66,7 @@ module REG
           default_params[:entity_max_rotation],
           default_params[:entity_min_size],
           default_params[:entity_max_size],
+          default_params[:entity_max_altitude],
           default_params[:entity_density],
           default_params[:glue_ents_to_ground],
           default_params[:glue_ents_to_faces],
@@ -72,7 +75,7 @@ module REG
         ], # Defaults
 
         [
-          '', '', '', '', '', '',
+          '', '', '', '', '', '', '',
           TRANSLATE['Yes'] + '|' + TRANSLATE['No'] + '|' + 
             TRANSLATE['Inapplicable'],
           TRANSLATE['Yes'] + '|' + TRANSLATE['No'] + '|' +
@@ -90,27 +93,29 @@ module REG
 
       PARAMETERS[:entity_count] = parameters[0].to_i
       
-      PARAMETERS[:entity_min_rotation] = parameters[1].to_f
-      PARAMETERS[:entity_max_rotation] = parameters[2].to_f
+      PARAMETERS[:entity_min_rotation] = parameters[1].to_f.degrees
+      PARAMETERS[:entity_max_rotation] = parameters[2].to_f.degrees
 
       PARAMETERS[:entity_min_size] = parameters[3].to_f
       PARAMETERS[:entity_max_size] = parameters[4].to_f
 
       if PARAMETERS[:rand_zone_point_grid].empty?
 
-        PARAMETERS[:entity_density] = parameters[5].to_f
+        PARAMETERS[:entity_max_altitude] = parameters[5].to_s.concat('m').to_l
+
+        PARAMETERS[:entity_density] = parameters[6].to_f
         
-        PARAMETERS[:glue_ents_to_ground?] = (parameters[6] == TRANSLATE['Yes'])
+        PARAMETERS[:glue_ents_to_ground?] = (parameters[7] == TRANSLATE['Yes'])
 
       else
 
-        PARAMETERS[:glue_ents_to_faces?] = (parameters[7] == TRANSLATE['Yes'])
+        PARAMETERS[:glue_ents_to_faces?] = (parameters[8] == TRANSLATE['Yes'])
 
       end
 
-      PARAMETERS[:avoid_ent_collision?] = (parameters[8] == TRANSLATE['Yes'])
+      PARAMETERS[:avoid_ent_collision?] = (parameters[9] == TRANSLATE['Yes'])
 
-      PARAMETERS[:overwite_ent_colors?] = (parameters[9] == TRANSLATE['Yes'])
+      PARAMETERS[:overwite_ent_colors?] = (parameters[10] == TRANSLATE['Yes'])
 
       true
 
@@ -123,12 +128,13 @@ module REG
 
       PARAMETERS[:entity_count]         = 100
 
-      PARAMETERS[:entity_min_rotation]  = 0.0
-      PARAMETERS[:entity_max_rotation]  = 359.0
+      PARAMETERS[:entity_min_rotation]  = 0.0.degrees
+      PARAMETERS[:entity_max_rotation]  = 359.0.degrees
 
       PARAMETERS[:entity_min_size]      = -10.0
       PARAMETERS[:entity_max_size]      = 10.0
 
+      PARAMETERS[:entity_max_altitude]  = 0.to_l
       PARAMETERS[:entity_density]       = 10.0
 
       PARAMETERS[:glue_ents_to_ground?] = false

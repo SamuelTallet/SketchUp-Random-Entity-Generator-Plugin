@@ -89,14 +89,19 @@ module REG
           start_lc_count += 1
           end_lc_count -= 1
 
+          face_point = Geom.linear_combination(
+            start_lc_count.to_f / grid_size,
+            lc_points_x[lc_point_index],
+            end_lc_count.to_f / grid_size,
+            lc_points_y[lc_point_index]
+          )
+
+          next if PARAMETERS[:entity_max_altitude] != 0\
+            && face_point.z > PARAMETERS[:entity_max_altitude]
+
           face_point_grid.push(
             [
-              Geom.linear_combination(
-                start_lc_count.to_f / grid_size,
-                lc_points_x[lc_point_index],
-                end_lc_count.to_f / grid_size,
-                lc_points_y[lc_point_index]
-              ),
+              face_point,
               face_normal
             ]
           )

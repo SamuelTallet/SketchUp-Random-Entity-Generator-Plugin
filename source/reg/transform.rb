@@ -54,7 +54,7 @@ module REG
 
           Z_AXIS,
 
-          angle.degrees
+          angle
 
         )
 
@@ -66,7 +66,7 @@ module REG
 
           Geom::Vector3d.new(rand(0.1...1), rand(0.1...1), rand(0.1...1)),
 
-          angle.degrees
+          angle
 
         )
 
@@ -124,11 +124,25 @@ module REG
 
         x_translation = rand(-density...density)
         y_translation = rand(-density...density)
-        z_translation = rand(-density...density)
 
-        if PARAMETERS[:glue_ents_to_ground?]
+        if PARAMETERS[:entity_max_altitude] != 0
 
-          z_translation = 0
+          z_translation = rand(
+            -density...
+            PARAMETERS[:entity_max_altitude]
+          )
+
+        else
+
+          if PARAMETERS[:glue_ents_to_ground?]
+
+            z_translation = 0
+
+          else
+
+            z_translation = rand(-density...density)
+
+          end
 
         end
 
