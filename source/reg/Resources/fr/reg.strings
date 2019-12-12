@@ -41,23 +41,30 @@
 "Donate to Plugin Author"="Faire un don à l'auteur de l'extension";
 
 //
-// File: parameters.rb
+// File: parameters.rhtml
 //
 
-"Already set"="Déjà définie";
+"REG Parameters"="Paramètres de REG";
+"Preset"="Pré-réglage";
+"Flowers"="Fleurs";
+"Trees"="Arbres";
+"Grass Blocks"="Blocs d'herbe";
 "Entity count to generate"="Nombre d'entités à générer";
-"Entity minimum rotation"="Rotation minimale des entités";
-"Entity maximum rotation"="Rotation maximale des entités";
-"Yes"="Oui";
-"No"="Non";
+"Entity minimum rotation (°)"="Rotation minimale des entités (°)";
+"Entity maximum rotation (°)"="Rotation maximale des entités (°)";
 "Entity minimum size"="Taille minimale des entités";
 "Entity maximum size"="Taille maximale des entités";
+"Push entities to down (cm)"="Enfoncer les entités (cm)";
 "Entity max. altitude (m)"="Altitude max. des entités (m)";
 "Entity density"="Densité des entités";
 "Glue entities to ground?"="Coller les entités au sol ?";
-"Glue entities to faces?"="Coller les entités aux faces ?";
+"Follow face normals?"="Suivre les normales des faces ?";
 "Avoid entity collision?"="Éviter les collisions d'entités ?";
 "Overwrite entity colors?"="Écraser les couleurs des entités ?";
+"Yes"="Oui";
+"No"="Non";
+"This parameter is disabled because no random zone is defined."="Ce paramètre est désactivé car aucune zone aléatoire n'est définie.";
+"This parameter is disabled because a random zone is defined."="Ce paramètre est désactivé car une zone aléatoire est définie.";
 
 //
 // File: proxies.rb

@@ -90,7 +90,7 @@ module REG
 
       entity.transform!(Transformations.generate_random_translation)
 
-      if PARAMETERS[:overwite_ent_colors?]
+      if PARAMETERS[:overwrite_ent_colors?]
 
         randomize_color(entity)
 

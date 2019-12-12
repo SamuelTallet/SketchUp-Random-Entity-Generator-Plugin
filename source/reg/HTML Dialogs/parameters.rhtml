@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="<%= Sketchup.get_locale %>">
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="x-copyright" content="© 2019 Samuel Tallet">
+	<meta name="x-license" content="GNU General Public License 3.0">
+
+	<title><%= TRANSLATE['REG Parameters'] %></title>
+
+	<%= scripts['parameters.js'] %>
+
+	<%= styles['parameters.css'] %>
+
+</head>
+
+<body>
+
+	<form id="reg-parameters">
+
+		<div class="reg-parameter">
+
+			<label for="reg-preset"><%= TRANSLATE['Preset'] %></label>
+
+			<select id="reg-preset">
+				<option value="flowers"><%= TRANSLATE['Flowers'] %></option>
+				<option value="trees"><%= TRANSLATE['Trees'] %></option>
+				<option value="grass_blocks"><%= TRANSLATE['Grass Blocks'] %></option>
+				<option value="big_bang"><%= TRANSLATE['Big Bang'] %></option>
+			</select>
+
+		</div>
+
+		<div class="reg-parameter">
+
+			<label for="reg-entity-count"><%= TRANSLATE['Entity count to generate'] %></label>
+
+			<input type="number" id="reg-entity-count" name="entity_count" min="1" title=" " />
+
+		</div>
+
+		<div class="reg-parameter">
+
+			<label for="reg-entity-min-rotation"><%= TRANSLATE['Entity minimum rotation (°)'] %></label>
+			
+			<input type="number" id="reg-entity-min-rotation" name="entity_min_rotation" min="0.0" max="359.0" title=" " />
+
+		</div>
+
+		<div class="reg-parameter">
+
+			<label for="reg-entity-max-rotation"><%= TRANSLATE['Entity maximum rotation (°)'] %></label>
+			
+			<input type="number" id="reg-entity-max-rotation" name="entity_max_rotation" min="0.0" max="359.0" title=" " />
+
+		</div>
+
+		<div class="reg-parameter">
+
+			<label for="reg-entity-min-size"><%= TRANSLATE['Entity minimum size'] %></label>
+			
+			<input type="number" id="reg-entity-min-size" name="entity_min_size" title=" " />
+
+		</div>
+
+		<div class="reg-parameter">
+
+			<label for="reg-entity-max-size"><%= TRANSLATE['Entity maximum size'] %></label>
+			
+			<input type="number" id="reg-entity-max-size" name="entity_max_size" title=" " />
+
+		</div>
+
+		<div class="reg-parameter">
+
+			<label for="reg-push-ents-to-down"><%= TRANSLATE['Push entities to down (cm)'] %></label>
+			
+			<input type="number" id="reg-push-ents-to-down" name="push_ents_to_down" min="0.0" title=" " data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because no random zone is defined.'] %>" />
+
+		</div>
+
+		<div class="reg-parameter">
+
+			<label for="reg-entity-max-altitude"><%= TRANSLATE['Entity max. altitude (m)'] %></label>
+			
+			<input type="number" id="reg-entity-max-altitude" name="entity_max_altitude" title=" " data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because a random zone is defined.'] %>" />
+
+		</div>
+
+		<div class="reg-parameter">
+
+			<label for="reg-entity-density"><%= TRANSLATE['Entity density'] %></label>
+			
+			<input type="number" min="0.0" id="reg-entity-density" name="entity_density" title=" " data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because a random zone is defined.'] %>" />
+
+		</div>
+
+		<div class="reg-parameter">
+
+			<label for="reg-glue-ents-to-ground"><%= TRANSLATE['Glue entities to ground?'] %></label>
+			
+			<select id="reg-glue-ents-to-ground" name="glue_ents_to_ground" data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because a random zone is defined.'] %>">
+				<option value="yes"><%= TRANSLATE['Yes'] %></option>
+				<option value="no"><%= TRANSLATE['No'] %></option>
+			</select>
+
+		</div>
+
+		<div class="reg-parameter">
+
+			<label for="reg-follow-face-normals"><%= TRANSLATE['Follow face normals?'] %></label>
+			
+			<select id="reg-follow-face-normals" name="follow_face_normals" data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because no random zone is defined.'] %>">
+				<option value="yes"><%= TRANSLATE['Yes'] %></option>
+				<option value="no"><%= TRANSLATE['No'] %></option>
+			</select>
+
+		</div>
+
+		<div class="reg-parameter">
+
+			<label for="reg-avoid-ent-collision"><%= TRANSLATE['Avoid entity collision?'] %></label>
+			
+			<select id="reg-avoid-ent-collision" name="avoid_ent_collision">
+				<option value="yes"><%= TRANSLATE['Yes'] %></option>
+				<option value="no"><%= TRANSLATE['No'] %></option>
+			</select>
+
+		</div>
+
+		<div class="reg-parameter">
+
+			<label for="reg-overwite-ent-colors"><%= TRANSLATE['Overwrite entity colors?'] %></label>
+			
+			<select id="reg-overwite-ent-colors" name="overwrite_ent_colors">
+				<option value="yes"><%= TRANSLATE['Yes'] %></option>
+				<option value="no"><%= TRANSLATE['No'] %></option>
+			</select>
+
+		</div>
+
+		<button id="reg-validate-button"><%= TRANSLATE['OK'] %></button>
+
+	</form>
+
+</body>
+
+</html>

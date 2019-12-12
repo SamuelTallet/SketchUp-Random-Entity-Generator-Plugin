@@ -42,26 +42,8 @@ module REG
         }
 
         context_menu.add_item('🎲 ' + TRANSLATE['Randomize...']) {
-          
-          if Parameters.set({
 
-            :entity_count         => 10,
-            :entity_min_rotation  => 0.0,
-            :entity_max_rotation  => 359.0,
-            :entity_min_size      => 1.0,
-            :entity_max_size      => 1.0,
-            :entity_max_altitude  => 0,
-            :entity_density       => 10.0,
-            :glue_ents_to_ground  => TRANSLATE['Yes'],
-            :glue_ents_to_faces   => TRANSLATE['Inapplicable'],
-            :avoid_ent_collision  => TRANSLATE['No'],
-            :overwite_ent_colors  => TRANSLATE['No']
-            
-          })
-
-            Selection.randomize_entities
-
-          end
+          Parameters.show_html_dialog('flowers', 'randomizer')
 
         }
 

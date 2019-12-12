@@ -111,7 +111,7 @@ module REG
       html_dialog = UI::HtmlDialog.new(
 
         dialog_title:    TRANSLATE['REG Proxy Library Explorer'],
-        preferences_key: 'REG',
+        preferences_key: 'REG Proxy Library Explorer',
         scrollable:      true,
         width:           950,
         height:          500,

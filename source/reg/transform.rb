@@ -45,7 +45,7 @@ module REG
       end
 
       if PARAMETERS[:glue_ents_to_ground?]\
-        || PARAMETERS[:glue_ents_to_faces?]\
+        || PARAMETERS[:follow_face_normals?]\
           || !PARAMETERS[:rand_zone_point_grid].empty?
 
         return Geom::Transformation.rotation(
@@ -106,7 +106,14 @@ module REG
         rand_zone_position = rand_zone_seed[0]
         rand_zone_normal = rand_zone_seed[1]
 
-        if PARAMETERS[:glue_ents_to_faces?]
+        if PARAMETERS[:push_ents_to_down]
+
+          rand_zone_position.z =\
+            rand_zone_position.z - PARAMETERS[:push_ents_to_down]
+
+        end
+
+        if PARAMETERS[:follow_face_normals?]
 
           return Geom::Transformation.new(rand_zone_position, rand_zone_normal)
 

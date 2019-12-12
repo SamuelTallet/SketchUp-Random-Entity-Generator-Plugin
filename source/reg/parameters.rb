@@ -28,96 +28,129 @@ module REG
   # Parameters.
   module Parameters
 
-    # Set parameters from user input.
+    # Sets parameters from HTML dialog user input.
     #
-    # @param [Hash] default_params Default parameters.
-    #
-    # @return [Boolean] true on success...
-    def self.set(default_params)
+    # @see HTML Dialogs/parameters.rhtml
+    # @see HTML Dialogs/parameters.js
+    # 
+    # @return [nil]
+    def self.set(parameters)
 
-      if !PARAMETERS[:rand_zone_point_grid].empty?
-
-        default_params[:entity_max_altitude] = TRANSLATE['Already set']
-        default_params[:entity_density] = TRANSLATE['Inapplicable']
-        default_params[:glue_ents_to_ground] = TRANSLATE['Inapplicable']
-        default_params[:glue_ents_to_faces] = TRANSLATE['No']
-
-      end
-
-      parameters = UI.inputbox(
-
-        [
-          TRANSLATE['Entity count to generate'] + ' ',
-          TRANSLATE['Entity minimum rotation'],
-          TRANSLATE['Entity maximum rotation'],
-          TRANSLATE['Entity minimum size'],
-          TRANSLATE['Entity maximum size'],
-          TRANSLATE['Entity max. altitude (m)'],
-          TRANSLATE['Entity density'],
-          TRANSLATE['Glue entities to ground?'],
-          TRANSLATE['Glue entities to faces?'],
-          TRANSLATE['Avoid entity collision?'],
-          TRANSLATE['Overwrite entity colors?']
-        ], # Prompts
-
-        [
-          default_params[:entity_count],
-          default_params[:entity_min_rotation],
-          default_params[:entity_max_rotation],
-          default_params[:entity_min_size],
-          default_params[:entity_max_size],
-          default_params[:entity_max_altitude],
-          default_params[:entity_density],
-          default_params[:glue_ents_to_ground],
-          default_params[:glue_ents_to_faces],
-          default_params[:avoid_ent_collision],
-          default_params[:overwite_ent_colors]
-        ], # Defaults
-
-        [
-          '', '', '', '', '', '', '',
-          TRANSLATE['Yes'] + '|' + TRANSLATE['No'] + '|' + 
-            TRANSLATE['Inapplicable'],
-          TRANSLATE['Yes'] + '|' + TRANSLATE['No'] + '|' +
-            TRANSLATE['Inapplicable'],
-          TRANSLATE['Yes'] + '|' + TRANSLATE['No'],
-          TRANSLATE['Yes'] + '|' + TRANSLATE['No']
-        ], # List
-
-        TRANSLATE[NAME] # Title
-
-      )
-
-      # Escapes if user cancelled operation.
-      return false if parameters == false
-
-      PARAMETERS[:entity_count] = parameters[0].to_i
+      PARAMETERS[:entity_count] = parameters['entity_count'].to_i
       
-      PARAMETERS[:entity_min_rotation] = parameters[1].to_f.degrees
-      PARAMETERS[:entity_max_rotation] = parameters[2].to_f.degrees
+      PARAMETERS[:entity_min_rotation]\
+        = parameters['entity_min_rotation'].to_f.degrees
 
-      PARAMETERS[:entity_min_size] = parameters[3].to_f
-      PARAMETERS[:entity_max_size] = parameters[4].to_f
+      PARAMETERS[:entity_max_rotation]\
+        = parameters['entity_max_rotation'].to_f.degrees
+
+      PARAMETERS[:entity_min_size] = parameters['entity_min_size'].to_f
+      PARAMETERS[:entity_max_size] = parameters['entity_max_size'].to_f
 
       if PARAMETERS[:rand_zone_point_grid].empty?
 
-        PARAMETERS[:entity_max_altitude] = parameters[5].to_s.concat('m').to_l
+        PARAMETERS[:entity_max_altitude]\
+          = parameters['entity_max_altitude'].concat('m').to_l
 
-        PARAMETERS[:entity_density] = parameters[6].to_f
+        PARAMETERS[:entity_density] = parameters['entity_density'].to_f
         
-        PARAMETERS[:glue_ents_to_ground?] = (parameters[7] == TRANSLATE['Yes'])
+        PARAMETERS[:glue_ents_to_ground?]\
+          = (parameters['glue_ents_to_ground'] == 'yes')
 
       else
 
-        PARAMETERS[:glue_ents_to_faces?] = (parameters[8] == TRANSLATE['Yes'])
+        PARAMETERS[:push_ents_to_down]\
+          = parameters['push_ents_to_down'].concat('cm').to_l
+
+        PARAMETERS[:follow_face_normals?]\
+          = (parameters['follow_face_normals'] == 'yes')
 
       end
 
-      PARAMETERS[:avoid_ent_collision?] = (parameters[9] == TRANSLATE['Yes'])
+      PARAMETERS[:avoid_ent_collision?]\
+        = (parameters['avoid_ent_collision'] == 'yes')
 
-      PARAMETERS[:overwite_ent_colors?] = (parameters[10] == TRANSLATE['Yes'])
+      PARAMETERS[:overwrite_ent_colors?]\
+        = (parameters['overwrite_ent_colors'] == 'yes')
 
-      true
+      nil
+
+    end
+
+    # Shows "REG Parameters" HTML dialog.
+    #
+    # @param [String] preset
+    # @param [String] callback
+    #
+    # @return [void]
+    def self.show_html_dialog(preset, callback)
+
+      raise ArgumentError, 'Preset argument is invalid.'\
+        unless preset =~ /^(flowers|trees|grass_blocks|big_bang)$/
+
+      raise ArgumentError, 'Callback argument is invalid.'\
+        unless callback =~ /^(generator|randomizer)$/
+
+      html_dialog = UI::HtmlDialog.new(
+
+        dialog_title:    TRANSLATE['REG Parameters'],
+        preferences_key: 'REG Parameters',
+        scrollable:      false,
+        width:           420,
+        height:          555,
+        min_width:       420,
+        min_height:      555
+
+      )
+
+      html_dialog.set_html(HTMLDialogs.merge(
+
+        # Note: Paths below are relative to `HTMLDialogs::DIR`.
+        document: 'parameters.rhtml',
+        scripts: ['parameters.js'],
+        styles: ['parameters.css']
+
+      ))
+
+      html_dialog.add_action_callback('getPresetAndRandomZoneStatus') do
+
+        html_dialog.execute_script('REG.preset = "' + preset + '";')
+
+        if !PARAMETERS[:rand_zone_point_grid].empty?
+
+          html_dialog.execute_script('REG.randomZoneIsDefined = true;')
+
+        else
+
+          html_dialog.execute_script('REG.randomZoneIsDefined = false;')
+
+        end
+
+      end
+
+      html_dialog.add_action_callback('setParameters') do |_context, parameters|
+
+        html_dialog.close
+
+        puts parameters
+
+        set(parameters)
+
+        if callback == 'generator'
+
+          Generator.new
+
+        else # if callback == 'randomizer'
+
+          Selection.randomize_entities
+
+        end
+        
+      end
+
+      html_dialog.center
+
+      html_dialog.show
 
     end
 
@@ -126,23 +159,25 @@ module REG
     # @return [nil]
     def self.reset
 
-      PARAMETERS[:entity_count]         = 100
+      PARAMETERS[:entity_count]           = 100
 
-      PARAMETERS[:entity_min_rotation]  = 0.0.degrees
-      PARAMETERS[:entity_max_rotation]  = 359.0.degrees
+      PARAMETERS[:entity_min_rotation]    = 0.0.degrees
+      PARAMETERS[:entity_max_rotation]    = 359.0.degrees
 
-      PARAMETERS[:entity_min_size]      = -10.0
-      PARAMETERS[:entity_max_size]      = 10.0
+      PARAMETERS[:entity_min_size]        = -10.0
+      PARAMETERS[:entity_max_size]        = 10.0
 
-      PARAMETERS[:entity_max_altitude]  = 0.to_l
-      PARAMETERS[:entity_density]       = 10.0
+      PARAMETERS[:push_ents_to_down]      = 0.to_l
+      PARAMETERS[:entity_max_altitude]    = 0.to_l
 
-      PARAMETERS[:glue_ents_to_ground?] = false
-      PARAMETERS[:glue_ents_to_faces?]  = false
+      PARAMETERS[:entity_density]         = 10.0
 
-      PARAMETERS[:avoid_ent_collision?] = false
+      PARAMETERS[:glue_ents_to_ground?]   = false
+      PARAMETERS[:follow_face_normals?]   = false
 
-      PARAMETERS[:overwite_ent_colors?] = false
+      PARAMETERS[:avoid_ent_collision?]   = false
+
+      PARAMETERS[:overwrite_ent_colors?]  = false
 
       reset_random_zone
 
