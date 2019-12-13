@@ -1,4 +1,4 @@
-# Open-source scattering plugin for SketchUp
+# Free scattering plugin for SketchUp
 
 🎲 Add random entities to your SketchUp models. Create Enscape proxies. Randomize position/size of selected entities.
 
