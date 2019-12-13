@@ -39,7 +39,7 @@ module REG
 
       else
 
-        angle = rand(PARAMETERS[:entity_min_rotation]...
+        angle = rand(PARAMETERS[:entity_min_rotation]..
           PARAMETERS[:entity_max_rotation])
 
       end
@@ -64,7 +64,7 @@ module REG
 
           Geom::Point3d.new,
 
-          Geom::Vector3d.new(rand(0.1...1), rand(0.1...1), rand(0.1...1)),
+          Geom::Vector3d.new(rand(0.1..1), rand(0.1..1), rand(0.1..1)),
 
           angle
 
@@ -85,7 +85,7 @@ module REG
 
       else
 
-        scale = rand(PARAMETERS[:entity_min_size]...
+        scale = rand(PARAMETERS[:entity_min_size]..
           PARAMETERS[:entity_max_size])
 
       end
@@ -106,7 +106,7 @@ module REG
         rand_zone_position = rand_zone_seed[0]
         rand_zone_normal = rand_zone_seed[1]
 
-        if PARAMETERS[:push_ents_to_down]
+        if PARAMETERS[:push_ents_to_down] != 0
 
           rand_zone_position.z =\
             rand_zone_position.z - PARAMETERS[:push_ents_to_down]
@@ -129,13 +129,13 @@ module REG
 
         density = PARAMETERS[:entity_density] * '1m'.to_l
 
-        x_translation = rand(-density...density)
-        y_translation = rand(-density...density)
+        x_translation = rand(-density..density)
+        y_translation = rand(-density..density)
 
         if PARAMETERS[:entity_max_altitude] != 0
 
           z_translation = rand(
-            -density...
+            -density..
             PARAMETERS[:entity_max_altitude]
           )
 
@@ -147,7 +147,7 @@ module REG
 
           else
 
-            z_translation = rand(-density...density)
+            z_translation = rand(-density..density)
 
           end
 

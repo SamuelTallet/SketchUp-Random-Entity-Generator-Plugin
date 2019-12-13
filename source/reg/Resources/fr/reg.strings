@@ -65,6 +65,7 @@
 "No"="Non";
 "This parameter is disabled because no random zone is defined."="Ce paramètre est désactivé car aucune zone aléatoire n'est définie.";
 "This parameter is disabled because a random zone is defined."="Ce paramètre est désactivé car une zone aléatoire est définie.";
+"Preview"="Prévisualiser";
 
 //
 // File: proxies.rb
@@ -100,7 +101,6 @@
 "Please select one or many faces."="Veuillez sélectionner une ou plusieurs faces.";
 "Defining Random Zone... Please wait."="Définition d'une zone aléatoire en cours... Veuillez patienter.";
 "Surface well added to Random Zone list."="Surface bien ajoutée à la liste des zones aléatoires.";
-"Can't be a random zone: REG plugin supports only quad faces."="Ceci ne peut être une zone aléatoire : le plugin REG prend en charge uniquement les faces quadrilatérales.";
-"Use Quadrilateralizer plugin to convert this face to quad faces."="Utilisez le plugin Quadrilateralizer pour convertir cette face en faces quadrilatérales.";
+"Error: Random zone must be constituted of triangles or quad faces."="Erreur : la zone aléatoire doit être constituée de triangles ou de faces quadrilatérales.";
 "Randomize selected entities"="Randomiser les entités sélectionnées";
 "Randomizing entities... Please wait."="Randomisation des entités en cours... Veuillez patienter.";

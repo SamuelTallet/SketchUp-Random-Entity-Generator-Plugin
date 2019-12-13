@@ -39,9 +39,9 @@ module REG
       material = Sketchup.active_model.materials.add(material_name)
 
       material.color = Sketchup::Color.new(
-        rand(0...255), # Red
-        rand(0...255), # Green
-        rand(0...255) # Blue
+        rand(0..255), # Red
+        rand(0..255), # Green
+        rand(0..255) # Blue
       )
 
       material

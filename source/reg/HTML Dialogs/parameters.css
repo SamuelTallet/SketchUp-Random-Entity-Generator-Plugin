@@ -40,17 +40,13 @@
 
 }
 
-#reg-validate-button {
-
-	float: right;
+#reg-preview-button, #reg-validate-button {
 
 	position: relative;
-	right: 32px;
 	bottom: 0;
 
 	background: linear-gradient(#f03e43, #aa0000);
 
-	border: none;
 	padding: 5px;
 
 	color: #fdf7f6;
@@ -60,7 +56,21 @@
 
 }
 
-#reg-validate-button:hover {
+#reg-preview-button {
+
+	float: left;
+	left: 11px;
+	
+}
+
+#reg-validate-button {
+
+	float: right;
+	right: 32px;
+
+}
+
+#reg-preview-button:hover, #reg-validate-button:hover {
 
 	transform: scale(1.2);
 

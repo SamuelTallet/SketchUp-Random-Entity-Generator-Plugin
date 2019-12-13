@@ -169,13 +169,26 @@ REG.collectParameters = () => {
 };
 
 /**
- * Listens to "validation" event.
+ * Listens to "preview" event.
  */
-REG.listenToValidation = () => {
+REG.listenToPreview = () => {
+
+	document.querySelector('#reg-preview-button').addEventListener('click', _event => {
+
+		sketchup.setParameters(REG.collectParameters(), 'preview');
+
+	});
+
+};
+
+/**
+ * Listens to "validate" event.
+ */
+REG.listenToValidate = () => {
 
 	document.querySelector('#reg-validate-button').addEventListener('click', _event => {
 
-		sketchup.setParameters(REG.collectParameters());
+		sketchup.setParameters(REG.collectParameters(), 'validate');
 
 	});
 
@@ -218,7 +231,8 @@ REG.initialize = () => {
 	document.querySelector('#reg-preset').value = REG.preset; 
 	REG.onPresetChange();
 
-	REG.listenToValidation();
+	REG.listenToPreview();
+	REG.listenToValidate();
 
 };
 

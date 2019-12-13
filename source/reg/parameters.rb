@@ -82,6 +82,8 @@ module REG
     # @param [String] preset
     # @param [String] callback
     #
+    # @raise [ArgumentError]
+    #
     # @return [void]
     def self.show_html_dialog(preset, callback)
 
@@ -128,25 +130,35 @@ module REG
 
       end
 
-      html_dialog.add_action_callback('setParameters') do |_context, parameters|
+      html_dialog.add_action_callback('setParameters') do |_c, parameters, mode|
 
-        html_dialog.close
+        if mode == 'validate'
 
-        puts parameters
+          html_dialog.close
+
+        end
 
         set(parameters)
 
         if callback == 'generator'
 
-          Generator.new
+          Generator.new(mode)
 
         else # if callback == 'randomizer'
 
-          Selection.randomize_entities
+          Selection.randomize_entities(mode)
 
         end
         
       end
+
+      html_dialog.set_on_closed {
+
+        # XXX This “hack” clears preview.
+        Sketchup.send_action('selectSelectionTool:')
+        Sketchup.active_model.active_view.refresh
+
+      }
 
       html_dialog.center
 

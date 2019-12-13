@@ -40,9 +40,9 @@ module REG
 
       face_vertices = face.vertices
 
-      if face_vertices.size != 4
+      if face_vertices.count != 3 && face_vertices.count !=4
 
-        raise StandardError.new('Only quad faces are supported.')
+        raise StandardError.new('Only triangles and quad faces are supported.')
 
       end
 

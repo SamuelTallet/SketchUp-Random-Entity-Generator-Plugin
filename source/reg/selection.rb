@@ -23,6 +23,7 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 require 'sketchup'
 require 'reg/point_grid'
 require 'reg/entities'
+require 'reg/preview_tool'
 
 # REG plugin namespace.
 module REG
@@ -120,14 +121,9 @@ module REG
 
         UI.messagebox(
           TRANSLATE[
-            'Can\'t be a random zone: REG plugin supports only quad faces.'
-          ] + ' ' +
-          TRANSLATE[
-            'Use Quadrilateralizer plugin to convert this face to quad faces.'
+            'Error: Random zone must be constituted of triangles or quad faces.'
           ]
         )
-
-        UI.openURL('http://sketchucation.com/pluginstore?pln=Quadrilateralizer')
 
       end
 
@@ -135,12 +131,19 @@ module REG
 
     # Randomizes selected entities.
     #
+    # @param [String] mode
+    # @raise [ArgumentError]
+    #
     # @return [nil]
-    def self.randomize_entities
+    def self.randomize_entities(mode)
 
+      raise ArgumentError, 'Mode argument is invalid.'\
+        unless mode =~ /^(validate|preview)$/
+
+      model = Sketchup.active_model
       selected_grouponents = []
 
-      Sketchup.active_model.selection.each { |selected_entity|
+      model.selection.each { |selected_entity|
 
         if selected_entity.is_a?(Sketchup::Group)\
          || selected_entity.is_a?(Sketchup::ComponentInstance)
@@ -158,7 +161,7 @@ module REG
 
       end
 
-      Sketchup.active_model.start_operation(
+      model.start_operation(
         TRANSLATE['Randomize selected entities'],
         true # disable_ui
       )
@@ -194,13 +197,34 @@ module REG
 
         end
 
-        Sketchup.active_model.active_entities.erase_entities(
+        model.active_entities.erase_entities(
           Entities.collision_detect(generated_entities)
         )
 
       end
 
-      Sketchup.active_model.commit_operation
+      if mode == 'preview'
+
+        SESSION[:bound_boxes_to_preview] = []
+
+        generated_entities.each { |generated_entity|
+
+          SESSION[:bound_boxes_to_preview].push(generated_entity.bounds)
+
+        }
+
+        model.active_entities.erase_entities(generated_entities)
+
+        model.select_tool(PreviewTool.new)
+
+        # XXX This “hack” debugs preview.
+        model.active_view.refresh
+        Sketchup.send_action('viewTop:')
+        model.active_view.zoom_extents
+
+      end
+
+      model.commit_operation
 
       Sketchup.status_text = nil
 

@@ -29,9 +29,17 @@ module REG
   class Generator
 
     # Generates random entities.
-    def initialize
+    #
+    # @param [String] mode
+    # @raise [ArgumentError]
+    def initialize(mode)
 
-      Sketchup.active_model.start_operation(
+      raise ArgumentError, 'Mode argument is invalid.'\
+        unless mode =~ /^(validate|preview)$/
+
+      model = Sketchup.active_model
+
+      model.start_operation(
         TRANSLATE['Generate random entities'],
         true # disable_ui
       )
@@ -65,13 +73,34 @@ module REG
 
         end
 
-        Sketchup.active_model.active_entities.erase_entities(
+        model.active_entities.erase_entities(
           Entities.collision_detect(generated_entities)
         )
 
       end
 
-      Sketchup.active_model.commit_operation
+      if mode == 'preview'
+
+        SESSION[:bound_boxes_to_preview] = []
+
+        generated_entities.each { |generated_entity|
+
+          SESSION[:bound_boxes_to_preview].push(generated_entity.bounds)
+
+        }
+
+        model.active_entities.erase_entities(generated_entities)
+
+        model.select_tool(PreviewTool.new)
+
+        # XXX This “hack” debugs preview.
+        model.active_view.refresh
+        Sketchup.send_action('viewTop:')
+        model.active_view.zoom_extents
+
+      end
+
+      model.commit_operation
 
       Sketchup.status_text = nil
 
