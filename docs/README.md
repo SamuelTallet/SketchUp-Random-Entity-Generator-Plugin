@@ -24,8 +24,25 @@ Now, you should have in SketchUp a "Random Entity Generator" menu in "Extensions
 Usage
 -----
 
-Use plugins menu or context menu to display and define random generation parameters then press "OK".<br>
+To randomize an entity: right click on entity then click "Randomize". Set parameters then press "OK" button.<br>
 You can specify a spawn zone for generated objects. Right click on a surface then click "Set as Random Zone".
+
+Documentation
+-------------
+
+### How to set a Random Zone from an image
+
+Recall: A Random Zone is a spawn zone for generated objects. You can set a Random Zone from an image. Here is how:
+
+1. Prepare an image with a maximum resolution of 316 x 316 pixels. White pixels will be considered as holes. Example:
+
+![REG Plugin Star Scattering Map](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/star_scattering_map.jpg)
+
+2. Open SketchUp. Unfold "Extensions > Random Entity Generator" menu. Click on "Set Random Zone from Image...".
+
+3. Enjoy result:
+
+![REG Plugin Star Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/star_demo.png)
 
 Thanks
 ------
