@@ -32,11 +32,18 @@ module REG
     #
     # @param [Sketchup::Face] face
     # @param [Integer] grid_size
+    # @raise [ArgumentError]
     #
     # @raise [StandardError]
     #
     # @return [Array<Geom::Point3d, Geom::Vector3d>]
     def self.face(face, grid_size = 10)
+
+      raise ArgumentError, 'Face parameter is invalid.'\
+        unless face.is_a?(Sketchup::Face)
+
+      raise ArgumentError, 'Grid Size parameter is invalid.'\
+        unless grid_size.is_a?(Integer)
 
       face_vertices = face.vertices
 
@@ -119,9 +126,8 @@ module REG
     # Returns a point grid for a group or component with face normal.
     #
     # @param [Sketchup::Group|Sketchup::ComponentInstance] grouponent
-    # @raise [ArgumentError]
-    #
     # @param [Integer] grid_size
+    # @raise [ArgumentError]
     #
     # @return [Array<Geom::Point3d, Geom::Vector3d>]
     def self.grouponent(grouponent, grid_size = 10)
@@ -129,6 +135,9 @@ module REG
       raise ArgumentError, 'Grouponent parameter is invalid.'\
         unless grouponent.is_a?(Sketchup::Group)\
           || grouponent.is_a?(Sketchup::ComponentInstance)
+
+      raise ArgumentError, 'Grid Size parameter is invalid.'\
+        unless grid_size.is_a?(Integer)
 
       grouponent_transformation = grouponent.transformation
 
@@ -163,6 +172,91 @@ module REG
       }
 
       grouponent_point_grid
+
+    end
+
+    # Returns a point grid for an image.
+    # XXX White pixels are considered as holes.
+    #
+    # @param [String] image_path
+    # @param [Integer] cm_per_pixel
+    # @raise [ArgumentError]
+    #
+    # @raise [StandardError]
+    #
+    # @return [Array<Geom::Point3d, Geom::Vector3d>]
+    def self.image(image_path, cm_per_pixel = 100)
+
+      if Sketchup.version.to_i < 18
+
+        raise StandardError.new(
+          TRANSLATE['This function requires SketchUp 2018 or newer.']
+        )
+
+      end
+
+      raise ArgumentError, 'Image Path parameter is invalid.'\
+        unless image_path.is_a?(String)
+
+      raise ArgumentError, 'Cm Per Pixel parameter is invalid.'\
+        unless cm_per_pixel.is_a?(Integer)
+
+      inches_per_pixel = cm_per_pixel.to_s.concat('cm').to_l
+
+      image = Sketchup::ImageRep.new
+
+      image.load_file(image_path)
+
+      if image.width > 316 || image.height > 316
+
+        raise StandardError.new(
+          TRANSLATE['Image must be a maximum of 316 x 316 pixels.']
+        )
+
+      end
+
+      image_colors_xy = []
+
+      for image_color_index in 1..image.colors.size do
+
+        if image_color_index % image.width == 0
+
+          image_colors_xy.push(
+            image.colors[image_color_index-image.width...image_color_index]
+          )
+          
+        end
+
+      end
+
+      image_point_grid = []
+
+      image_point_x = 0
+      image_point_y = 0
+
+      image_colors_xy.each do |image_color_x|
+
+        image_color_x.each do |image_color_y|
+
+          image_point_y += inches_per_pixel
+          
+          next if image_color_y.red == 255 && image_color_y.green == 255\
+            && image_color_y.blue == 255
+
+          image_point_grid.push([
+            Geom::Point3d.new(image_point_x, image_point_y, 0),
+            Z_AXIS
+          ])
+
+        end
+
+        image_point_x += inches_per_pixel
+
+        image_point_y = 0
+
+      end
+
+      image_point_grid
 
     end
 

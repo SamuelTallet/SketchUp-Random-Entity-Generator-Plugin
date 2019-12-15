@@ -14,6 +14,32 @@
 REG = {};
 
 /**
+ * Get element matching a CSS selector.
+ *
+ * @param {string} selector
+ *
+ * @return {object}
+ */
+REG.get = selector => {
+
+	return document.querySelector(selector);
+
+};
+
+/**
+ * Get elements matching a CSS selector.
+ *
+ * @param {string} selector
+ *
+ * @return {object}
+ */
+REG.getAll = selector => {
+
+	return Array.from(document.querySelectorAll(selector));
+
+};
+
+/**
  * Preset.
  *
  * @type {string}
@@ -32,101 +58,101 @@ REG.randomZoneIsDefined = false;
  */
 REG.onPresetChange = _event => {
 
-	switch (document.querySelector('#reg-preset').value) {
+	switch (REG.get('#reg-preset').value) {
 
 		case 'flowers':
 
-			document.querySelector('#reg-entity-count').value = 500;
+			REG.get('#reg-entity-count').value = 500;
 
-			document.querySelector('#reg-entity-min-rotation').value = 0.0;
-			document.querySelector('#reg-entity-max-rotation').value = 359.0;
+			REG.get('#reg-entity-min-rotation').value = 0.0;
+			REG.get('#reg-entity-max-rotation').value = 359.0;
 
-			document.querySelector('#reg-entity-min-size').value = 0.7;
-			document.querySelector('#reg-entity-max-size').value = 1.0;
+			REG.get('#reg-entity-min-size').value = 0.7;
+			REG.get('#reg-entity-max-size').value = 1.0;
 
-			document.querySelector('#reg-push-ents-to-down').value = 0;
-			document.querySelector('#reg-entity-max-altitude').value = 0;
+			REG.get('#reg-push-ents-to-down').value = 0;
+			REG.get('#reg-entity-max-altitude').value = 0;
 
-			document.querySelector('#reg-entity-density').value = 10.0;
+			REG.get('#reg-entity-density').value = 10.0;
 
-			document.querySelector('#reg-glue-ents-to-ground').value = 'yes';
-			document.querySelector('#reg-follow-face-normals').value = 'no';
+			REG.get('#reg-glue-ents-to-ground').value = 'yes';
+			REG.get('#reg-follow-face-normals').value = 'no';
 
-			document.querySelector('#reg-avoid-ent-collision').value = 'no';
+			REG.get('#reg-avoid-ent-collision').value = 'no';
 
-			document.querySelector('#reg-overwite-ent-colors').value = 'no';
+			REG.get('#reg-overwite-ent-colors').value = 'no';
 
 			break;
 
 		case 'trees':
 
-			document.querySelector('#reg-entity-count').value = 500;
+			REG.get('#reg-entity-count').value = 500;
 
-			document.querySelector('#reg-entity-min-rotation').value = 0.0;
-			document.querySelector('#reg-entity-max-rotation').value = 359.0;
+			REG.get('#reg-entity-min-rotation').value = 0.0;
+			REG.get('#reg-entity-max-rotation').value = 359.0;
 
-			document.querySelector('#reg-entity-min-size').value = 0.7;
-			document.querySelector('#reg-entity-max-size').value = 1.0;
+			REG.get('#reg-entity-min-size').value = 0.7;
+			REG.get('#reg-entity-max-size').value = 1.0;
 
-			document.querySelector('#reg-push-ents-to-down').value = 50;
-			document.querySelector('#reg-entity-max-altitude').value = 0;
+			REG.get('#reg-push-ents-to-down').value = 50;
+			REG.get('#reg-entity-max-altitude').value = 0;
 
-			document.querySelector('#reg-entity-density').value = 1000.0;
+			REG.get('#reg-entity-density').value = 1000.0;
 
-			document.querySelector('#reg-glue-ents-to-ground').value = 'yes';
-			document.querySelector('#reg-follow-face-normals').value = 'no';
+			REG.get('#reg-glue-ents-to-ground').value = 'yes';
+			REG.get('#reg-follow-face-normals').value = 'no';
 
-			document.querySelector('#reg-avoid-ent-collision').value = 'no';
+			REG.get('#reg-avoid-ent-collision').value = 'no';
 
-			document.querySelector('#reg-overwite-ent-colors').value = 'no';
+			REG.get('#reg-overwite-ent-colors').value = 'no';
 
 			break;
 
 		case 'grass_blocks':
 
-			document.querySelector('#reg-entity-count').value = 500;
+			REG.get('#reg-entity-count').value = 500;
 
-			document.querySelector('#reg-entity-min-rotation').value = 0.0;
-			document.querySelector('#reg-entity-max-rotation').value = 0.0;
+			REG.get('#reg-entity-min-rotation').value = 0.0;
+			REG.get('#reg-entity-max-rotation').value = 0.0;
 
-			document.querySelector('#reg-entity-min-size').value = 1.0;
-			document.querySelector('#reg-entity-max-size').value = 1.0;
+			REG.get('#reg-entity-min-size').value = 1.0;
+			REG.get('#reg-entity-max-size').value = 1.0;
 
-			document.querySelector('#reg-push-ents-to-down').value = 0;
-			document.querySelector('#reg-entity-max-altitude').value = 0;
+			REG.get('#reg-push-ents-to-down').value = 0;
+			REG.get('#reg-entity-max-altitude').value = 0;
 
-			document.querySelector('#reg-entity-density').value = 2.5;
+			REG.get('#reg-entity-density').value = 2.5;
 
-			document.querySelector('#reg-glue-ents-to-ground').value = 'yes';
-			document.querySelector('#reg-follow-face-normals').value = 'yes';
+			REG.get('#reg-glue-ents-to-ground').value = 'yes';
+			REG.get('#reg-follow-face-normals').value = 'yes';
 
-			document.querySelector('#reg-avoid-ent-collision').value = 'no';
+			REG.get('#reg-avoid-ent-collision').value = 'no';
 
-			document.querySelector('#reg-overwite-ent-colors').value = 'no';
+			REG.get('#reg-overwite-ent-colors').value = 'no';
 
 			break;
 
 		case 'big_bang':
 
-			document.querySelector('#reg-entity-count').value = 100;
+			REG.get('#reg-entity-count').value = 100;
 
-			document.querySelector('#reg-entity-min-rotation').value = 0.0;
-			document.querySelector('#reg-entity-max-rotation').value = 359.0;
+			REG.get('#reg-entity-min-rotation').value = 0.0;
+			REG.get('#reg-entity-max-rotation').value = 359.0;
 
-			document.querySelector('#reg-entity-min-size').value = -10.0;
-			document.querySelector('#reg-entity-max-size').value = 10.0;
+			REG.get('#reg-entity-min-size').value = -10.0;
+			REG.get('#reg-entity-max-size').value = 10.0;
 
-			document.querySelector('#reg-push-ents-to-down').value = 0;
-			document.querySelector('#reg-entity-max-altitude').value = 0;
+			REG.get('#reg-push-ents-to-down').value = 0;
+			REG.get('#reg-entity-max-altitude').value = 0;
 
-			document.querySelector('#reg-entity-density').value = 100;
+			REG.get('#reg-entity-density').value = 100;
 
-			document.querySelector('#reg-glue-ents-to-ground').value = 'no';
-			document.querySelector('#reg-follow-face-normals').value = 'no';
+			REG.get('#reg-glue-ents-to-ground').value = 'no';
+			REG.get('#reg-follow-face-normals').value = 'no';
 
-			document.querySelector('#reg-avoid-ent-collision').value = 'yes';
+			REG.get('#reg-avoid-ent-collision').value = 'yes';
 
-			document.querySelector('#reg-overwite-ent-colors').value = 'no';
+			REG.get('#reg-overwite-ent-colors').value = 'no';
 
 			break;
 
@@ -139,7 +165,7 @@ REG.onPresetChange = _event => {
  */
 REG.listenToPresetChange = () => {
 
-	document.querySelector('#reg-preset').addEventListener('change', REG.onPresetChange);
+	REG.get('#reg-preset').addEventListener('change', REG.onPresetChange);
 
 };
 
@@ -150,21 +176,42 @@ REG.listenToPresetChange = () => {
  */
 REG.collectParameters = () => {
 
-	let parametersOut = {};
+	let parameters = {};
 
-	let parametersIn = Array.from(document.querySelectorAll('#reg-parameters [name]'));
+	REG.getAll('#reg-parameters [name]').forEach(parameter => {
 
-	parametersIn.forEach(parameterIn => {
+		if ( !parameter.disabled ) {
 
-		if ( !parameterIn.disabled ) {
-
-			parametersOut[parameterIn.name] = parameterIn.value;
+			parameters[parameter.name] = parameter.value;
 
 		}
 
 	});
 
-	return parametersOut;
+	return parameters;
+
+};
+
+/**
+ * Listens to "input change" event.
+ */
+REG.listenToInputChange = () => {
+
+	REG.getAll('#reg-parameters input').forEach(parameter => {
+
+		parameter.addEventListener('change', event => {
+
+			regExp = RegExp(event.currentTarget.dataset.regexPattern, 'g');
+
+			if ( !regExp.test(event.currentTarget.value) ) {
+
+				event.currentTarget.value = event.currentTarget.dataset.defaultValue;
+
+			}
+
+		});
+
+	});
 
 };
 
@@ -173,7 +220,7 @@ REG.collectParameters = () => {
  */
 REG.listenToPreview = () => {
 
-	document.querySelector('#reg-preview-button').addEventListener('click', _event => {
+	REG.get('#reg-preview-button').addEventListener('click', _event => {
 
 		sketchup.setParameters(REG.collectParameters(), 'preview');
 
@@ -186,7 +233,7 @@ REG.listenToPreview = () => {
  */
 REG.listenToValidate = () => {
 
-	document.querySelector('#reg-validate-button').addEventListener('click', _event => {
+	REG.get('#reg-validate-button').addEventListener('click', _event => {
 
 		sketchup.setParameters(REG.collectParameters(), 'validate');
 
@@ -201,35 +248,37 @@ REG.initialize = () => {
 
 	if ( REG.randomZoneIsDefined ) {
 
-		document.querySelector('#reg-entity-max-altitude').disabled = true;
-		document.querySelector('#reg-entity-max-altitude').title
-			= document.querySelector('#reg-entity-max-altitude').dataset.disabledExplanation;
+		REG.get('#reg-entity-max-altitude').disabled = true;
+		REG.get('#reg-entity-max-altitude').title
+			= REG.get('#reg-entity-max-altitude').dataset.disabledExplanation;
 
-		document.querySelector('#reg-entity-density').disabled = true;
-		document.querySelector('#reg-entity-density').title
-			= document.querySelector('#reg-entity-density').dataset.disabledExplanation;
+		REG.get('#reg-entity-density').disabled = true;
+		REG.get('#reg-entity-density').title
+			= REG.get('#reg-entity-density').dataset.disabledExplanation;
 
-		document.querySelector('#reg-glue-ents-to-ground').disabled = true;
-		document.querySelector('#reg-glue-ents-to-ground').title
-			= document.querySelector('#reg-glue-ents-to-ground').dataset.disabledExplanation;
+		REG.get('#reg-glue-ents-to-ground').disabled = true;
+		REG.get('#reg-glue-ents-to-ground').title
+			= REG.get('#reg-glue-ents-to-ground').dataset.disabledExplanation;
 		
 	} else {
 
-		document.querySelector('#reg-push-ents-to-down').disabled = true;
-		document.querySelector('#reg-push-ents-to-down').title
-			= document.querySelector('#reg-push-ents-to-down').dataset.disabledExplanation;
+		REG.get('#reg-push-ents-to-down').disabled = true;
+		REG.get('#reg-push-ents-to-down').title
+			= REG.get('#reg-push-ents-to-down').dataset.disabledExplanation;
 
 
-		document.querySelector('#reg-follow-face-normals').disabled = true;
-		document.querySelector('#reg-follow-face-normals').title
-			= document.querySelector('#reg-follow-face-normals').dataset.disabledExplanation;
+		REG.get('#reg-follow-face-normals').disabled = true;
+		REG.get('#reg-follow-face-normals').title
+			= REG.get('#reg-follow-face-normals').dataset.disabledExplanation;
 
 	}
 
 	REG.listenToPresetChange();
 
-	document.querySelector('#reg-preset').value = REG.preset; 
+	REG.get('#reg-preset').value = REG.preset; 
 	REG.onPresetChange();
+
+	REG.listenToInputChange();
 
 	REG.listenToPreview();
 	REG.listenToValidate();

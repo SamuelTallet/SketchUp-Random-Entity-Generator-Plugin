@@ -36,7 +36,7 @@
 
 			<label for="reg-entity-count"><%= TRANSLATE['Entity count to generate'] %></label>
 
-			<input type="number" id="reg-entity-count" name="entity_count" min="1" />
+			<input type="number" id="reg-entity-count" name="entity_count" min="1" data-regex-pattern="^[1-9][0-9]*$" data-default-value="100" />
 
 		</div>
 
@@ -44,7 +44,7 @@
 
 			<label for="reg-entity-min-rotation"><%= TRANSLATE['Entity minimum rotation (°)'] %></label>
 			
-			<input type="number" id="reg-entity-min-rotation" name="entity_min_rotation" min="0.0" max="359.0" />
+			<input type="number" id="reg-entity-min-rotation" name="entity_min_rotation" min="0.0" max="359.0" data-regex-pattern="^(0|[1-9][0-9]*)(\.[0-9]+)?$" data-default-value="0.0" />
 
 		</div>
 
@@ -52,7 +52,7 @@
 
 			<label for="reg-entity-max-rotation"><%= TRANSLATE['Entity maximum rotation (°)'] %></label>
 			
-			<input type="number" id="reg-entity-max-rotation" name="entity_max_rotation" min="0.0" max="359.0" />
+			<input type="number" id="reg-entity-max-rotation" name="entity_max_rotation" min="0.0" max="359.0" data-regex-pattern="^(0|[1-9][0-9]*)(\.[0-9]+)?$" data-default-value="359.0" />
 
 		</div>
 
@@ -60,7 +60,7 @@
 
 			<label for="reg-entity-min-size"><%= TRANSLATE['Entity minimum size'] %></label>
 			
-			<input type="number" id="reg-entity-min-size" name="entity_min_size" />
+			<input type="number" id="reg-entity-min-size" name="entity_min_size" data-regex-pattern="^-?(0|[1-9][0-9]*)(\.[0-9]+)?$" data-default-value="-10.0" />
 
 		</div>
 
@@ -68,7 +68,7 @@
 
 			<label for="reg-entity-max-size"><%= TRANSLATE['Entity maximum size'] %></label>
 			
-			<input type="number" id="reg-entity-max-size" name="entity_max_size" />
+			<input type="number" id="reg-entity-max-size" name="entity_max_size" data-regex-pattern="^-?(0|[1-9][0-9]*)(\.[0-9]+)?$" data-default-value="10.0" />
 
 		</div>
 
@@ -76,7 +76,7 @@
 
 			<label for="reg-push-ents-to-down"><%= TRANSLATE['Push entities to down (cm)'] %></label>
 			
-			<input type="number" id="reg-push-ents-to-down" name="push_ents_to_down" min="0.0" data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because no random zone is defined.'] %>" />
+			<input type="number" id="reg-push-ents-to-down" name="push_ents_to_down" min="0" data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because no random zone is defined.'] %>" data-regex-pattern="^(0|[1-9][0-9]*)$" data-default-value="0" />
 
 		</div>
 
@@ -84,7 +84,7 @@
 
 			<label for="reg-entity-max-altitude"><%= TRANSLATE['Entity max. altitude (m)'] %></label>
 			
-			<input type="number" id="reg-entity-max-altitude" name="entity_max_altitude" data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because a random zone is defined.'] %>" />
+			<input type="number" id="reg-entity-max-altitude" name="entity_max_altitude" data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because a random zone is defined.'] %>" data-regex-pattern="^(0|[1-9][0-9]*)$" data-default-value="0" />
 
 		</div>
 
@@ -92,7 +92,7 @@
 
 			<label for="reg-entity-density"><%= TRANSLATE['Entity density'] %></label>
 			
-			<input type="number" min="0.0" id="reg-entity-density" name="entity_density" data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because a random zone is defined.'] %>" />
+			<input type="number" min="0.0" id="reg-entity-density" name="entity_density" data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because a random zone is defined.'] %>" data-regex-pattern="^(0|[1-9][0-9]*)(\.[0-9]+)?$" data-default-value="100.0" />
 
 		</div>
 

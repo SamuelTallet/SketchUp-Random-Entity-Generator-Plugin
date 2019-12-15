@@ -24,12 +24,72 @@ require 'sketchup'
 require 'reg/transform'
 require 'reg/shapes'
 require 'reg/materials'
+require 'reg/preview_tool'
 
 # REG plugin namespace.
 module REG
 
   # Entities.
   module Entities
+    
+    # Randomizes selected entities.
+    #
+    # @param [String] mode
+    # @raise [ArgumentError]
+    #
+    # @return [nil]
+    def self.randomize_selection(mode)
+
+      raise ArgumentError, 'Mode argument is invalid.'\
+        unless mode =~ /^(validate|preview)$/
+
+      model = Sketchup.active_model
+      selected_grouponents = []
+
+      model.selection.each { |selected_entity|
+
+        if selected_entity.is_a?(Sketchup::Group)\
+         || selected_entity.is_a?(Sketchup::ComponentInstance)
+
+          selected_grouponents.push(selected_entity)
+
+        end
+
+      }
+
+      if selected_grouponents.empty?
+
+        UI.messagebox(TRANSLATE['No group nor component found in selection.'])
+        return
+
+      end
+
+      model.start_operation(
+        TRANSLATE['Randomize selected entities'],
+        true # disable_ui
+      )
+
+      Sketchup.status_text = TRANSLATE['Randomizing entities... Please wait.']
+
+      entities = []
+
+      PARAMETERS[:entity_count].times do
+
+        entities.push(Entities.randomize(
+          Entities.clone_grouponent(selected_grouponents.sample)
+        ))
+
+      end
+
+      post_processing(entities, mode)
+
+      model.commit_operation
+
+      Sketchup.status_text = nil
+
+      nil
+
+    end
 
     # Clones a group or component.
     #
@@ -153,10 +213,14 @@ module REG
 
     # Detects collided entities.
     #
-    # @param [Array<Sketchup::Entity>] entities Entities.
+    # @param [Array<Sketchup::Entity>] entities
+    # @raise [ArgumentError]
     #
     # @return [Array<Sketchup::Entity>] Collided entities.
     def self.collision_detect(entities)
+
+      raise ArgumentError, 'Entities argument is invalid.'\
+        unless entities.is_a?(Array)
 
       ent_bounding_boxes = []
       collided_entities = []
@@ -189,6 +253,69 @@ module REG
       }
 
       collided_entities
+
+    end
+
+    # Processes collision detect and preview after generation...
+    #
+    # @param [Array<Sketchup::Entity>] entities
+    # @param [String] mode
+    # @raise [ArgumentError]
+    #
+    # @return [nil]
+    def self.post_processing(entities, mode)
+
+      raise ArgumentError, 'Entities argument is invalid.'\
+        unless entities.is_a?(Array)
+
+      raise ArgumentError, 'Mode argument is invalid.'\
+        unless mode =~ /^(validate|preview)$/
+
+      model = Sketchup.active_model
+
+      if PARAMETERS[:avoid_ent_collision?]
+
+        # FIXME: Why these param. are incompatible?
+        if PARAMETERS[:rand_zone_point_grid].empty?
+
+          5.times do
+
+            collided_entities = collision_detect(entities)
+
+            collided_entities.each { |collided_entity|
+
+              randomize(collided_entity)
+
+            }
+
+          end
+
+        end
+
+        model.active_entities.erase_entities(collision_detect(entities))
+
+      end
+
+      if mode == 'preview'
+
+        SESSION[:bound_boxes_to_preview] = []
+
+        entities.each { |entity|
+
+          SESSION[:bound_boxes_to_preview].push(entity.bounds)
+
+        }
+
+        model.active_entities.erase_entities(entities)
+
+        model.select_tool(PreviewTool.new)
+
+        # XXX This “hack” debugs preview.
+        model.active_view.refresh
+        Sketchup.send_action('viewTop:')
+        model.active_view.zoom_extents
+
+      end
 
     end
 

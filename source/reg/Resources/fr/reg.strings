@@ -23,6 +23,13 @@
 "Randomize..."="Randomiser...";
 
 //
+// File: entities.rb
+//
+
+"Randomize selected entities"="Randomiser les entités sélectionnées";
+"Randomizing entities... Please wait."="Randomisation des entités en cours... Veuillez patienter.";
+
+//
 // File: generator.rb
 //
 
@@ -33,12 +40,27 @@
 // File: menu.rb
 //
 
-"Explore Proxy Library..."="Explorer la bibliothèque de proxys...";
+"Explore the Proxy Library..."="Explorer la bibliothèque de proxys...";
 "Generate Random Entities..."="Générer des entités aléatoires...";
 "Create a Proxy for Enscape..."="Créer un proxy pour Enscape...";
 "Erase Real Model of Proxy"="Effacer le modèle réel du proxy";
+"Set Random Zone from Image..."="Faire d'une image la zone aléatoire...";
 "Forget the Random Zones"="Oublier les zones aléatoires";
 "Donate to Plugin Author"="Faire un don à l'auteur de l'extension";
+
+//
+// File: parameters.rb
+//
+
+"Please select one or many faces."="Veuillez sélectionner une ou plusieurs faces.";
+"Set Random Zone"="Définir la zone aléatoire";
+"Defining Random Zone... Please wait."="Définition d'une zone aléatoire en cours... Veuillez patienter.";
+"Surface well added to Random Zone list."="Surface bien ajoutée à la liste des zones aléatoires.";
+"Error: Random zone must be constituted of triangles or quad faces."="Erreur : la zone aléatoire doit être constituée de triangles ou de faces quadrilatérales.";
+"Select an Image"="Sélectionnez une image";
+"How many centimeters per pixel?"="Combien de centimètres par pixel ?";
+"Random Zone recorded."="Zone aléatoire enregistrée.";
+"Error:"="Erreur :";
 
 //
 // File: parameters.rhtml
@@ -68,6 +90,13 @@
 "Preview"="Prévisualiser";
 
 //
+// File: point_grid.rb
+//
+
+"This function requires SketchUp 2018 or newer."="Cette fonction requiert SketchUp 2018 ou plus récent.";
+"Image must be a maximum of 316 x 316 pixels."="L'image doit mesurer au maximum 316 x 316 pixels.";
+
+//
 // File: proxies.rb
 //
 
@@ -92,15 +121,3 @@
 "White Daisy Flower"="Marguerite blanche";
 "Import this model as Enscape proxy."="Importer ce modèle en tant que proxy Enscape.";
 "Import this model as V-Ray proxy."="Importer ce modèle en tant que proxy V-Ray.";
-
-//
-// File: selection.rb
-//
-
-"Set Random Zone"="Définir la zone aléatoire";
-"Please select one or many faces."="Veuillez sélectionner une ou plusieurs faces.";
-"Defining Random Zone... Please wait."="Définition d'une zone aléatoire en cours... Veuillez patienter.";
-"Surface well added to Random Zone list."="Surface bien ajoutée à la liste des zones aléatoires.";
-"Error: Random zone must be constituted of triangles or quad faces."="Erreur : la zone aléatoire doit être constituée de triangles ou de faces quadrilatérales.";
-"Randomize selected entities"="Randomiser les entités sélectionnées";
-"Randomizing entities... Please wait."="Randomisation des entités en cours... Veuillez patienter.";

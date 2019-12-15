@@ -22,7 +22,6 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 
 require 'sketchup'
 require 'reg/parameters'
-require 'reg/selection'
 
 # REG plugin namespace.
 module REG
@@ -37,7 +36,7 @@ module REG
 
         context_menu.add_item('🎲 ' + TRANSLATE['Set as Random Zone']) {
 
-          Selection.set_as_random_zone
+          Parameters.set_selection_as_rand_zone
 
         }
 

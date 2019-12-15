@@ -21,9 +21,8 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
-require 'reg/parameters'
-require 'reg/generator'
 require 'reg/proxies'
+require 'reg/parameters'
 
 # REG plugin namespace.
 module REG
@@ -42,26 +41,16 @@ module REG
 
       @menu = parent_menu.add_submenu('🎲 ' + TRANSLATE[NAME])
 
-      menu_item = @menu.add_item('▣ ' + TRANSLATE['Explore Proxy Library...']) {
+      if Sketchup.platform == :platform_win
 
-        Proxies.show_library_html_dialog
+        @menu.add_item('▣ ' + TRANSLATE['Explore the Proxy Library...']) {
 
-      }
+          Proxies.show_library_html_dialog
 
-      @menu.set_validation_proc(menu_item) {
+        }
 
-        if Sketchup.platform == :platform_osx
-
-          MF_GRAYED
-
-        else
-
-          MF_ENABLED
-          
-        end
-
-      }
-
+      end
+      
       @menu.add_item(TRANSLATE['Generate Random Entities...']) {
 
         Parameters.show_html_dialog('big_bang', 'generator')
@@ -79,6 +68,16 @@ module REG
         Proxies.erase_real_model
 
       }
+
+      if Sketchup.version.to_i >= 18
+
+        @menu.add_item(TRANSLATE['Set Random Zone from Image...']) {
+
+          Parameters.set_rand_zone_from_image
+
+        }
+
+      end
 
       @menu.add_item(TRANSLATE['Forget the Random Zones']) {
 

@@ -21,7 +21,6 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'reg/entities'
-require 'reg/preview_tool'
 
 # REG plugin namespace.
 module REG
@@ -55,51 +54,7 @@ module REG
 
       end
 
-      if PARAMETERS[:avoid_ent_collision?]
-
-        # FIXME: Why these param. are incompatible?
-        if PARAMETERS[:rand_zone_point_grid].empty?
-
-          5.times do
-
-            collided_entities = Entities.collision_detect(generated_entities)
-
-            collided_entities.each { |collided_entity|
-
-              Entities.randomize(collided_entity)
-
-            }
-
-          end
-
-        end
-
-        model.active_entities.erase_entities(
-          Entities.collision_detect(generated_entities)
-        )
-
-      end
-
-      if mode == 'preview'
-
-        SESSION[:bound_boxes_to_preview] = []
-
-        generated_entities.each { |generated_entity|
-
-          SESSION[:bound_boxes_to_preview].push(generated_entity.bounds)
-
-        }
-
-        model.active_entities.erase_entities(generated_entities)
-
-        model.select_tool(PreviewTool.new)
-
-        # XXX This “hack” debugs preview.
-        model.active_view.refresh
-        Sketchup.send_action('viewTop:')
-        model.active_view.zoom_extents
-
-      end
+      Entities.post_processing(generated_entities, mode)
 
       model.commit_operation
 

@@ -21,6 +21,9 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
+require 'reg/point_grid'
+require 'reg/generator'
+require 'reg/entities'
 
 # REG plugin namespace.
 module REG
@@ -74,6 +77,161 @@ module REG
         = (parameters['overwrite_ent_colors'] == 'yes')
 
       nil
+
+    end
+
+    # Sets selection as one more Random Zone.
+    #
+    # @return [nil]
+    def self.set_selection_as_rand_zone
+
+      model = Sketchup.active_model
+
+      selected_faces = model.selection.grep(Sketchup::Face)
+
+      if selected_faces.empty?
+
+        UI.messagebox(TRANSLATE['Please select one or many faces.'])
+
+        return
+
+      end
+
+      begin
+
+        model.start_operation(
+          TRANSLATE['Set Random Zone'],
+          true # disable_ui
+        )
+
+        Sketchup.status_text = TRANSLATE['Defining Random Zone... Please wait.']
+
+        altitude = UI.inputbox(
+
+           [TRANSLATE['Entity max. altitude (m)'] + ' '], # Prompt
+           [0], # Default
+           TRANSLATE[NAME] # Title
+
+        )
+
+        # Escapes if user cancelled operation.
+        return if altitude == false
+
+        PARAMETERS[:entity_max_altitude] = altitude[0].to_s.concat('m').to_l
+
+        # XXX High density point grid:
+        if selected_faces.size <= 100
+
+          selected_faces.each { |selected_face|
+
+            PARAMETERS[:rand_zone_point_grid].concat(
+              PointGrid.face(selected_face, 100)
+            )
+
+          }
+
+        # XXX Low density point grid:
+        else
+
+          selected_faces.each { |selected_face|
+
+            selected_face_point = selected_face.bounds.center
+
+            next if PARAMETERS[:entity_max_altitude] != 0\
+              && selected_face_point.z > PARAMETERS[:entity_max_altitude]
+
+            PARAMETERS[:rand_zone_point_grid].concat([
+
+              [
+                selected_face_point,
+                selected_face.normal
+              ]
+
+            ])
+
+          }
+
+        end
+
+        model.commit_operation
+
+        Sketchup.status_text = nil
+
+        UI.messagebox(TRANSLATE['Surface well added to Random Zone list.'])
+
+        nil
+
+      rescue StandardError => _exception
+
+        model.abort_operation
+
+        Sketchup.status_text = nil
+
+        UI.messagebox(
+          TRANSLATE[
+            'Error: Random zone must be constituted of triangles or quad faces.'
+          ]
+        )
+
+      end
+
+    end
+
+    # Sets Random Zone param. from an image.
+    #
+    # @return [nil]
+    def self.set_rand_zone_from_image
+
+      image_path = UI.openpanel(
+        TRANSLATE['Select an Image'], nil,
+        TRANSLATE['Images'] + '|*.jpg;*.bmp||'
+      )
+
+      # Escapes if user cancelled operation.
+      return if image_path == nil
+
+      cm_per_pixel = UI.inputbox(
+
+        [TRANSLATE['How many centimeters per pixel?'] + ' '], # Prompt
+        [10], # Default
+        TRANSLATE[NAME] # Title
+
+      )
+
+      # Escapes if user cancelled operation.
+      return if cm_per_pixel == false
+
+      begin
+
+        model = Sketchup.active_model
+
+        model.start_operation(
+          TRANSLATE['Set Random Zone'],
+          true # disable_ui
+        )
+
+        Sketchup.status_text = TRANSLATE['Defining Random Zone... Please wait.']
+
+        PARAMETERS[:rand_zone_point_grid]\
+          = PointGrid.image(image_path, cm_per_pixel[0])
+
+        model.commit_operation
+
+        Sketchup.status_text = nil
+
+        UI.messagebox(TRANSLATE['Random Zone recorded.'])
+
+        nil
+
+      rescue StandardError => exception
+
+        model.abort_operation
+
+        Sketchup.status_text = nil
+
+        UI.messagebox(TRANSLATE['Error:'] + ' ' + exception.message)
+
+      end
 
     end
 
@@ -146,7 +304,7 @@ module REG
 
         else # if callback == 'randomizer'
 
-          Selection.randomize_entities(mode)
+          Entities.randomize_selection(mode)
 
         end
         
