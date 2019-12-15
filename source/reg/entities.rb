@@ -75,9 +75,7 @@ module REG
 
       PARAMETERS[:entity_count].times do
 
-        entities.push(Entities.randomize(
-          Entities.clone_grouponent(selected_grouponents.sample)
-        ))
+        entities.push(randomize(clone_grouponent(selected_grouponents.sample)))
 
       end
 
