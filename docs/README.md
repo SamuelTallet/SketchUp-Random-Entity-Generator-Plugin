@@ -5,7 +5,7 @@
 Demos
 -----
 
-![REG Plugin Random Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/random_demo.png)
+![REG Plugin Star Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/star_demo.png)
 
 ![REG Plugin Sunflowers Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/sunflowers_demo.jpg)
 
