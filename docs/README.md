@@ -40,9 +40,13 @@ Recall: A Random Zone is a spawn zone for generated objects. You can set a Rando
 
 2. Open SketchUp. Unfold "Extensions > Random Entity Generator" menu. Click on "Set Random Zone from Image...".
 
-3. Enjoy result:
+3. Randomize or generate some entities. Enjoy result:
 
 ![REG Plugin Star Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/star_demo.png)
+
+### How to speed up Random Entity Generator?
+
+To speed up REG plugin: Randomize component(s) instead of group(s). Even better, randomize proxy component(s).
 
 Thanks
 ------
