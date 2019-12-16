@@ -30,9 +30,9 @@ You can specify a spawn zone for generated objects. Right click on a surface the
 Documentation
 -------------
 
-### How to set a Random Zone from an image
+### How to set Random Zone from an image
 
-Recall: A Random Zone is a spawn zone for generated objects. You can set a Random Zone from an image. Here is how:
+Recall: A Random Zone is a spawn zone for generated objects. You can set Random Zone from an image. Here is how:
 
 1. Prepare an image with a maximum resolution of 316 x 316 pixels. White pixels will be considered as holes. Example:
 
