@@ -184,7 +184,7 @@ module REG
 
       image_path = UI.openpanel(
         TRANSLATE['Select an Image'], nil,
-        TRANSLATE['Images'] + '|*.jpg;*.bmp||'
+        TRANSLATE['Image'] + '|*.bmp||'
       )
 
       # Escapes if user cancelled operation.
@@ -213,7 +213,7 @@ module REG
         Sketchup.status_text = TRANSLATE['Defining Random Zone... Please wait.']
 
         PARAMETERS[:rand_zone_point_grid]\
-          = PointGrid.image(image_path, cm_per_pixel[0])
+          = PointGrid.bitmap(image_path, cm_per_pixel[0])
 
         model.commit_operation
 

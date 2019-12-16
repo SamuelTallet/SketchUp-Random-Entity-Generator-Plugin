@@ -93,8 +93,7 @@
 // File: point_grid.rb
 //
 
-"This function requires SketchUp 2018 or newer."="Cette fonction requiert SketchUp 2018 ou plus récent.";
-"Image must be a maximum of 316 x 316 pixels."="L'image doit mesurer au maximum 316 x 316 pixels.";
+"Image must be a maximum of 1024 x 1024 pixels."="L'image doit mesurer au maximum 1024 x 1024 pixels.";
 
 //
 // File: proxies.rb

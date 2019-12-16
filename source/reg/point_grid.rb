@@ -21,6 +21,7 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
+require 'reg/bitmap'
 
 # REG plugin namespace.
 module REG
@@ -175,7 +176,7 @@ module REG
 
     end
 
-    # Returns a point grid for an image.
+    # Returns a point grid for a bitmap image.
     # XXX White pixels are considered as holes.
     #
     # @param [String] image_path
@@ -185,15 +186,7 @@ module REG
     # @raise [StandardError]
     #
     # @return [Array<Geom::Point3d, Geom::Vector3d>]
-    def self.image(image_path, cm_per_pixel = 100)
-
-      if Sketchup.version.to_i < 18
-
-        raise StandardError.new(
-          TRANSLATE['This function requires SketchUp 2018 or newer.']
-        )
-
-      end
+    def self.bitmap(image_path, cm_per_pixel = 100)
 
       raise ArgumentError, 'Image Path parameter is invalid.'\
         unless image_path.is_a?(String)
@@ -203,60 +196,58 @@ module REG
 
       inches_per_pixel = cm_per_pixel.to_s.concat('cm').to_l
 
-      image = Sketchup::ImageRep.new
+      bitmap = Bitmap.new(image_path)
 
-      image.load_file(image_path)
-
-      if image.width > 316 || image.height > 316
+      if bitmap.width > 1024 || bitmap.height > 1024
 
         raise StandardError.new(
-          TRANSLATE['Image must be a maximum of 316 x 316 pixels.']
+          TRANSLATE['Image must be a maximum of 1024 x 1024 pixels.']
         )
 
       end
 
-      image_colors_xy = []
+      bitmap_colors_xy = []
 
-      for image_color_index in 1..image.colors.size do
+      for bitmap_color_index in 1..bitmap.colors.size do
 
-        if image_color_index % image.width == 0
+        if bitmap_color_index % bitmap.width == 0
 
-          image_colors_xy.push(
-            image.colors[image_color_index-image.width...image_color_index]
+          bitmap_colors_xy.push(
+            bitmap.colors[bitmap_color_index-bitmap.width...bitmap_color_index]
           )
           
         end
 
       end
 
-      image_point_grid = []
+      bitmap_point_grid = []
 
-      image_point_x = 0
-      image_point_y = 0
+      bitmap_point_x = 0
+      bitmap_point_y = 0
 
-      image_colors_xy.each do |image_color_x|
+      bitmap_colors_xy.each do |bitmap_color_x|
 
-        image_color_x.each do |image_color_y|
+        bitmap_color_x.each do |bitmap_color_y|
 
-          image_point_y += inches_per_pixel
+          bitmap_point_y += inches_per_pixel
           
-          next if image_color_y.red == 255 && image_color_y.green == 255\
-            && image_color_y.blue == 255
+          next if bitmap_color_y.red == 255 && bitmap_color_y.green == 255\
+            && bitmap_color_y.blue == 255
 
-          image_point_grid.push([
-            Geom::Point3d.new(image_point_x, image_point_y, 0),
+          bitmap_point_grid.push([
+            Geom::Point3d.new(bitmap_point_x, bitmap_point_y, 0),
             Z_AXIS
           ])
 
         end
 
-        image_point_x += inches_per_pixel
+        bitmap_point_x += inches_per_pixel
 
-        image_point_y = 0
+        bitmap_point_y = 0
 
       end
 
-      image_point_grid
+      bitmap_point_grid
 
     end
 

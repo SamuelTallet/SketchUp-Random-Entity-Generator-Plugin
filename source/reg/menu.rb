@@ -69,15 +69,11 @@ module REG
 
       }
 
-      if Sketchup.version.to_i >= 18
+      @menu.add_item(TRANSLATE['Set Random Zone from Image...']) {
 
-        @menu.add_item(TRANSLATE['Set Random Zone from Image...']) {
+        Parameters.set_rand_zone_from_image
 
-          Parameters.set_rand_zone_from_image
-
-        }
-
-      end
+      }
 
       @menu.add_item(TRANSLATE['Forget the Random Zones']) {
 

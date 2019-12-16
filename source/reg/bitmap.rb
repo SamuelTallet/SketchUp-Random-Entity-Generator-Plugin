@@ -21,45 +21,67 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
-require 'extensions'
 
 # REG plugin namespace.
 module REG
 
-  VERSION = '1.1.4'.freeze
+  # Bitmap parser. XXX Algorithm comes from Spirix BMP Tracer plugin for SU.
+  #
+  # @see https://sites.google.com/site/spirixcode/code/spirix_bmp_tracer.rbz
+  class Bitmap
 
-  # Load translation if it's available for current locale.
-  TRANSLATE = LanguageHandler.new('reg.strings')
-  # See: "reg/Resources/#{Sketchup.get_locale}/reg.strings"
+    attr_reader :colors, :width, :height
 
-  # Remember extension name. See: REG::Menu.
-  NAME = TRANSLATE['Random Entity Generator']
+    def initialize(filename)
 
-  # Initialize param. storage of REG plugin.
-  PARAMETERS = nil.to_h
+      @colors = []
 
-  # Initialize session storage of REG plugin.
-  SESSION = nil.to_h
+      data = File.open(filename, 'rb')
 
-  # Register extension.
+      t = data.read(54).unpack('C54')
 
-  extension = SketchupExtension.new(NAME, 'reg/load.rb')
+      @width = t[19].to_i * 256 + t[18].to_i
+      @height = t[23].to_i * 256 + t[22].to_i
 
-  extension.version     = VERSION
-  extension.creator     = 'Samuel Tallet'
-  extension.copyright   = "© 2019 #{extension.creator}"
+      fo = t[11].to_i * 256 + t[10].to_i
 
-  features = [
-    TRANSLATE['Add random entities to your SketchUp models.'],
-    TRANSLATE['Create Enscape proxies.'],
-    TRANSLATE['Randomize position/size of selected entities.']
-  ]
+      if fo != 54
+        v = fo - 54
+        t = data.read(v).unpack('C' + v.to_s)
+      end
 
-  extension.description = features.join(' ')
+      padding = (@width * 3) & 3
 
-  Sketchup.register_extension(
-    extension,
-    true # load_at_start
-  )
+      if padding != 0
+        padding = 4 - padding
+      end
+
+      for y in 0...@height do
+
+        t = data.read(@width * 3 + padding).unpack('C' + (@width * 3).to_s)
+
+        for x in 0...@width do
+
+          @colors.push(
+
+            Sketchup::Color.new([
+
+              t[3 * x + 2].to_i, # Red
+              t[3 * x + 1].to_i, # Green
+              t[3 * x].to_i # Blue
+
+            ])
+
+          )
+
+        end
+
+      end
+
+      data.close
+
+    end
+
+  end
 
 end
