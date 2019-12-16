@@ -46,7 +46,7 @@ Recall: A Random Zone is a spawn zone for generated objects. You can set a Rando
 
 ### How to speed up Random Entity Generator?
 
-To speed up REG plugin: Randomize component(s) instead of group(s). Even better, randomize proxy component(s).
+⚡ To speed up REG plugin: Randomize component(s) instead of group(s). Even better, randomize proxy component(s).
 
 Thanks
 ------
