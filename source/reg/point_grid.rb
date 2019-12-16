@@ -181,12 +181,14 @@ module REG
     #
     # @param [String] image_path
     # @param [Integer] cm_per_pixel
+    # @param [Integer] z_layers
+    # @param [Integer] z_interval
     # @raise [ArgumentError]
     #
     # @raise [StandardError]
     #
     # @return [Array<Geom::Point3d, Geom::Vector3d>]
-    def self.bitmap(image_path, cm_per_pixel = 100)
+    def self.bitmap(image_path, cm_per_pixel, z_layers, z_interval)
 
       raise ArgumentError, 'Image Path parameter is invalid.'\
         unless image_path.is_a?(String)
@@ -194,7 +196,15 @@ module REG
       raise ArgumentError, 'Cm Per Pixel parameter is invalid.'\
         unless cm_per_pixel.is_a?(Integer)
 
+      raise ArgumentError, 'Z Layers parameter is invalid.'\
+        unless z_layers.is_a?(Integer)
+
+      raise ArgumentError, 'Z Interval parameter is invalid.'\
+        unless z_interval.is_a?(Integer)
+
       inches_per_pixel = cm_per_pixel.to_s.concat('cm').to_l
+
+      inches_z_interval = z_interval.to_s.concat('cm').to_l
 
       bitmap = Bitmap.new(image_path)
 
@@ -220,7 +230,7 @@ module REG
 
       end
 
-      bitmap_point_grid = []
+      bitmap_point_grid_2d = []
 
       bitmap_point_x = 0
       bitmap_point_y = 0
@@ -234,7 +244,7 @@ module REG
           next if bitmap_color_y.red == 255 && bitmap_color_y.green == 255\
             && bitmap_color_y.blue == 255
 
-          bitmap_point_grid.push([
+          bitmap_point_grid_2d.push([
             Geom::Point3d.new(bitmap_point_x, bitmap_point_y, 0),
             Z_AXIS
           ])
@@ -247,7 +257,38 @@ module REG
 
       end
 
-      bitmap_point_grid
+      return bitmap_point_grid_2d if z_layers == 1
+
+      bitmap_point_grid_3d = []
+
+      bitmap_point_z = 0
+
+      z_layers.times do
+
+        bitmap_point_grid_2d.each do |point_and_normal|
+
+          point = point_and_normal[0]
+
+          normal = point_and_normal[1]
+
+          new_point = Geom::Point3d.new(
+            point.x,
+            point.y,
+            bitmap_point_z
+          )
+
+          bitmap_point_grid_3d.push([
+            new_point,
+            normal
+          ])
+
+        end
+
+        bitmap_point_z += inches_z_interval
+
+      end
+
+      bitmap_point_grid_3d
 
     end
 

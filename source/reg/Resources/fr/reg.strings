@@ -55,10 +55,17 @@
 "Please select one or many faces."="Veuillez sélectionner une ou plusieurs faces.";
 "Set Random Zone"="Définir la zone aléatoire";
 "Defining Random Zone... Please wait."="Définition d'une zone aléatoire en cours... Veuillez patienter.";
+"Entity maximum altitude (m)"="Altitude maximale des entités (m)";
+"Entity distribution algorithm"="Algo. de distribution des entités";
+"Random / Face center"="Aléatoire / Centre des faces";
+"Random (Slow)"="Aléatoire (Lent)";
+"Face center (Fast)"="Centre des faces (Rapide)";
 "Surface well added to Random Zone list."="Surface bien ajoutée à la liste des zones aléatoires.";
 "Error: Random zone must be constituted of triangles or quad faces."="Erreur : la zone aléatoire doit être constituée de triangles ou de faces quadrilatérales.";
 "Select an Image"="Sélectionnez une image";
 "How many centimeters per pixel?"="Combien de centimètres par pixel ?";
+"How many vertical (Z axis) layers?"="Combien de couches verticales (axe Z) ?";
+"Space between each Z layer (cm)?"="Espace entre chaque couche Z (cm) ?";
 "Random Zone recorded."="Zone aléatoire enregistrée.";
 "Error:"="Erreur :";
 

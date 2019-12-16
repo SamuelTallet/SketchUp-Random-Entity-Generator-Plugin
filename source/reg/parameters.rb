@@ -106,21 +106,70 @@ module REG
 
         Sketchup.status_text = TRANSLATE['Defining Random Zone... Please wait.']
 
-        altitude = UI.inputbox(
+        parameters = UI.inputbox(
 
-           [TRANSLATE['Entity max. altitude (m)'] + ' '], # Prompt
-           [0], # Default
-           TRANSLATE[NAME] # Title
+          [
+            TRANSLATE['Entity maximum altitude (m)'],
+            TRANSLATE['Entity distribution algorithm'] + ' '
+          ], # Prompts
+
+          [
+            0,
+            TRANSLATE['Random / Face center']
+          ], # Defaults
+
+          [
+            '',
+            TRANSLATE['Random / Face center'] + '|' +
+            TRANSLATE['Random (Slow)'] + '|' +
+            TRANSLATE['Face center (Fast)']
+          ],
+
+          TRANSLATE[NAME] # Title
 
         )
 
         # Escapes if user cancelled operation.
-        return if altitude == false
+        return if parameters == false
 
-        PARAMETERS[:entity_max_altitude] = altitude[0].to_s.concat('m').to_l
+        entity_max_altitude = parameters[0].to_s.concat('m').to_l
+        entity_distrib_algo = parameters[1]
 
-        # XXX High density point grid:
-        if selected_faces.size <= 100
+        if entity_distrib_algo == TRANSLATE['Random / Face center']
+
+          if selected_faces.size <= 100
+
+            selected_faces.each { |selected_face|
+
+              PARAMETERS[:rand_zone_point_grid].concat(
+                PointGrid.face(selected_face, 100)
+              )
+
+            }
+
+          else
+
+            selected_faces.each { |selected_face|
+
+              selected_face_point = selected_face.bounds.center
+
+              next if entity_max_altitude != 0\
+                && selected_face_point.z > entity_max_altitude
+
+              PARAMETERS[:rand_zone_point_grid].concat([
+
+                [
+                  selected_face_point,
+                  selected_face.normal
+                ]
+
+              ])
+
+            }
+
+          end
+
+        elsif entity_distrib_algo == TRANSLATE['Random (Slow)']
 
           selected_faces.each { |selected_face|
 
@@ -130,15 +179,14 @@ module REG
 
           }
 
-        # XXX Low density point grid:
-        else
+        else # if entity_distrib_algo == TRANSLATE['Face center (Fast)']
 
           selected_faces.each { |selected_face|
 
             selected_face_point = selected_face.bounds.center
 
-            next if PARAMETERS[:entity_max_altitude] != 0\
-              && selected_face_point.z > PARAMETERS[:entity_max_altitude]
+            next if entity_max_altitude != 0\
+              && selected_face_point.z > entity_max_altitude
 
             PARAMETERS[:rand_zone_point_grid].concat([
 
@@ -152,7 +200,7 @@ module REG
           }
 
         end
-
+  
         model.commit_operation
 
         Sketchup.status_text = nil
@@ -190,16 +238,26 @@ module REG
       # Escapes if user cancelled operation.
       return if image_path == nil
 
-      cm_per_pixel = UI.inputbox(
+      parameters = UI.inputbox(
 
-        [TRANSLATE['How many centimeters per pixel?'] + ' '], # Prompt
-        [10], # Default
+        [
+          TRANSLATE['How many centimeters per pixel?'],
+          TRANSLATE['How many vertical (Z axis) layers?'],
+          TRANSLATE['Space between each Z layer (cm)?'] + ' '
+        ], # Prompts
+
+        [
+          10,
+          1,
+          100
+        ], # Defaults
+
         TRANSLATE[NAME] # Title
 
       )
 
       # Escapes if user cancelled operation.
-      return if cm_per_pixel == false
+      return if parameters == false
 
       begin
 
@@ -213,7 +271,12 @@ module REG
         Sketchup.status_text = TRANSLATE['Defining Random Zone... Please wait.']
 
         PARAMETERS[:rand_zone_point_grid]\
-          = PointGrid.bitmap(image_path, cm_per_pixel[0])
+          = PointGrid.bitmap(
+              image_path,
+              parameters[0],
+              parameters[1],
+             parameters[2]
+            )
 
         model.commit_operation
 
