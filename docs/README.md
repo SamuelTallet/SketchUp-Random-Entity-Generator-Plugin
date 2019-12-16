@@ -9,7 +9,7 @@ Demos
 
 ![REG Plugin Sunflowers Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/sunflowers_demo.jpg)
 
-![REG Plugin Deformations Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/deformations_demo.png)
+![REG Plugin Deformations Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/deformations_demo.jpg)
 
 
 Installation
@@ -34,9 +34,9 @@ Documentation
 
 Recall: A Random Zone is a spawn zone for generated objects. You can set Random Zone from an image. Here is how:
 
-1. Prepare an image with a maximum resolution of 316 x 316 pixels. White pixels will be considered as holes. Example:
+1. Prepare an image with a maximum resolution of 1024 x 1024 pixels. White pixels will be considered as holes. Example:
 
-![REG Plugin Star Scattering Map](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/star_scattering_map.jpg)
+![REG Plugin Star Scattering Map](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/star_scattering_map.png)
 
 2. Open SketchUp. Unfold "Extensions > Random Entity Generator" menu. Click on "Set Random Zone from Image...".
 
