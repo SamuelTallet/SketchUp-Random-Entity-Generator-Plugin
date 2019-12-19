@@ -80,7 +80,7 @@ REG.onPresetChange = _event => {
 
 			REG.get('#reg-avoid-ent-collision').value = 'no';
 
-			REG.get('#reg-overwite-ent-colors').value = 'no';
+			REG.get('#reg-overwrite-ent-colors').value = 'no';
 
 			break;
 
@@ -104,7 +104,7 @@ REG.onPresetChange = _event => {
 
 			REG.get('#reg-avoid-ent-collision').value = 'no';
 
-			REG.get('#reg-overwite-ent-colors').value = 'no';
+			REG.get('#reg-overwrite-ent-colors').value = 'no';
 
 			break;
 
@@ -128,7 +128,7 @@ REG.onPresetChange = _event => {
 
 			REG.get('#reg-avoid-ent-collision').value = 'no';
 
-			REG.get('#reg-overwite-ent-colors').value = 'no';
+			REG.get('#reg-overwrite-ent-colors').value = 'no';
 
 			break;
 
@@ -152,7 +152,7 @@ REG.onPresetChange = _event => {
 
 			REG.get('#reg-avoid-ent-collision').value = 'yes';
 
-			REG.get('#reg-overwite-ent-colors').value = 'no';
+			REG.get('#reg-overwrite-ent-colors').value = 'no';
 
 			break;
 

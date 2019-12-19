@@ -76,6 +76,10 @@ module REG
       PARAMETERS[:overwrite_ent_colors?]\
         = (parameters['overwrite_ent_colors'] == 'yes')
 
+      PARAMETERS[:entity_group_name] = parameters['entity_group_name']
+
+      PARAMETERS[:entity_layer_name] = parameters['entity_layer_name']
+
       nil
 
     end
@@ -320,9 +324,9 @@ module REG
         preferences_key: 'REG Parameters',
         scrollable:      false,
         width:           420,
-        height:          555,
+        height:          625,
         min_width:       420,
-        min_height:      555
+        min_height:      625
 
       )
 
@@ -411,6 +415,10 @@ module REG
       PARAMETERS[:avoid_ent_collision?]   = false
 
       PARAMETERS[:overwrite_ent_colors?]  = false
+
+      PARAMETERS[:entity_group_name] = ''
+
+      PARAMETERS[:entity_layer_name] = 'Layer0'
 
       reset_random_zone
 

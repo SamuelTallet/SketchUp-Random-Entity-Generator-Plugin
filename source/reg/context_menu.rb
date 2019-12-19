@@ -34,7 +34,7 @@ module REG
 
       UI.add_context_menu_handler { |context_menu|
 
-        context_menu.add_item('🎲 ' + TRANSLATE['Set as Random Zone']) {
+        context_menu.add_item('🎲 ' + TRANSLATE['Set as Random Zone...']) {
 
           Parameters.set_selection_as_rand_zone
 

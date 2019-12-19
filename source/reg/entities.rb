@@ -254,7 +254,7 @@ module REG
 
     end
 
-    # Processes collision detect and preview after generation...
+    # Processes collision detect, preview, etc. after generation...
     #
     # @param [Array<Sketchup::Entity>] entities
     # @param [String] mode
@@ -312,6 +312,28 @@ module REG
         model.active_view.refresh
         Sketchup.send_action('viewTop:')
         model.active_view.zoom_extents
+
+      else # if mode == 'validate'
+
+        if PARAMETERS[:entity_group_name] != ''
+
+          group = model.active_entities.add_group(entities)
+
+          group.name = PARAMETERS[:entity_group_name]
+
+        end
+
+        if PARAMETERS[:entity_layer_name] != 'Layer0'
+
+          layer = model.layers[PARAMETERS[:entity_layer_name]]
+
+          entities.each { |entity|
+
+            entity.layer = layer
+
+          }
+
+        end
 
       end
 

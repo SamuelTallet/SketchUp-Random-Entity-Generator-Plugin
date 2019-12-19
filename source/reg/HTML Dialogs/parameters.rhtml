@@ -131,11 +131,35 @@
 
 		<div class="reg-parameter">
 
-			<label for="reg-overwite-ent-colors"><%= TRANSLATE['Overwrite entity colors?'] %></label>
+			<label for="reg-overwrite-ent-colors"><%= TRANSLATE['Overwrite entity colors?'] %></label>
 			
-			<select id="reg-overwite-ent-colors" name="overwrite_ent_colors">
+			<select id="reg-overwrite-ent-colors" name="overwrite_ent_colors">
 				<option value="yes"><%= TRANSLATE['Yes'] %></option>
 				<option value="no"><%= TRANSLATE['No'] %></option>
+			</select>
+
+		</div>
+
+		<div class="reg-parameter">
+
+			<label for="reg-entity-group-name"><%= TRANSLATE['Put entities on group'] %></label>
+			
+			<input type="text" id="reg-entity-group-name" name="entity_group_name" data-regex-pattern="^.*$" data-default-value="" />
+
+		</div>
+
+		<div class="reg-parameter">
+
+			<label for="reg-entity-layer-name"><%= TRANSLATE['Put entities on layer'] %></label>
+			
+			<select id="reg-entity-layer-name" name="entity_layer_name">
+
+				<% Sketchup.active_model.layers.each { |layer| %>
+
+					<option value="<%= layer.name %>"><%= layer.name %></option>
+
+				<% } %>
+
 			</select>
 
 		</div>
