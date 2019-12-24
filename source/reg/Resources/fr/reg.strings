@@ -90,8 +90,8 @@
 "Follow face normals?"="Suivre les normales des faces ?";
 "Avoid entity collision?"="Éviter les collisions d'entités ?";
 "Overwrite entity colors?"="Écraser les couleurs des entités ?";
-"Put entities on group"="Placer les entités dans le groupe";
-"Put entities on layer"="Placer les entités dans le calque";
+"Put entities in group"="Placer les entités dans le groupe";
+"Put entities in layer"="Placer les entités dans le calque";
 "Yes"="Oui";
 "No"="Non";
 "This parameter is disabled because no random zone is defined."="Ce paramètre est désactivé car aucune zone aléatoire n'est définie.";

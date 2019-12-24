@@ -76,8 +76,14 @@ module REG
 
     # Generates a random scaling transformation.
     #
+    # @param [Sketchup::Entity] entity
+    # @raise [ArgumentError]
+    #
     # @return [Geom::Transformation]
-    def self.generate_random_scaling
+    def self.generate_random_scaling(entity)
+
+      raise ArgumentError, 'Entity parameter must be a Sketchup::Entity.'\
+        unless entity.is_a?(Sketchup::Entity)
 
       if PARAMETERS[:entity_min_size] == PARAMETERS[:entity_max_size]
 
@@ -90,7 +96,7 @@ module REG
 
       end
 
-      Geom::Transformation.scaling(ORIGIN, scale)
+      Geom::Transformation.scaling(entity.bounds.center, scale)
 
     end
 

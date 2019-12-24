@@ -144,7 +144,7 @@ module REG
 
       entity.transform!(Transformations.generate_random_rotation)
 
-      entity.transform!(Transformations.generate_random_scaling)
+      entity.transform!(Transformations.generate_random_scaling(entity))
 
       entity.transform!(Transformations.generate_random_translation)
 

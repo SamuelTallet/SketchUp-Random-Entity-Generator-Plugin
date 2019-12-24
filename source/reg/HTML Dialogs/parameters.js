@@ -91,7 +91,7 @@ REG.onPresetChange = _event => {
 			REG.get('#reg-entity-min-rotation').value = 0.0;
 			REG.get('#reg-entity-max-rotation').value = 359.0;
 
-			REG.get('#reg-entity-min-size').value = 0.7;
+			REG.get('#reg-entity-min-size').value = 1.0;
 			REG.get('#reg-entity-max-size').value = 1.0;
 
 			REG.get('#reg-push-ents-to-down').value = 50;
