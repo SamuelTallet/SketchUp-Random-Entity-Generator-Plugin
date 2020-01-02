@@ -313,7 +313,7 @@ module REG
     def self.show_html_dialog(preset, callback)
 
       raise ArgumentError, 'Preset argument is invalid.'\
-        unless preset =~ /^(flowers|trees|grass_blocks|big_bang)$/
+        unless preset =~ /^(custom|flowers|trees|grass_blocks|big_bang)$/
 
       raise ArgumentError, 'Callback argument is invalid.'\
         unless callback =~ /^(generator|randomizer)$/
@@ -396,20 +396,20 @@ module REG
     # @return [nil]
     def self.reset
 
-      PARAMETERS[:entity_count]           = 100
+      PARAMETERS[:entity_count]           = 500
 
       PARAMETERS[:entity_min_rotation]    = 0.0.degrees
       PARAMETERS[:entity_max_rotation]    = 359.0.degrees
 
-      PARAMETERS[:entity_min_size]        = -10.0
-      PARAMETERS[:entity_max_size]        = 10.0
+      PARAMETERS[:entity_min_size]        = 0.7
+      PARAMETERS[:entity_max_size]        = 1.0
 
       PARAMETERS[:push_ents_to_down]      = 0.to_l
       PARAMETERS[:entity_max_altitude]    = 0.to_l
 
       PARAMETERS[:entity_density]         = 10.0
 
-      PARAMETERS[:glue_ents_to_ground?]   = false
+      PARAMETERS[:glue_ents_to_ground?]   = true
       PARAMETERS[:follow_face_normals?]   = false
 
       PARAMETERS[:avoid_ent_collision?]   = false

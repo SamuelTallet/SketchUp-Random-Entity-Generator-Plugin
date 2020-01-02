@@ -42,7 +42,7 @@ module REG
 
         context_menu.add_item('🎲 ' + TRANSLATE['Randomize...']) {
 
-          Parameters.show_html_dialog('flowers', 'randomizer')
+          Parameters.show_html_dialog('custom', 'randomizer')
 
         }
 

@@ -26,7 +26,7 @@ require 'extensions'
 # REG plugin namespace.
 module REG
 
-  VERSION = '1.1.7'.freeze
+  VERSION = '1.1.8'.freeze
 
   # Load translation if it's available for current locale.
   TRANSLATE = LanguageHandler.new('reg.strings')

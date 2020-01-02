@@ -24,6 +24,7 @@
 			<label for="reg-preset"><%= TRANSLATE['Preset'] %></label>
 
 			<select id="reg-preset">
+				<option value="custom"><%= TRANSLATE['Custom'] %></option>
 				<option value="flowers"><%= TRANSLATE['Flowers'] %></option>
 				<option value="trees"><%= TRANSLATE['Trees'] %></option>
 				<option value="grass_blocks"><%= TRANSLATE['Grass Blocks'] %></option>
@@ -36,7 +37,7 @@
 
 			<label for="reg-entity-count"><%= TRANSLATE['Entity count to generate'] %></label>
 
-			<input type="number" id="reg-entity-count" name="entity_count" min="1" data-regex-pattern="^[1-9][0-9]*$" data-default-value="100" />
+			<input type="number" id="reg-entity-count" name="entity_count" min="1" data-regex-pattern="^[1-9][0-9]*$" data-default-value="100" value="<%= PARAMETERS[:entity_count].to_i %>" />
 
 		</div>
 
@@ -44,7 +45,7 @@
 
 			<label for="reg-entity-min-rotation"><%= TRANSLATE['Entity minimum rotation (°)'] %></label>
 			
-			<input type="number" id="reg-entity-min-rotation" name="entity_min_rotation" min="0.0" max="359.0" data-regex-pattern="^(0|[1-9][0-9]*)(\.[0-9]+)?$" data-default-value="0.0" />
+			<input type="number" id="reg-entity-min-rotation" name="entity_min_rotation" min="0.0" max="359.0" data-regex-pattern="^(0|[1-9][0-9]*)(\.[0-9]+)?$" data-default-value="0.0" value="<%= PARAMETERS[:entity_min_rotation].radians.round(2) %>" />
 
 		</div>
 
@@ -52,7 +53,7 @@
 
 			<label for="reg-entity-max-rotation"><%= TRANSLATE['Entity maximum rotation (°)'] %></label>
 			
-			<input type="number" id="reg-entity-max-rotation" name="entity_max_rotation" min="0.0" max="359.0" data-regex-pattern="^(0|[1-9][0-9]*)(\.[0-9]+)?$" data-default-value="359.0" />
+			<input type="number" id="reg-entity-max-rotation" name="entity_max_rotation" min="0.0" max="359.0" data-regex-pattern="^(0|[1-9][0-9]*)(\.[0-9]+)?$" data-default-value="359.0" value="<%= PARAMETERS[:entity_max_rotation].radians.round(2) %>" />
 
 		</div>
 
@@ -60,7 +61,7 @@
 
 			<label for="reg-entity-min-size"><%= TRANSLATE['Entity minimum size'] %></label>
 			
-			<input type="number" id="reg-entity-min-size" name="entity_min_size" data-regex-pattern="^-?(0|[1-9][0-9]*)(\.[0-9]+)?$" data-default-value="-10.0" />
+			<input type="number" id="reg-entity-min-size" name="entity_min_size" data-regex-pattern="^-?(0|[1-9][0-9]*)(\.[0-9]+)?$" data-default-value="-10.0" value="<%= PARAMETERS[:entity_min_size].to_f %>" />
 
 		</div>
 
@@ -68,7 +69,7 @@
 
 			<label for="reg-entity-max-size"><%= TRANSLATE['Entity maximum size'] %></label>
 			
-			<input type="number" id="reg-entity-max-size" name="entity_max_size" data-regex-pattern="^-?(0|[1-9][0-9]*)(\.[0-9]+)?$" data-default-value="10.0" />
+			<input type="number" id="reg-entity-max-size" name="entity_max_size" data-regex-pattern="^-?(0|[1-9][0-9]*)(\.[0-9]+)?$" data-default-value="10.0" value="<%= PARAMETERS[:entity_max_size].to_f %>" />
 
 		</div>
 
@@ -76,7 +77,7 @@
 
 			<label for="reg-push-ents-to-down"><%= TRANSLATE['Push entities to down (cm)'] %></label>
 			
-			<input type="number" id="reg-push-ents-to-down" name="push_ents_to_down" min="0" data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because no random zone is defined.'] %>" data-regex-pattern="^(0|[1-9][0-9]*)$" data-default-value="0" />
+			<input type="number" id="reg-push-ents-to-down" name="push_ents_to_down" min="0" data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because no random zone is defined.'] %>" data-regex-pattern="^(0|[1-9][0-9]*)$" data-default-value="0" value="<%= PARAMETERS[:push_ents_to_down].to_l.to_cm.to_i %>" />
 
 		</div>
 
@@ -84,7 +85,7 @@
 
 			<label for="reg-entity-max-altitude"><%= TRANSLATE['Entity max. altitude (m)'] %></label>
 			
-			<input type="number" id="reg-entity-max-altitude" name="entity_max_altitude" data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because a random zone is defined.'] %>" data-regex-pattern="^(0|[1-9][0-9]*)$" data-default-value="0" />
+			<input type="number" id="reg-entity-max-altitude" name="entity_max_altitude" data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because a random zone is defined.'] %>" data-regex-pattern="^(0|[1-9][0-9]*)$" data-default-value="0" value="<%= PARAMETERS[:entity_max_altitude].to_l.to_m.to_i %>" />
 
 		</div>
 
@@ -92,7 +93,7 @@
 
 			<label for="reg-entity-density"><%= TRANSLATE['Entity density'] %></label>
 			
-			<input type="number" min="0.0" id="reg-entity-density" name="entity_density" data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because a random zone is defined.'] %>" data-regex-pattern="^(0|[1-9][0-9]*)(\.[0-9]+)?$" data-default-value="100.0" />
+			<input type="number" min="0.0" id="reg-entity-density" name="entity_density" data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because a random zone is defined.'] %>" data-regex-pattern="^(0|[1-9][0-9]*)(\.[0-9]+)?$" data-default-value="100.0" value="<%= PARAMETERS[:entity_density].to_f %>" />
 
 		</div>
 
@@ -101,8 +102,8 @@
 			<label for="reg-glue-ents-to-ground"><%= TRANSLATE['Glue entities to ground?'] %></label>
 			
 			<select id="reg-glue-ents-to-ground" name="glue_ents_to_ground" data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because a random zone is defined.'] %>">
-				<option value="yes"><%= TRANSLATE['Yes'] %></option>
-				<option value="no"><%= TRANSLATE['No'] %></option>
+				<option value="yes" <%= PARAMETERS[:glue_ents_to_ground?] ? 'selected' : '' %>><%= TRANSLATE['Yes'] %></option>
+				<option value="no" <%= PARAMETERS[:glue_ents_to_ground?] ? '' : 'selected' %>><%= TRANSLATE['No'] %></option>
 			</select>
 
 		</div>
@@ -112,8 +113,8 @@
 			<label for="reg-follow-face-normals"><%= TRANSLATE['Follow face normals?'] %></label>
 			
 			<select id="reg-follow-face-normals" name="follow_face_normals" data-disabled-explanation="<%= TRANSLATE['This parameter is disabled because no random zone is defined.'] %>">
-				<option value="yes"><%= TRANSLATE['Yes'] %></option>
-				<option value="no"><%= TRANSLATE['No'] %></option>
+				<option value="yes" <%= PARAMETERS[:follow_face_normals?] ? 'selected' : '' %>><%= TRANSLATE['Yes'] %></option>
+				<option value="no" <%= PARAMETERS[:follow_face_normals?] ? '' : 'selected' %>><%= TRANSLATE['No'] %></option>
 			</select>
 
 		</div>
@@ -123,8 +124,8 @@
 			<label for="reg-avoid-ent-collision"><%= TRANSLATE['Avoid entity collision?'] %></label>
 			
 			<select id="reg-avoid-ent-collision" name="avoid_ent_collision">
-				<option value="yes"><%= TRANSLATE['Yes'] %></option>
-				<option value="no"><%= TRANSLATE['No'] %></option>
+				<option value="yes" <%= PARAMETERS[:avoid_ent_collision?] ? 'selected' : '' %>><%= TRANSLATE['Yes'] %></option>
+				<option value="no" <%= PARAMETERS[:avoid_ent_collision?] ? '' : 'selected' %>><%= TRANSLATE['No'] %></option>
 			</select>
 
 		</div>
@@ -134,8 +135,8 @@
 			<label for="reg-overwrite-ent-colors"><%= TRANSLATE['Overwrite entity colors?'] %></label>
 			
 			<select id="reg-overwrite-ent-colors" name="overwrite_ent_colors">
-				<option value="yes"><%= TRANSLATE['Yes'] %></option>
-				<option value="no"><%= TRANSLATE['No'] %></option>
+				<option value="yes" <%= PARAMETERS[:overwrite_ent_colors?] ? 'selected' : '' %>><%= TRANSLATE['Yes'] %></option>
+				<option value="no" <%= PARAMETERS[:overwrite_ent_colors?] ? '' : 'selected' %>><%= TRANSLATE['No'] %></option>
 			</select>
 
 		</div>
@@ -144,7 +145,7 @@
 
 			<label for="reg-entity-group-name"><%= TRANSLATE['Put entities in group'] %></label>
 			
-			<input type="text" id="reg-entity-group-name" name="entity_group_name" data-regex-pattern="^.*$" data-default-value="" />
+			<input type="text" id="reg-entity-group-name" name="entity_group_name" data-regex-pattern="^.*$" data-default-value="" value="<%= PARAMETERS[:entity_group_name] %>" />
 
 		</div>
 
@@ -156,7 +157,7 @@
 
 				<% Sketchup.active_model.layers.each { |layer| %>
 
-					<option value="<%= layer.name %>"><%= layer.name %></option>
+					<option value="<%= layer.name %>" <%= (PARAMETERS[:entity_layer_name] == layer.name) ? 'selected' : '' %>><%= layer.name %></option>
 
 				<% } %>
 
