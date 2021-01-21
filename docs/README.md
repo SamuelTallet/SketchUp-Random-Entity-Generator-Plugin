@@ -11,24 +11,21 @@ Demos
 
 ![REG Plugin Deformations Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/deformations_demo.jpg)
 
+Documentation
+-------------
 
-Installation
-------------
+### How to install this plugin?
 
 1. Be sure to have SketchUp 2017 or newer.
 2. Download latest REG plugin from the [SketchUcation PluginStore](https://sketchucation.com/plugin/2258-reg).
-3. Install plugin following this [guide](https://help.sketchup.com/article/3000263).
+3. Install plugin following this [guide](https://www.youtube.com/watch?v=tyM5f81eRno).
 
 Now, you should have in SketchUp a "Random Entity Generator" menu in "Extensions" menu and items in context menu.
 
-Usage
------
+### How to use this plugin?
 
 To randomize an entity: right click on entity then click "Randomize". Set parameters then press "OK" button.<br>
 You can specify a spawn zone for generated objects. Right click on a surface then click "Set as Random Zone".
-
-Documentation
--------------
 
 ### How to set Random Zone from an image
 
@@ -56,4 +53,4 @@ REG plugin is heavily based on [SU Shapes](https://github.com/SketchUp/sketchup-
 Copyright
 ---------
 
-© 2019 Samuel Tallet
+© 2021 Samuel Tallet
