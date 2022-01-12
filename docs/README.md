@@ -5,11 +5,11 @@
 Demos
 -----
 
-![REG Plugin Star Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/star_demo.png)
+![REG Plugin Star Demo](https://raw.githubusercontent.com/SamuelTallet/SketchUp-Random-Entity-Generator/master/docs/star_demo.png)
 
-![REG Plugin Sunflowers Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/sunflowers_demo.jpg)
+![REG Plugin Sunflowers Demo](https://raw.githubusercontent.com/SamuelTallet/SketchUp-Random-Entity-Generator/master/docs/sunflowers_demo.jpg)
 
-![REG Plugin Deformations Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/deformations_demo.jpg)
+![REG Plugin Deformations Demo](https://raw.githubusercontent.com/SamuelTallet/SketchUp-Random-Entity-Generator/master/docs/deformations_demo.jpg)
 
 Documentation
 -------------
@@ -33,13 +33,13 @@ Recall: A Random Zone is a spawn zone for generated objects. You can set Random 
 
 1. Prepare an image with a maximum resolution of 1024 x 1024 pixels. White pixels will be considered as holes. Example:
 
-![REG Plugin Star Scattering Map](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/star_scattering_map.png)
+![REG Plugin Star Scattering Map](https://raw.githubusercontent.com/SamuelTallet/SketchUp-Random-Entity-Generator/master/docs/star_scattering_map.png)
 
 2. Open SketchUp. Unfold "Extensions > Random Entity Generator" menu. Click on "Set Random Zone from Image...".
 
 3. Randomize or generate some entities. Enjoy result:
 
-![REG Plugin Star Demo](https://raw.githubusercontent.com/SamuelTS/SketchUp-Random-Entity-Generator/master/docs/star_demo.png)
+![REG Plugin Star Demo](https://raw.githubusercontent.com/SamuelTallet/SketchUp-Random-Entity-Generator/master/docs/star_demo.png)
 
 ### How to speed up Random Entity Generator?
 
