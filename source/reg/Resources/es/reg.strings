@@ -1,0 +1,132 @@
+
+////////////////////////////////////////////
+// REG Spanish Translation.
+//
+// Package: REG extension for SketchUp
+// Translation author: Óscar Hernández (Oxer)
+////////////////////////////////////////////
+
+//
+// File: reg.rb
+//
+
+"Random Entity Generator"="Generador de Entidades Aleatorias";
+"Add random entities to your SketchUp models."="Añadir entidades aleatorias a tus modelos de SketchUp.";
+"Create Enscape proxies."="Crear proxys de Enscape.";
+"Randomize position/size of selected entities."="Aleatorizar la posición / tamaño de las entidades seleccionadas.";
+
+//
+// File: context_menu.rb
+//
+
+"Set as Random Zone..."="Ajustar como Zona Aleatoria...";
+"Randomize..."="Aleatorizar...";
+
+//
+// File: entities.rb
+//
+
+"Randomize selected entities"="Aleatorizar las entidades seleccionadas";
+"Randomizing entities... Please wait."="Aleatorizando entidades en curso... Espera.";
+
+//
+// File: generator.rb
+//
+
+"Generate random entities"="Generar Entidades Aleatorias";
+"Generating entities... Please wait."="Generando entidades... Espera.";
+
+//
+// File: menu.rb
+//
+
+"Explore the Proxy Library..."="Explorar la biblioteca de proxys...";
+"Generate Random Entities..."="Generar Entidades Aleatorias...";
+"Create a Proxy for Enscape..."="Crear un Proxy para Enscape...";
+"Erase Real Model of Proxy"="Borrar Modelo Real del Proxy";
+"Set Random Zone from Image..."="Ajustar Zona Aleatoria desde Imagen...";
+"Forget the Random Zones"="Olvidar Zonas Aleatorias";
+"Donate to Plugin Author"="Donar al Autor del Plugin";
+
+//
+// File: parameters.rb
+//
+
+"Please select one or many faces."="Seleccionar una o más caras.";
+"Set Random Zone"="Ajustar Zona Aleatoria";
+"Defining Random Zone... Please wait."="Definiendo Zona Aleatoria... Espera.";
+"Entity maximum altitude (m)"="Altitud máxima de entidades (m)";
+"Entity distribution algorithm"="Algoritmo de distribución des entités";
+"Random / Face center"="Aleatorio / Centro de Caras";
+"Random (Slow)"="Aleatorio (Lento)";
+"Face center (Fast)"="Centro de Caras (Rápido)";
+"Surface well added to Random Zone list."="Superficie bien añadida a la lista de Zona Aleatoria.";
+"Error: Random zone must be constituted of triangles or quad faces."="Error: La zona aleatoria debe estar constituida por triángulos o caras cuadrangulares.";
+"Select an Image"="Seleccionar una Imagen";
+"How many centimeters per pixel?"="¿Cuantos centímetros por pixel ?";
+"How many vertical (Z axis) layers?"="¿Cuantas capas verticales (eje Z)?";
+"Space between each Z layer (cm)?"="Espacio entre cada capa Z (cm)";
+"Random Zone recorded."="Zona Aleatoria grabada.";
+"Error:"="Error:";
+
+//
+// File: parameters.rhtml
+//
+
+"REG Parameters"="Parámetros de REG";
+"Preset"="Preajuste";
+"Custom"="Personalizar";
+"Flowers"="Flores";
+"Trees"="Árboles";
+"Grass Blocks"="Bloques de Hierba";
+"Entity count to generate"="Número de entidades a generar";
+"Entity minimum rotation (°)"="Rotación Mínima Entidad (°)";
+"Entity maximum rotation (°)"="Rotación Máxima Entidad (°)";
+"Entity minimum size"="Tamaño Mínimo Entidad";
+"Entity maximum size"="Tamaño Máximo Entidad";
+"Push entities to down (cm)"="Empujar entidades hacia abajo (cm)";
+"Entity max. altitude (m)"="Altitud máxima de entidades (m)";
+"Entity density"="Densidad de Entidades";
+"Glue entities to ground?"="¿Pegar las entidades al suelo?";
+"Follow face normals?"="¿Seguir las normales de la cara?";
+"Avoid entity collision?"="¿Evitar colisiones de entidades?";
+"Overwrite entity colors?"="¿Sobrescribir los colores de las entidades?";
+"Put entities in group"="Colocar las entidades en el grupo";
+"Put entities in layer"="Colocar las entidades en la capa";
+"Yes"="Sí";
+"No"="No";
+"This parameter is disabled because no random zone is defined."="Este parámetro está desactivado porque no hay una zona aleatoria definida.";
+"This parameter is disabled because a random zone is defined."="Este parámetro está desactivado porque hay una zona aleatoria definida.";
+"Preview"="Previsualizar";
+
+//
+// File: point_grid.rb
+//
+
+"Image must be a maximum of 1024 x 1024 pixels."="La imagen debe tener un máximo de 1024 x 1024 píxeles.";
+
+//
+// File: proxies.rb
+//
+
+"REG Proxy Library Explorer"="Explorador de la Biblioteca de proxys REG";
+"Select a SketchUp Model"="Seleccionar un Modelo SketchUp";
+"SketchUp Models"="Modelos SketchUp";
+"Create an Enscape proxy"="Crear un proxy Enscape";
+"To optimize SketchUp model weight, run: Erase Real Model of Proxy."="Para optimizar el peso del modelo SketchUp, ejecutar: Eliminar el Modelo Real de Proxy.";
+
+//
+// File: proxy-library-explorer.rhtml
+//
+
+"Alaska Cedar"="Cedro de Alaska";
+"Azalea"="Azalea";
+"Bolete"="Seta";
+"Conifer"="Conífera";
+"European Birch"="Abedul Europeo";
+"Grass Block"="Bloque de Hierba";
+"Pink Daisy Flower"="Margarita Rosa";
+"Plane"="Arbol de Plátano";
+"White Daisy Flower"="Margarita Blanca";
+"Import this model as Enscape proxy."="Importar este modelo como proxy Enscape.";
+"Import this model as V-Ray proxy."="Importar este modelo como proxy V-Ray.";
