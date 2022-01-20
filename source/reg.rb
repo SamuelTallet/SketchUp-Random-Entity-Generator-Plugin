@@ -1,5 +1,5 @@
 # Random Entity Generator extension for SketchUp 2017 or newer.
-# Copyright: © 2019 Samuel Tallet <samuel.tallet arobase gmail.com>
+# Copyright: © 2022 Samuel Tallet <samuel.tallet arobase gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ require 'extensions'
 # REG plugin namespace.
 module REG
 
-  VERSION = '1.1.8'.freeze
+  VERSION = '1.1.9'.freeze
 
   # Load translation if it's available for current locale.
   TRANSLATE = LanguageHandler.new('reg.strings')
@@ -47,7 +47,7 @@ module REG
 
   extension.version     = VERSION
   extension.creator     = 'Samuel Tallet'
-  extension.copyright   = "© 2019 #{extension.creator}"
+  extension.copyright   = "© 2022 #{extension.creator}"
 
   features = [
     TRANSLATE['Add random entities to your SketchUp models.'],
