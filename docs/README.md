@@ -53,4 +53,4 @@ REG plugin is heavily based on [SU Shapes](https://github.com/SketchUp/sketchup-
 Copyright
 ---------
 
-© 2021 Samuel Tallet
+© 2022 Samuel Tallet
