@@ -1,5 +1,5 @@
 # Random Entity Generator extension for SketchUp 2017 or newer.
-# Copyright: © 2019 Samuel Tallet <samuel.tallet arobase gmail.com>
+# Copyright: © 2025 Samuel Tallet <samuel.tallet arobase gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ module REG
     # @return [Boolean] true on success...
     def self.install_library
 
-      if Sketchup.platform == :platform_osx || File.exists?(PROGRAM_LIB_DIR)
+      if Sketchup.platform == :platform_osx || File.exist?(PROGRAM_LIB_DIR)
 
         return false
 
