@@ -7,7 +7,7 @@ Demos
 
 ![REG Plugin Star Demo](https://raw.githubusercontent.com/SamuelTallet/SketchUp-Random-Entity-Generator-Plugin/master/docs/star_demo.png)
 
-![REG Plugin People Demo](https://raw.githubusercontent.com/SamuelTallet/SketchUp-Random-Entity-Generator-Plugin/master/docs/people_demo.jpg)
+![REG Plugin People Demo](https://raw.githubusercontent.com/SamuelTallet/SketchUp-Random-Entity-Generator-Plugin/master/docs/people_demo.webp)
 
 ![REG Plugin Deformations Demo](https://raw.githubusercontent.com/SamuelTallet/SketchUp-Random-Entity-Generator-Plugin/master/docs/deformations_demo.jpg)
 
