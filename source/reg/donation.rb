@@ -47,13 +47,12 @@ module REG
       request.start do |_request, response|
         error_suffix = "while fetching donation URL #{DYNALINK}"
 
-        if response.status_code == 200
-          received_url = response.body.strip
+        if response.status_code < 400
 
-          if received_url.start_with?('https://')
-            @@url = received_url
+          if response.body.strip.start_with?('https://')
+            @@url = response.body.strip
           else
-            puts "Got invalid URL #{received_url} #{error_suffix}"
+            puts "Got no URL in #{response.body} #{error_suffix}"
           end
 
         else
