@@ -40,11 +40,11 @@ module REG
       raise ArgumentError, 'Parent menu must be a SketchUp::Menu.'\
         unless parent_menu.is_a?(Sketchup::Menu)
 
-      @menu = parent_menu.add_submenu('🎲 ' + TRANSLATE[NAME])
+      @menu = parent_menu.add_submenu(TRANSLATE[NAME])
 
       if Sketchup.platform == :platform_win
 
-        @menu.add_item('▣ ' + TRANSLATE['Explore the Proxy Library...']) {
+        @menu.add_item(TRANSLATE['Explore the Proxy Library...']) {
 
           Proxies.show_library_html_dialog
 
@@ -70,6 +70,8 @@ module REG
 
       }
 
+      @menu.add_separator
+
       @menu.add_item(TRANSLATE['Set Random Zone from Image...']) {
 
         Parameters.set_rand_zone_from_image
@@ -82,7 +84,9 @@ module REG
 
       }
 
-      @menu.add_item('💌 ' + TRANSLATE['Donate to Plugin Author']) do
+      @menu.add_separator
+
+      @menu.add_item(TRANSLATE['Donate to Plugin Author']) do
 
         UI.openURL Donation.url
         
