@@ -1,5 +1,5 @@
 # Random Entity Generator extension for SketchUp 2017 or newer.
-# Copyright: © 2022 Samuel Tallet <samuel.tallet arobase gmail.com>
+# Copyright: © 2025 Samuel Tallet <samuel.tallet arobase gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@ raise 'The REG plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 require 'sketchup'
 require 'reg/proxies'
 require 'reg/parameters'
+require 'reg/donation'
 
 # REG plugin namespace.
 module REG
@@ -83,7 +84,7 @@ module REG
 
       @menu.add_item('💌 ' + TRANSLATE['Donate to Plugin Author']) do
 
-        UI.openURL('https://www.paypal.me/SamuelTallet')
+        UI.openURL Donation.url
         
       end
 

@@ -1,5 +1,5 @@
 # Random Entity Generator extension for SketchUp 2017 or newer.
-# Copyright: © 2019 Samuel Tallet <samuel.tallet arobase gmail.com>
+# Copyright: © 2025 Samuel Tallet <samuel.tallet arobase gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@ require 'reg/parameters'
 require 'reg/proxies'
 require 'reg/menu'
 require 'reg/context_menu'
+require 'reg/donation'
 
 # REG plugin namespace.
 module REG
@@ -45,6 +46,8 @@ module REG
   )
 
   ContextMenu.new
+
+  Donation.fetch_url
 
   # Load complete.
 
