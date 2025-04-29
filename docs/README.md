@@ -7,7 +7,7 @@ Demos
 
 ![REG Plugin Star Demo](https://raw.githubusercontent.com/SamuelTallet/SketchUp-Random-Entity-Generator-Plugin/master/docs/star_demo.png)
 
-![REG Plugin Sunflowers Demo](https://raw.githubusercontent.com/SamuelTallet/SketchUp-Random-Entity-Generator-Plugin/master/docs/sunflowers_demo.jpg)
+![REG Plugin People Demo](https://raw.githubusercontent.com/SamuelTallet/SketchUp-Random-Entity-Generator-Plugin/master/docs/people_demo.jpg)
 
 ![REG Plugin Deformations Demo](https://raw.githubusercontent.com/SamuelTallet/SketchUp-Random-Entity-Generator-Plugin/master/docs/deformations_demo.jpg)
 
@@ -35,9 +35,11 @@ Recall: A Random Zone is a spawn zone for generated objects. You can set Random 
 
 ![REG Plugin Star Scattering Map](https://raw.githubusercontent.com/SamuelTallet/SketchUp-Random-Entity-Generator-Plugin/master/docs/star_scattering_map.png)
 
-2. Open SketchUp. Unfold "Extensions > Random Entity Generator" menu. Click on "Set Random Zone from Image...".
+2. Be sure to save this image as 24-bit BMP (Bitmap).
 
-3. Randomize or generate some entities. Enjoy result:
+3. Open SketchUp. Unfold "Extensions > Random Entity Generator" menu. Click on "Set Random Zone from Image...".
+
+4. Randomize or generate some entities. Enjoy result:
 
 ![REG Plugin Star Demo](https://raw.githubusercontent.com/SamuelTallet/SketchUp-Random-Entity-Generator-Plugin/master/docs/star_demo.png)
 
@@ -53,4 +55,4 @@ REG plugin is heavily based on [SU Shapes](https://github.com/SketchUp/sketchup-
 Copyright
 ---------
 
-© 2022 Samuel Tallet
+© 2025 Samuel Tallet
